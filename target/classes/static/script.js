@@ -14,7 +14,7 @@
 			// route for the about page
 			.when('/free-quote', {
 				templateUrl : 'pages/free-quote.html',
-				controller  : 'freeQuote'
+				controller  : 'freeQuoteController'
 			})
 
 			// route for the contact page
@@ -30,7 +30,7 @@
 		$('#freeQuote').hide();
 	});
 
-	movingApp.controller('freeQuote', function($scope) {
+	movingApp.controller('freeQuoteController', function($scope) {
 		$('#swiper').hide();
 		$('#freeQuote').show();
 	});

@@ -1,74 +1,47 @@
- <!-- Page Content-->
-      <main class="page-content">
-        <!-- Free quote-->
-        <section class="section-86 text-md-left">
+<link rel="stylesheet" href="css/bootstrap.css">
+<section class="section-86 text-md-left">
           <div class="shell">
-            <h1>Get a quick quote</h1>
+            <h1>Book a move</h1><h3>Fill out the following information to get started</h3>
             <!-- RD Mailform-->
-            <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" class="rd-mailform text-left range range-xs-center range-sm-left offset-top-30">
+            <form data-form-output="form-output-global" data-form-type="contact" method="post" action="kl" class="rd-mailform text-left range range-xs-center range-sm-left offset-top-30">
               <div class="cell-sm-6 cell-lg-5">
-                <p class="big text-sbold text-dark">Moving from</p>
-                <p class="big offset-top-10">zip code:</p>
-                <div class="form-inline-zip-code">
-                  <div class="form-group reveal-xs-inline-block text-middle">
-                    <input id="get-quote-zip-code-from" type="text" name="name" data-constraints="@Required" class="form-control">
-                  </div><a href="#" class="link link-primary link-arrow link-icon-right inset-xs-left-8 offset-top-10 offset-xs-top-0 text-middle"><span style="margin-top: -2px;" class="icon icon-rotate icon-sm mdi material-icons-keyboard_backspace text-middle"></span><span class="text-bold text-middle inset-lg-right-5">look up zip</span></a>
-                </div>
-                <p class="big offset-top-20 offset-xs-top-15">Description:</p>
-                <div class="form-group">
-                  <!--Select 2-->
-                  <select data-placeholder="Select an option" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                    <optgroup label="">
-                      <option>2-story house with basement</option>
-                      <option>1-story house with basement</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <p class="big text-sbold text-dark offset-top-25 offset-md-top-45">Moving to</p>
-                <p class="big offset-top-10">zip code:</p>
-                <div class="form-inline-zip-code">
-                  <div class="form-group reveal-xs-inline-block text-middle">
-                    <input id="get-quote-zip-code-to" type="text" name="name" data-constraints="@Required" class="form-control">
-                  </div><a href="#" class="link link-primary link-arrow link-icon-right inset-xs-left-8 offset-top-10 offset-xs-top-0 text-middle"><span style="margin-top: -2px;" class="icon icon-rotate icon-sm mdi material-icons-keyboard_backspace text-middle"></span><span class="text-bold text-middle inset-lg-right-5">look up zip</span></a>
-                </div>
-                <p class="big offset-top-20 offset-xs-top-15">Description:</p>
-                <div class="form-group">
-                  <!--Select 2-->
-                  <select data-placeholder="Select an option" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                    <optgroup label="">
-                      <option>2-story house with basement</option>
-                      <option>1-story house with basement</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-              <div class="cell-sm-6 cell-lg-preffix-1 cell-lg-5 offset-top-40 offset-sm-top-0">
-                <div class="form-group form-group-label-outside">
-                  <label for="get-quote-name" class="form-label form-label-outside big text-gray-light">Name:</label>
-                  <input id="get-quote-name" type="text" name="name" data-constraints="@Required" class="form-control">
+		    <div class="form-group form-group-label-outside">
+                  <label for="name" class="form-label form-label-outside big text-gray-light">Name:</label>
+                  <input type="text" name="name" id="name" class="form-control" required>
                 </div>
                 <div class="form-group form-group-label-outside offset-top-15">
-                  <label for="get-quote-email" class="form-label form-label-outside big text-gray-light">Email:</label>
-                  <input id="get-quote-email" type="email" name="email" data-constraints="@Required @Email" class="form-control">
+                  <label for="email" class="form-label form-label-outside big text-gray-light">Email:</label>
+                  <input type="email" name="email" id="email" class="form-control" required>
                 </div>
                 <div class="form-group form-group-label-outside offset-top-15">
-                  <label for="get-quote-phone" class="form-label form-label-outside big text-gray-light">Phone</label>
-                  <input id="get-quote-phone" type="text" name="phone" data-constraints="@Required @IsNumeric" class="form-control">
+                  <label for="phone" class="form-label form-label-outside big text-gray-light">Phone</label>
+                  <input type="tel" name="phone" class="form-control" required>
                 </div>
                 <div class="form-group form-group-label-outside offset-top-15">
-                  <label for="get-quote-date" class="form-label form-label-outside big text-gray-light">Move date:</label>
-                  <input id="get-quote-date" type="text" name="date" data-time-picker="date" data-constraints="@Required" class="form-control">
+                  <label for="date" class="form-label form-label-outside big text-gray-light">Move date:</label>
+                  <input id="date" type="date" name="date" id="date" class="form-control" required>
                 </div>
                 <div class="group-lg text-center text-sm-left offset-top-34">
-                  <h5 class="reveal-inline-block text-middle">Total <span class="text-primary">$457</span></h5>
+                  <h5 class="reveal-inline-block text-middle">Proceed to billing information</h5>
                   <button type="submit" style="height: 48px;" class="btn btn-svg btn-primary">
                     <svg width="142" height="48" viewbox="0 0 142 48">
                       <path d="M 0,24 0,0 58.265006,0 116.53001,0 128.7656,12.265038 141.00119,24.530075 129.23558,36.265038 117.46996,48 58.73498,48 0,48 0,24 Z"></path>
-                    </svg><span class="big btn-max-width-170 btn-body text-spacing-75">submit</span>
+                    </svg><span class="big btn-max-width-170 btn-body text-spacing-75">Next</span>
                   </button>
+                </div>
+              </div>
+              <div class="cell-sm-6 cell-lg-preffix-1 cell-lg-5 offset-top-40 offset-sm-top-0">
+	          <p class="big text-sbold text-dark">Moving from</p>
+                <div class="form-group form-group-label-outside">
+                  <label for="name" class="form-label form-label-outside big text-gray-light">zip code:</label>
+                  <input type="number" name="zip" id="fromZip" class="form-control" min="1" max="99999" required>
+                </div>
+                <p class="big text-sbold text-dark offset-top-25 offset-md-top-45">Moving to</p>
+                <div class="form-group form-group-label-outside">
+                  <label for="name" class="form-label form-label-outside big text-gray-light">zip code:</label>
+                  <input type="number" name="zip" id="toZip" class="form-control" max="99999" required>
                 </div>
               </div>
             </form>
           </div>
         </section>
-      </main>
