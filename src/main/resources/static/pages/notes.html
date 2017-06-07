@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Notes</div>
+	<div class="panel-body">
+		<div style="overflow-y:scroll; overflow-x:hidden; max-height:700px">
+			<table id="notesTable" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Author</th>
+						<th>Note</th>
+						<th class="text-right">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat-start="note in move.notes">
+						<td>{{note.date | date:'MM/dd/yyyy h:mm a'}}</td>
+						<td>{{note.author}}</td>
+						<td width="50%">{{note.comment}}</td>
+						<td class="text-right">
+							<button id="closeNoteBtn" class="btn btn-default" ng-if="note.expanded" ng-click="note.expanded = false">Close</button>
+							<button id="openNoteBtn" class="btn btn-danger btn-sm not-clickable-cell" ng-if="!note.expanded" ng-click="note.expanded = true">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+							</button>
+						</td>
+					</tr>
+					<tr ng-if="note.expanded" ng-repeat-end="">
+						<td colspan="4">
+							<div class="row">
+								<div class="col-xs-2">
+									<h4>Author: <i>{{note.author}}</i></h4>
+									<h4>Date: <i>{{note.date | date:'MM/dd/yyyy h:mm a'}}</i></h4>
+								</div>
+								
+								<div class="col-xs-10">
+									<textarea value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" ng-model="note.comment" height="200"
+										ng-bind-html="trustAsHtml(note.comment)" rows="4" cols="60"
+										class="form-control custom-control" rows="3"
+										style="resize:none"></textarea >
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button id="addNewNoteButton" class="btn btn-primary" ng-click="addNote()">Add New Note</button>
+			</div>
+		</div>
+	</div>
+</div>

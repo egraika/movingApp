@@ -1,0 +1,270 @@
+<div data-ng-controller="editMoveController" ng-init="init()" style="margin-top: 100px">
+	<div class="container">
+		<div class="well">
+			<form id="editMoveForm" name="editMoveForm">
+				<h2>Edit Move - {{move.id}}</h2>
+				<hr>
+				<div class="row" ng-controller="DatepickerPopupDemoCtrl">
+					<div class="col-xs-4">
+						<label for="dateOfMove">Date Of Move</label>
+						        <p class="input-group">
+						          <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="dateOfMove" name="dateOfMove" ng-model="move.dateOfMove" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" class="form-control"/>
+						          <span class="input-group-btn">
+						            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+						          </span>
+						        </p>
+						<span style="color:red" ng-show="editMoveForm.dateOfMove.$touched && editMoveForm.dateOfMove.$invalid">Date of move is not valid</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<label for="firstName">First Name</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.firstName" class="form-control"></input>
+					</div>
+					<div class="col-xs-4">
+						<label for="lastName">Last Name</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.lastName" class="form-control"></input>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<label for="email">Email</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.email" class="form-control"></input>
+					</div>
+					<div class="col-xs-4">
+						<label for="phone">Phone</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="10" ng-minlength="10" id="phone" name="phone" ng-model="move.phone" numbers-only ng-required="true">
+						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
+					</div>
+				</div>
+				<div class="panel-group form-group" id="accordion" style="margin-top: 20px">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-heading">
+								<a href data-toggle="collapse" data-target="#fromaddress">From Address: {{move.fromStreet}} {{move.fromCity}}, {{move.fromState}} {{move.fromZip}}</a>
+							</h4>
+						</div>
+						<div class="panel-collapse collapse" id="fromaddress">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-4">
+										<label for="fromStreet">Street Address</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="fromStreet" ng-model="move.fromStreet" class="form-control" ng-bind-html="trustAsHtml(move.fromStreet)"></input>
+									</div>
+									<div class="col-xs-4">
+										<label for="fromCity">City</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="fromCity" ng-model="move.fromCity" class="form-control" ng-bind-html="trustAsHtml(move.fromCity)"></input>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-4">
+										<label for="fromState">State</label>
+										<select class="form-control" id="fromState" name="fromState" ng-model="move.fromState">
+											<option value="AK">Alaska</option>
+											<option value="AL">Alabama</option>
+											<option value="AR">Arkansas</option>
+											<option value="AZ">Arizona</option>
+											<option value="CA">California</option>
+											<option value="CO">Colorado</option>
+											<option value="CT">Connecticut</option>
+											<option value="DC">District of Columbia</option>
+											<option value="DE">Delaware</option>
+											<option value="FL">Florida</option>
+											<option value="GA">Georgia</option>
+											<option value="HI">Hawaii</option>
+											<option value="IA">Iowa</option>
+											<option value="ID">Idaho</option>
+											<option value="IL">Illinois</option>
+											<option value="IN">Indiana</option>
+											<option value="KS">Kansas</option>
+											<option value="KY">Kentucky</option>
+											<option value="LA">Louisiana</option>
+											<option value="MA">Massachusetts</option>
+											<option value="MD">Maryland</option>
+											<option value="ME">Maine</option>
+											<option value="MI">Michigan</option>
+											<option value="MN" selected>Minnesota</option>
+											<option value="MO">Missouri</option>
+											<option value="MS">Mississippi</option>
+											<option value="MT">Montana</option>
+											<option value="NC">North Carolina</option>
+											<option value="ND">North Dakota</option>
+											<option value="NE">Nebraska</option>
+											<option value="NH">New Hampshire</option>
+											<option value="NJ">New Jersey</option>
+											<option value="NM">New Mexico</option>
+											<option value="NV">Nevada</option>
+											<option value="NY">New York</option>
+											<option value="OH">Ohio</option>
+											<option value="OK">Oklahoma</option>
+											<option value="OR">Oregon</option>
+											<option value="PA">Pennsylvania</option>
+											<option value="RI">Rhode Island</option>
+											<option value="SC">South Carolina</option>
+											<option value="SD">South Dakota</option>
+											<option value="TN">Tennessee</option>
+											<option value="TX">Texas</option>
+											<option value="UT">Utah</option>
+											<option value="VA">Virginia</option>
+											<option value="VT">Vermont</option>
+											<option value="WA">Washington</option>
+											<option value="WI">Wisconsin</option>
+											<option value="WV">West Virginia</option>
+											<option value="WY">Wyoming</option>
+										</select>
+									</div>
+									<div class="col-xs-4">
+										<label for="fromZip">Zip</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="move.fromZip" numbers-only ng-required="true">
+									</div>			
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-group form-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-heading">
+								<a href data-toggle="collapse" data-target="#toaddress">To Address: {{move.toStreet}} {{move.toCity}}, {{move.toState}} {{move.toZip}}</a>
+							</h4>
+						</div>
+						<div class="panel-collapse collapse" id="toaddress">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-4">
+										<label for="toStreet">Street Address</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="toStreet" ng-model="move.toStreet" class="form-control" ng-bind-html="trustAsHtml(move.toStreet)"></input>
+									</div>
+									<div class="col-xs-4">
+										<label for="toCity">City</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="toCity" ng-model="move.toCity" class="form-control" ng-bind-html="trustAsHtml(move.toCity)"></input>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-4">
+										<label for="toState">State</label>
+										<select class="form-control" id="toState" name="toState" ng-model="move.toState">
+											<option value="AK">Alaska</option>
+											<option value="AL">Alabama</option>
+											<option value="AR">Arkansas</option>
+											<option value="AZ">Arizona</option>
+											<option value="CA">California</option>
+											<option value="CO">Colorado</option>
+											<option value="CT">Connecticut</option>
+											<option value="DC">District of Columbia</option>
+											<option value="DE">Delaware</option>
+											<option value="FL">Florida</option>
+											<option value="GA">Georgia</option>
+											<option value="HI">Hawaii</option>
+											<option value="IA">Iowa</option>
+											<option value="ID">Idaho</option>
+											<option value="IL">Illinois</option>
+											<option value="IN">Indiana</option>
+											<option value="KS">Kansas</option>
+											<option value="KY">Kentucky</option>
+											<option value="LA">Louisiana</option>
+											<option value="MA">Massachusetts</option>
+											<option value="MD">Maryland</option>
+											<option value="ME">Maine</option>
+											<option value="MI">Michigan</option>
+											<option value="MN" selected>Minnesota</option>
+											<option value="MO">Missouri</option>
+											<option value="MS">Mississippi</option>
+											<option value="MT">Montana</option>
+											<option value="NC">North Carolina</option>
+											<option value="ND">North Dakota</option>
+											<option value="NE">Nebraska</option>
+											<option value="NH">New Hampshire</option>
+											<option value="NJ">New Jersey</option>
+											<option value="NM">New Mexico</option>
+											<option value="NV">Nevada</option>
+											<option value="NY">New York</option>
+											<option value="OH">Ohio</option>
+											<option value="OK">Oklahoma</option>
+											<option value="OR">Oregon</option>
+											<option value="PA">Pennsylvania</option>
+											<option value="RI">Rhode Island</option>
+											<option value="SC">South Carolina</option>
+											<option value="SD">South Dakota</option>
+											<option value="TN">Tennessee</option>
+											<option value="TX">Texas</option>
+											<option value="UT">Utah</option>
+											<option value="VA">Virginia</option>
+											<option value="VT">Vermont</option>
+											<option value="WA">Washington</option>
+											<option value="WI">Wisconsin</option>
+											<option value="WV">West Virginia</option>
+											<option value="WY">Wyoming</option>
+										</select>
+									</div>
+									<div class="col-xs-4">
+										<label for="toZip">Zip</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" class="form-control" id="toZip" name="toZip" ng-model="move.toZip" numbers-only ng-required="true">
+									</div>			
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div ng-include src="'pages/notes.html'"></div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-xs-4">
+						<h4 style="text-center">Add Charge</h4>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" min="1" id="amount" ng-model="amount" class="form-control" placeholder="0"></input>
+						<button class="btn btn-primary form-control" style="margin-top: 15px" data-toggle="modal" data-target="#checkout">Charge Customer</button>
+					</div>
+					<div class="col-xs-8">
+						<div ng-include src="'pages/charges.html'"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4"></div>
+					<div class="col-xs-4"></div>
+					<div class="col-xs-4">
+						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-disabled="editMoveForm.$invalid" ng-click="save()">Save</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4"></div>
+					<div class="col-xs-4"></div>
+					<div class="col-xs-4">
+						<span ng-show="editMoveForm.$invalid" style="color:red">Please fix errors before saving.</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal fade" id="checkout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+		            <!-- Modal Header -->
+		      	<div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal">
+		                       <span aria-hidden="true">&times;</span>
+		                       <span class="sr-only">Close</span>
+		                </button>
+		                <h3 class="modal-title" id="myModalLabel">
+		                    Are you sure you want to charge this customer?
+		                </h3>
+		            </div>
+		            
+		            <!-- Modal Body -->
+		            <div class="modal-body">
+		               <div class="row">
+					<div class="col-xs"12">
+						<button class="btn btn-lg btn-primary pull-right" style="margin-right: 15px" ng-click="addCharge()" data-dismiss="modal">Yes</button>
+						<button class="btn btn-lg btn-danger pull-left" style="margin-left: 15px" data-dismiss="modal">Cancel</button>
+					</div>
+				   </div>
+		            </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-include src="'pages/saveAlert.html'"></div>

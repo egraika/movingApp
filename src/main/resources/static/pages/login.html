@@ -1,0 +1,31 @@
+<div ng-controller="loginController" style="margin-top: 75px;margin-bottom:320px" class="login">
+	<div class="alert alert-danger" ng-show="error">
+		There was a problem logging in. Please try again.
+	</div>
+	<form role="form" ng-submit="login()">
+		<div class="row">
+			<div class="col-xs-4"></div>
+			<div class="form-group col-xs-4">
+				<label for="username">Username:</label> <input type="text"
+					class="form-control" id="username" name="username" ng-model="credentials.username"/>
+			</div>
+			<div class="col-xs-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4"></div>
+			<div class="col-xs-4">
+				<label for="password">Password:</label> <input type="password"
+					class="form-control" id="password" name="password" ng-model="credentials.password"/>
+			</div>
+			<div class="col-xs-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4"></div>
+			<div class="col-xs-4"><button type="submit" class="btn btn-primary">Submit</button></div>
+		</div>
+		<div class="row" ng-class="{'has-error is-focused' : authenticationError}">
+			<div class="col-xs-4"></div>
+			<div class="col-xs-4"><span ng-show="authenticationError" class="help-block">Please check your credentials and try again.</span></div>
+		</div>
+	</form>
+</div>

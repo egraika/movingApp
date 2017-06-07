@@ -1,0 +1,41 @@
+/*
+ * Start Bootstrap - Full Slider (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+.overlay { 
+  color:#fff;
+  position:absolute;
+  z-index:12;
+  top:50%;
+  left:0;
+  width:100%;
+  text-align:center;
+}
+
+
+body {
+    border: 1px solid transparent;
+}
+
+.moveOptions {
+      height:400px;
+      position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+    
+.tealBackground {
+	background-color: #00B6B6;
+}
+    
+.darkBackground {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+    
+ #customPanel .panel-default > .panel-heading {
+  color: #333;
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}

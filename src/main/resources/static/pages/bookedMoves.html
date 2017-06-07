@@ -1,0 +1,29 @@
+<div data-ng-controller="bookedMoveController" ng-init="getBookedMoves();" style="margin-top: 40px">
+	<div class="row">
+		<div class="col-xs-1"></div>
+      	<div class="col-xs-10">
+			<h2>Booked Moves</h2>
+			<table st-table="rowCollection" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Customer Name</th>
+						<th>Date Of Move</th>
+						<th>Status</th>
+						<th>Date Booked</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="move in moves">
+						<td>{{move.firstName}} {{move.lastName}}</td>
+						<td>{{move.dateOfMove}}</td>
+						<td></td>
+						<td>{{move.dateOfBooking}}</td>
+						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-1"></div>
+	</div>
+</div>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="movingApp" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Move Muscle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/full-slider.css" rel="stylesheet">
+    <link href="css/caruselCustom.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+    <link href="css/stripe.css" rel="stylesheet">
+      <link href="css/creative.css" rel="stylesheet">
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      <script src="js/angular.min.js"></script>
+  	<script src="js/angular-route.js"></script>
+  	<script src="js/angular-animate.min.js"></script>
+   	<script src="js/stripe.com.v3.js"></script>
+  	<script src="routing.js"></script>
+  	<script src="js/spin.min.js"></script>
+ 	<script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+ 	<script src="js/ngStorage.min.js"></script>
+ 	<script src="js/angular-stripe.js"></script>
+ 	<script src="js/mm-foundation-tpls-0.8.0.min.js"></script>
+ 	<script src="js/angular-spinner.js"></script>
+ 	<script src="js/angular-stripe.js"></script>
+ 	<script src="js/angular-payments.min.js"></script>
+ 	<script src="js/validate.min.js"></script>
+ 	<script src="js/http-auth-interceptor.js"></script>
+ 	<script src="js/datepicker.js"></script>
+ 	<script src="js/onlydigits.js"></script>
+ 	<script src="js/jquery.magnific-popup.min.js"></script>
+ 	<script src="js/scrollreveal.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	        <div class="container">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+	                <a class="navbar-brand" href="#/">Move Muscle</a>
+	            </div>
+	            <!-- Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LogoutController">
+	                <ul class="nav navbar-nav">
+	                    <li ng-show="!authenticated">
+	                        <a href="#/bookmove">Book Move</a>
+	                    </li>
+	                    <li ng-show="!authenticated">
+	                        <a href="#/services">Services</a>
+	                    </li>
+	                    <li ng-show="!authenticated">
+	                        <a href="#/contact">Contact</a>
+	                    </li>
+	                    <li ng-show="!authenticated">
+	                        <a href="#/about">About Us</a>
+	                    </li>
+	                    <li ng-show="authenticated"><a href="#/bookedMoves">Booked Moves</a></li>
+	                    <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+	                </ul>
+	            </div>
+	            <!-- /.navbar-collapse -->
+	        </div>
+	        <!-- /.container -->
+	    </nav>
+
+      <div id="main">
+	    <!-- angular templating -->
+			<!-- this is where content will be injected -->
+	    <div ng-view autoscroll="true"></div>
+	</div>
+        <!-- Footer -->
+     <footer class="footer-bs navbar-static-bottom">
+        <div class="row">
+        	<div class="col-md-2 footer-brand animated fadeInLeft">
+            	<h2>Move Muscle</h2>
+                <p>Making moving easy since '05</p>
+                <p>&copy; 2017 All rights reserved</p>
+            </div>
+        	<div class="footer-nav animated fadeInUp">
+            	<h4>Menu —</h4>
+            	<div class="col-xs-2">
+                    <ul class="pages">
+                        <li><a href="#/">Home</a></li>
+                        <li><a href="#/bookMove">Book Move</a></li>
+                        <li><a href="#/services">Services</a></li>
+                        <li><a href="#/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            	<div class="col-xs-2">
+                    <ul class="list">
+                        <li><a href="#/about">About Us</a></li>
+                        <li><a href="#/terms">Terms & Condition</a></li>
+                        <li><a href="#/privacy">Privacy Policy</a></li>
+                        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+                        <li ng-show="!authenticated"><a href="#/login">Log In</a></li>
+                    </ul>
+                </div>
+            </div>
+        	<div class="col-xs-2 footer-social animated fadeInDown">
+            	<h4>Follow Us</h4>
+            	<ul>
+                	<li><a href="#">Facebook</a></li>
+                	<li><a href="#">Twitter</a></li>
+                	<li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        	<div class="col-xs-3 footer-ns animated fadeInRight">
+            	<h4>Newsletter</h4>
+                <p>Sign up to recieve montly news on what we're doing!</p>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                      </span>
+                    </div><!-- /input-group -->
+            </div>
+        </div>
+    </footer>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <script src="js/creative.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/controllers/bookMoveController.js"></script>
+    <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/bookedMoveController.js"></script>
+    <script src="js/controllers/editMoveController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/ErrorController.js"></script>
+    <script src="js/controllers/LogoutController.js"></script>
+    <script src="js/services/AuthSharedService.js"></script>
+    <script src="js/services/Session.js"></script>
+
+</body>
+
+</html>
