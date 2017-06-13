@@ -19,9 +19,9 @@
         <!-- Content Row -->
         <div class="row">
             <!-- Map Column -->
-            <div class="col-md-8">
+             <!--<div class="col-md-8">
                 <!-- Embedded Google Map -->
-                <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+                 <!--<iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=44.9428708,-93.3086877&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
             </div>
             <!-- Contact Details Column -->
             <div class="col-md-4">
@@ -56,38 +56,27 @@
 
         <!-- Contact Form -->
         <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-        <div class="row">
+        <div class="row" ng-controller="contactController">
             <div class="col-md-8">
                 <h3>Send us a Message</h3>
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Full Name:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p>
-                        </div>
+                <form name="contactForm" id="contact" role="form" novalidate>
+                    <div class="form-group">
+                    	<label class="control-label" for="fullName">Full Name:</label>
+				<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fullName" name="fullName" ng-model="contact.fullName" ng-required="true">
+				<span style="color:red" ng-show="contactForm.fullName.$touched && contactForm.fullName.$invalid">A name is required</span>
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Phone Number:</label>
-                            <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
-                        </div>
+                    <div class="form-group">
+                    	<label class="control-label" for="email">Email:</label>
+				<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="contact.email" data-error="Invalid Email Address" ng-required="true">
+				<span style="color:red" ng-show="contactForm.email.$touched && contactForm.email.$invalid">A valid Email is required</span>
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email Address:</label>
-                            <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Message:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
-                        </div>
+                    <div class="form-group">
+                    	<label>Message:</label>
+                    	<textarea rows="10" cols="100" class="form-control" ng-required="true" id="message" name="message" ng-model="contact.message" maxlength="999" style="resize:none"><%= <b>Encode.forHtmlContent(UNTRUSTED)</b> %></textarea>
                     </div>
                     <div id="success"></div>
                     <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button class="btn btn-primary" ng-click="newContact()" ng-disabled="contactForm.fullName.$invalid || contactForm.email.$invalid || contactForm.message.$invalid">Send Message</button>
                 </form>
             </div>
 

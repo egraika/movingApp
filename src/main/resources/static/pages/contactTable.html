@@ -1,7 +1,7 @@
-<div data-ng-controller="bookedMoveController" style="margin-top: 40px">
+<div data-ng-controller="contactController" style="margin-top: 40px" ng-init="init()">
 	<div class="row" st-table="moves" st-pipe="callServer">
       	<div class="col-xs-12">
-			<h2>Booked Moves</h2>
+			<h2>Contacts</h2>
 			<div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
 					<button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">{{itemsByPage}} <span class="caret"></span></button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
@@ -21,38 +21,26 @@
 				<thead>
 					<tr>
 						<th>Customer Name</th>
-						<th st-sort="dateOfMove">Date Of Move</th>
+						<th>Email</th>
+						<th>Message</th>
+						<th st-sort="date">Date</th>
 						<th>Status</th>
-						<th st-sort="dateOfBooking">Date Booked</th>
 						<th>Actions</th>
-					</tr>
-					<tr>
-						<th></th>
-						<th></th>
-						<th>
-							<select class="form-control" st-search="statusSearch" st-input-event="change">
-								<option value="">All</option>
-								<option value="open">Open</option>
-								<option value="confirmed">Confirmed</option>
-								<option value="closed">Closed</option>
-							</select>
-						</th>
-						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody ng-hide="isLoading">
-					<tr ng-repeat="move in moves">
-						<td>{{move.firstName}} {{move.lastName}}</td>
-						<td>{{move.dateOfMove | date:'MM/dd/yyyy'}}</td>
-						<td>{{move.status}}</td>
-						<td>{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
-						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
+					<tr ng-repeat="contact in contacts">
+						<td width="20%">{{contact.fullName}}</td>
+						<td width="20%">{{contact.email}}</td>
+						<td width="40%">{{contact.message}}</td>
+						<td width="10%">{{contact.date | date:'MM/dd/yyyy'}}</td>
+						<td width="5%">{{contact.status}}</td>
+						<td><a type="button" class="btn btn-primary" href="" width="5%">Action?</a></td>
 					</tr>
 				</tbody>
 				<tbody ng-show="isLoading">
 					<tr>
-						<td colspan="5" class="text-center">
+						<td colspan="6" class="text-center">
 							<div class="loading-indicator">
 								<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 							</div>
@@ -61,7 +49,7 @@
 				</tbody>
 				<tbody ng-show="isError">
 					<tr>
-						<td colspan="5" class="text-center">
+						<td colspan="6" class="text-center">
 							<div class="loading-indicator">
 								<i class="fa fa-exclamation" aria-hidden="true"></i>
 								<strong> Error Loading Data.  Please Refresh the Page.</strong>
@@ -71,7 +59,7 @@
 				</tbody>
 				<tbody ng-show="noResultsFound">
 					<tr>
-						<td colspan="5" class="text-center">
+						<td colspan="6" class="text-center">
 							<i class="fa fa-exclamation" aria-hidden="true"></i>
 							<strong> No Results Found.  Please Refine Search.</strong>
 						</td>
@@ -79,7 +67,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5" class="text-center">
+						<td colspan="6" class="text-center">
 							<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
 						</td>
 					</tr>

@@ -1,5 +1,5 @@
 	// create the module and name it movingApp
-	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor']);
+	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table']);
 
 	movingApp.config(['$locationProvider','$httpProvider','$windowProvider', function($locationProvider, $httpProvider,$windowProvider) {
 		  $locationProvider.hashPrefix('');
@@ -33,15 +33,6 @@
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
-			
-			.when('/bookedMoves', {
-				templateUrl : 'pages/bookedMoves.html',
-				access: {
-					loginRequired: true,
-					authorizedRoles: [USER_ROLES.admin]
-				}
-			})
-
 			.when('/editMove/:moveID', {
 				templateUrl : 'pages/editMove.html',
 				access: {
@@ -92,6 +83,20 @@
 				templateUrl : 'pages/contact.html',
 				access: {
 					loginRequired: false,
+					authorizedRoles: [USER_ROLES.all]
+				}
+			})
+			.when('/tables', {
+				templateUrl : 'pages/tables.html',
+				access: {
+					loginRequired: true,
+					authorizedRoles: [USER_ROLES.all]
+				}
+			})
+			.when('/contactConfirmation', {
+				templateUrl : 'pages/contactConfirmation.html',
+				access: {
+					loginRequired: true,
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
@@ -168,7 +173,7 @@
 		// Call when the the client is confirmed
 		 $rootScope.$on('event:auth-loginConfirmed', function(event, data) {
 		  $rootScope.loadingAccount = false;
-		  var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/bookedMoves");
+		  var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/tables");
 		  var delay = ($location.path() === "/loading" ? 1500 : 0);
 		 
 		  $timeout(function() {

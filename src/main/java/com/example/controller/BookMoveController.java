@@ -124,6 +124,7 @@ public class BookMoveController {
 		charge.setMove(moveEntity);
 		charges.add(charge);
 		moveEntity.setCharges(charges);
+		moveEntity.setStatus("open");
 		
 		BookMovesDao.save(moveEntity);
 		//BookMovesDao.insert(insertMove.getFirstName(), insertMove.getLastName(), insertMove.getEmail(), insertMove.getPhone(), insertMove.getfromStreet(), insertMove.getfromCity(), insertMove.getFromZip(), insertMove.getFromState(), insertMove.getToStreet(), insertMove.getToCity(), insertMove.getToZip(), insertMove.getToState(), insertMove.getComments(), insertMove.getDate());
@@ -164,15 +165,15 @@ public class BookMoveController {
 		return MoveEntityToMove(moveEntity);
 	}
 	
-	@RequestMapping(value = "/getBookedMoves",method = RequestMethod.GET)
-	@ResponseBody
-	public List<Move> getBookedMoves() {
-		
-		List<MoveEntity> moveEntityList = BookMovesDao.findAll();
-		List<Move> moves = MoveEntityToMoves(moveEntityList);
-		
-		return moves;
-	}
+//	@RequestMapping(value = "/getBookedMoves",method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<Move> getBookedMoves() {
+//		
+//		List<MoveEntity> moveEntityList = BookMovesDao.findAll();
+//		List<Move> moves = MoveEntityToMoves(moveEntityList);
+//		
+//		return moves;
+//	}
 	
 	@RequestMapping(value = "/getMove",method = RequestMethod.POST)
 	@ResponseBody
@@ -260,6 +261,7 @@ public class BookMoveController {
 		move.setDateOfBooking(moveEntity.getDateOfBooking());
 		move.setStripeCustomerID(moveEntity.getStripeCustomerID());
 		move.setCharges(ChargeEntityToCharge(moveEntity.getCharges()));
+		move.setStatus(moveEntity.getStatus());
 		
 		return move;
 	}
@@ -290,6 +292,7 @@ public class BookMoveController {
 			move.setDateOfBooking(moveEntityList.get(i).getDateOfBooking());
 			move.setStripeCustomerID(moveEntityList.get(i).getStripeCustomerID());
 			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
+			move.setStatus(moveEntityList.get(i).getStatus());
 			
 			movesList.add(move);
 		}
@@ -379,6 +382,7 @@ private List<ChargeEntity> ChargeToChargeEntity(List<ChargeView> chargeList, Mov
 		moveEntity.setToStreet(move.getToStreet());
 		moveEntity.setToZip(move.getToZip());
 		moveEntity.setDateOfBooking(move.getDateOfBooking());
+		moveEntity.setStatus(move.getStatus());
 		moveEntity.setStripeCustomerID(move.getStripeCustomerID());
 		moveEntity.setCharges(ChargeToChargeEntity(move.getCharges(), moveEntity));
 		moveEntity.setNotes(NoteToNoteEntity(move.getNotes(), moveEntity));

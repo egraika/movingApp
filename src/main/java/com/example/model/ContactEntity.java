@@ -20,14 +20,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.example.view.Move;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "note")
+@Table(name = "contact")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NoteEntity implements Serializable {
+public class ContactEntity implements Serializable {
 	
 	/**
 	 * 
@@ -40,20 +39,45 @@ public class NoteEntity implements Serializable {
 	@Column(name = "id")
 	private int id;
 	
-	@Lob
-	@Column(name = "comment")
-	private String comment;
+	@Column(name = "full_name")
+	private String fullName;
 	
-	@Column(name = "author")
-	private String author;
+	@Column(name = "email")
+	private String email;
 	
 	@Column(name = "date")
 	private Date date;
 	
-	@JsonManagedReference
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinTable(name = "notes_to_move", joinColumns= @JoinColumn(name = "noteid"), inverseJoinColumns= @JoinColumn(name = "moveid"))
-	private MoveEntity move;
+	@Column(name = "status")
+	private String status;
+	
+	@Lob
+	@Column(name = "message")
+	private String message;
+	
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	
+	public String getFullName() {
+		return fullName;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
 	
 	public void setID(int id) {
 		this.id = id;
@@ -63,20 +87,12 @@ public class NoteEntity implements Serializable {
 		return id;
 	}
 	
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
-	public String getAuthor() {
-		return author;
-	}
-	
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	
-	public String getComment() {
-		return comment;
+	public String getStatus() {
+		return status;
 	}
 	
 	public void setDate(Date date) {
@@ -87,11 +103,4 @@ public class NoteEntity implements Serializable {
 		return date;
 	}
 	
-	public void setMove(MoveEntity move) {
-		this.move = move;
-	}
-	
-	public MoveEntity getMove() {
-		return move;
-	}
 }

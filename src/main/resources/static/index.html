@@ -12,16 +12,15 @@
 
     <title>Move Muscle</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/full-slider.css" rel="stylesheet">
     <link href="css/caruselCustom.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
     <link href="css/stripe.css" rel="stylesheet">
-      <link href="css/creative.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/teamMember.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,6 +47,7 @@
  	<script src="js/onlydigits.js"></script>
  	<script src="js/jquery.magnific-popup.min.js"></script>
  	<script src="js/scrollreveal.min.js"></script>
+ 	<script src="js/smart-table.min.js"></script>
 </head>
 
 <body>
@@ -81,7 +81,7 @@
 	                    <li ng-show="!authenticated">
 	                        <a href="#/about">About Us</a>
 	                    </li>
-	                    <li ng-show="authenticated"><a href="#/bookedMoves">Booked Moves</a></li>
+	                    <li ng-show="authenticated"><a href="#/tables">Booked Moves</a></li>
 	                    <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
 	                </ul>
 	            </div>
@@ -160,7 +160,7 @@
     <script src="js/controllers/LogoutController.js"></script>
     <script src="js/services/AuthSharedService.js"></script>
     <script src="js/services/Session.js"></script>
-
+    <script src="js/controllers/contactController.js"></script>
 </body>
 
 </html>

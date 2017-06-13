@@ -42,6 +42,7 @@ public class Move{
 	private Date dateOfMove;
 	private Date dateOfBooking;
 	private String stripeCustomerID;
+	private String status;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -57,6 +58,14 @@ public class Move{
 	
 	public String getStripeCustomerID() {
 		return stripeCustomerID;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 	
 	public void setDateOfMove(Date date) {

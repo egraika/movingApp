@@ -39,3 +39,35 @@ body {
   background-color: #f5f5f5;
   border-color: #ddd;
 }
+
+.sortable {
+  cursor: pointer;
+}
+th[st-sort]:not(.st-sort-ascent):not(.st-sort-descent):before {
+    font-family: FontAwesome;
+    content: '\f0dc';
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+}
+.sortable:before {
+  font-family: FontAwesome;
+  content: "\f0dc";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+}
+.st-sort-ascent:before {
+  font-family: FontAwesome;
+  content: "\f0de";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+}
+.st-sort-descent:before {
+  font-family: FontAwesome;
+  content: "\f0dd";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+}

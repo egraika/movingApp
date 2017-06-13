@@ -15,6 +15,14 @@
 						        </p>
 						<span style="color:red" ng-show="editMoveForm.dateOfMove.$touched && editMoveForm.dateOfMove.$invalid">Date of move is not valid</span>
 					</div>
+					<div class="col-xs-4">
+						<label for="status">Status</label>
+						<select class="form-control" id="status" name="status" ng-model="move.status">
+							<option value="open">Open</option>
+							<option value="confirmed">Open and Confirmed</option>
+							<option value="closed">Closed</option>
+						</select>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-4">

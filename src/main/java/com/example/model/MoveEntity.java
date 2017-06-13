@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -86,6 +87,7 @@ public class MoveEntity implements Serializable {
 	@Column(name = "toState")
 	private String toState;
 	
+	@Lob
 	@Column(name = "comment")
 	private String comment;
 	
@@ -95,8 +97,11 @@ public class MoveEntity implements Serializable {
 	@Column(name = "dateOfBooking")
 	private Date dateOfBooking;
 	
-	@Column(name = "stripe_Customer_ID  ")
+	@Column(name = "stripe_Customer_ID")
 	private String stripeCustomerID;
+	
+	@Column(name = "status")
+	private String status;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -112,6 +117,14 @@ public class MoveEntity implements Serializable {
 	
 	public String getStripeCustomerID() {
 		return stripeCustomerID;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 	
 	public void setDateOfMove(Date date) {

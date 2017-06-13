@@ -20,23 +20,11 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-web</artifactId>
 	        <version>1.5.3.RELEASE</version>
-	        <exclusions>
-	            <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-	            </exclusion>
-	    </exclusions>
 	    </dependency>
 	    <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter</artifactId>
 		    <version>1.5.3.RELEASE</version>
-		    <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
 		</dependency>
 	    <!-- https://mvnrepository.com/artifact/org.apache.tomcat/catalina -->
 		<dependency>
