@@ -1,1 +1,1 @@
-web: sh target/ssng-project-1.0-SNAPSHOT
+web: java -Dserver.port=8443 -jar target/ssng-project-1.0-SNAPSHOT.jar
