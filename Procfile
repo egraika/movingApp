@@ -1,1 +1,1 @@
-web: sh target/bin/webapp
+web: bundle exec rails server -p 8443
