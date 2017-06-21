@@ -1,1 +1,1 @@
-web: bundle exec java server -p 8443
+web: sh target/bin/webapp
