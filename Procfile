@@ -1,1 +1,1 @@
-web: bundle exec rails server -p 8443
+web: sh target/ssng-project-1.0-SNAPSHOT/WEB-INF
