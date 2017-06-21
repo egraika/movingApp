@@ -1,1 +1,1 @@
-web: java -jar target/ssng-project-1.0-SNAPSHOT.jar
+web: java -Dserver.port=$PORT  -jar target/ssng-project-1.0-SNAPSHOT.jar
