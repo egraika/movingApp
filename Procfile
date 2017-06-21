@@ -1,1 +1,1 @@
-web: sh target/ssng-project-1.0-SNAPSHOT/WEB-INF
+web: sh target/ssng-project-1.0-SNAPSHOT
