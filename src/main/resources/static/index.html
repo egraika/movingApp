@@ -13,14 +13,10 @@
     <title>Move Muscle</title>
 
     <!-- Custom CSS -->
-    <link href="css/full-slider.css" rel="stylesheet">
-    <link href="css/caruselCustom.css" rel="stylesheet">
-    <link href="css/footer.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
     <link href="css/stripe.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/teamMember.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/freelancer.min.css" rel="stylesheet">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,104 +46,113 @@
  	<script src="js/smart-table.min.js"></script>
 </head>
 
-<body>
+<body id="page-top" class="index">
+<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
 
     <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll" ng-show="!currentPath">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">College Moving Labor</a>
+            </div>
+            <div class="navbar-header page-scroll" ng-show="currentPath">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#/">College Moving Labor</a>
+            </div>
 
-	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	        <div class="container">
-	            <!-- Brand and toggle get grouped for better mobile display -->
-	            <div class="navbar-header">
-	                <button type="button" class="navbar-toggle" data-toggle="collapse">
-	                    <span class="sr-only">Toggle navigation</span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
-	                    <span class="icon-bar"></span>
-	                </button>
-	                <a class="navbar-brand" href="#/">Move Muscle</a>
-	            </div>
-	            <!-- Collect the nav links, forms, and other content for toggling -->
-	            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LogoutController">
-	                <ul class="nav navbar-nav">
-	                    <li ng-show="!authenticated">
-	                        <a href="#/bookmove">Book Move</a>
-	                    </li>
-	                    <li ng-show="!authenticated">
-	                        <a href="#/services">Services</a>
-	                    </li>
-	                    <li ng-show="!authenticated">
-	                        <a href="#/contact">Contact</a>
-	                    </li>
-	                    <li ng-show="!authenticated">
-	                        <a href="#/about">About Us</a>
-	                    </li>
-	                    <li ng-show="authenticated"><a href="#/tables">Booked Moves</a></li>
-	                    <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
-	                </ul>
-	            </div>
-	            <!-- /.navbar-collapse -->
-	        </div>
-	        <!-- /.container -->
-	    </nav>
-
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LogoutController">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="page-scroll" ng-show="currentPath">
+                        <a href="#/#services">Services</a>
+                    </li>
+                    <li class="page-scroll" ng-show="!currentPath">
+                        <a href="#services">Services</a>
+                    </li>
+                    <li class="page-scroll" ng-show="currentPath">
+                        <a href="#/#about">About Us</a>
+                    </li>
+                    <li class="page-scroll" ng-show="!currentPath">
+                        <a href="#about">About Us</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#/bookmove">Book Online</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#/contact">Contact</a>
+                    </li>
+ 				<li ng-show="authenticated"><a href="#/tables">Booked Moves</a></li>
+	            	<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
       <div id="main">
 	    <!-- angular templating -->
 			<!-- this is where content will be injected -->
 	    <div ng-view autoscroll="true"></div>
 	</div>
-        <!-- Footer -->
-     <footer class="footer-bs navbar-static-bottom">
-        <div class="row">
-        	<div class="col-md-2 footer-brand animated fadeInLeft">
-            	<h2>Move Muscle</h2>
-                <p>Making moving easy since '05</p>
-                <p>&copy; 2017 All rights reserved</p>
-            </div>
-        	<div class="footer-nav animated fadeInUp">
-            	<h4>Menu —</h4>
-            	<div class="col-xs-2">
-                    <ul class="pages">
-                        <li><a href="#/">Home</a></li>
-                        <li><a href="#/bookMove">Book Move</a></li>
-                        <li><a href="#/services">Services</a></li>
-                        <li><a href="#/contact">Contact Us</a></li>
-                    </ul>
+       <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Location</h3>
+                        <p>3481 Melrose Place
+                            <br>Beverly Hills, CA 90210</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Facebook</span><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Google Plus</span><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><span class="sr-only">Dribble</span><i class="fa fa-fw fa-dribbble"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>About Freelancer</h3>
+                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                    </div>
                 </div>
-            	<div class="col-xs-2">
-                    <ul class="list">
-                        <li><a href="#/about">About Us</a></li>
-                        <li><a href="#/terms">Terms & Condition</a></li>
-                        <li><a href="#/privacy">Privacy Policy</a></li>
-                        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
-                        <li ng-show="!authenticated"><a href="#/login">Log In</a></li>
-                    </ul>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Your Website 2016
+                    </div>
                 </div>
-            </div>
-        	<div class="col-xs-2 footer-social animated fadeInDown">
-            	<h4>Follow Us</h4>
-            	<ul>
-                	<li><a href="#">Facebook</a></li>
-                	<li><a href="#">Twitter</a></li>
-                	<li><a href="#">Instagram</a></li>
-                </ul>
-            </div>
-        	<div class="col-xs-3 footer-ns animated fadeInRight">
-            	<h4>Newsletter</h4>
-                <p>Sign up to recieve montly news on what we're doing!</p>
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search for...">
-                      <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
-                      </span>
-                    </div><!-- /input-group -->
             </div>
         </div>
     </footer>
-    <!-- /.container -->
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-    <script src="js/creative.min.js"></script>
+    <script src="js/freelancer.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

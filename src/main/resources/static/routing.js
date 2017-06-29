@@ -65,20 +65,6 @@
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
-			.when('/about', {
-				templateUrl : 'pages/about.html',
-				access: {
-					loginRequired: false,
-					authorizedRoles: [USER_ROLES.all]
-				}
-			})
-			.when('/services', {
-				templateUrl : 'pages/services.html',
-				access: {
-					loginRequired: false,
-					authorizedRoles: [USER_ROLES.all]
-				}
-			})
 			.when('/contact', {
 				templateUrl : 'pages/contact.html',
 				access: {
@@ -148,10 +134,12 @@
 	      };
 	}]);
 	
-	movingApp.run(function($rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout) {
-		 
+	movingApp.run(function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout) {
+		
 		  // route change start code ...
 		 $rootScope.$on('$routeChangeStart', function(event, next) {
+			 $rootScope.path = $location.path();
+			 $rootScope.currentPath = $location.path() === '/bookmove' || $location.path() === '/contact';
 		 if (next.originalPath === "/login" && $rootScope.authenticated) {
 		   event.preventDefault();
 		  } else if (next.access && next.access.loginRequired && !$rootScope.authenticated) {

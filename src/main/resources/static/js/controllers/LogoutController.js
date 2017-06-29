@@ -1,4 +1,4 @@
-movingApp.controller('LogoutController', function ($scope, $http) {
+movingApp.controller('LogoutController', function ($scope, $http, $location) {
 	
     $scope.logout = function() {
     	$http({
