@@ -14,7 +14,7 @@
 					<tr ng-repeat="charge in move.charges">
 						<td>{{charge.date | date:'MM/dd/yyyy h:mm a'}}</td>
 						<td>{{charge.amount}}</td>
-						<td><button class="btn btn-danger pull-right">Refund</button></td>
+						<td><button class="btn btn-danger pull-right" ng-disabled="true">Refund</button></td>
 					</tr>
 				</tbody>
 			</table>

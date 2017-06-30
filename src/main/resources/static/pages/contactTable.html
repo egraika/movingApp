@@ -23,7 +23,7 @@
 						<th>Customer Name</th>
 						<th>Email</th>
 						<th>Message</th>
-						<th st-sort="date">Date</th>
+						<th st-sort="date" st-sort-default="reverse">Date</th>
 						<th>Status</th>
 						<th>Actions</th>
 					</tr>
@@ -35,7 +35,7 @@
 						<td width="40%">{{contact.message}}</td>
 						<td width="10%">{{contact.date | date:'MM/dd/yyyy'}}</td>
 						<td width="5%">{{contact.status}}</td>
-						<td><a type="button" class="btn btn-primary" href="" width="5%">Action?</a></td>
+						<td><a type="button" class="btn btn-primary" href="" width="5%" ng-disabled="true">Action?</a></td>
 					</tr>
 				</tbody>
 				<tbody ng-show="isLoading">
