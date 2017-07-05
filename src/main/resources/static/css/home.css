@@ -1,0 +1,33 @@
+  .st-sort-ascent:before {
+    content: '\25B2';
+  }
+
+  .st-sort-descent:before {
+    content: '\25BC';
+  }
+  
+ th[st-sort]:not(.st-sort-ascent):not(.st-sort-descent):before {
+    font-family: FontAwesome;
+    content: '\f0dc';
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+}
+
+//medium+ screen sizes
+@media (min-width:992px) {
+    .desktop-only {
+        display:block !important;
+    }
+}
+ 
+//small screen sizes
+@media (max-width: 991px) {
+    .mobile-only {
+        display:block !important;
+    }
+ 
+    .desktop-only {
+        display:none !important;
+    }
+}
