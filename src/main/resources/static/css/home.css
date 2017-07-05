@@ -14,9 +14,7 @@
     vertical-align: middle;
 }
 
-//large resolutions only
-@media (min-width: 1200px) {
-	.desktop-only {
-        display:none !important;
-    }
+img.center {
+    display: block;
+    margin: 0 auto;
 }
