@@ -130,8 +130,8 @@ public class BookMoveController {
 		BookMovesDao.save(moveEntity);
 		//BookMovesDao.insert(insertMove.getFirstName(), insertMove.getLastName(), insertMove.getEmail(), insertMove.getPhone(), insertMove.getfromStreet(), insertMove.getfromCity(), insertMove.getFromZip(), insertMove.getFromState(), insertMove.getToStreet(), insertMove.getToCity(), insertMove.getToZip(), insertMove.getToState(), insertMove.getComments(), insertMove.getDate());
 		
-		final String username = "ericgraika@gmail.com";
-		final String password = "John1956@";
+		final String username = "contact@collegemovinglabor.com";
+		final String password = "Domovoi26";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
