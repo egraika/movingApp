@@ -44,11 +44,11 @@
             <version>2.6.1</version>
         </dependency>
         <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
-        </dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>4.3.1.Final</version>
+	</dependency> 
 
         <dependency>
             <groupId>org.hibernate</groupId>
