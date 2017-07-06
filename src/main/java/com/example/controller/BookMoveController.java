@@ -49,6 +49,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import com.example.config.GMailAuthenticator;
 
 @Controller
 public class BookMoveController {
@@ -75,7 +76,7 @@ public class BookMoveController {
 	public Move stripeDesposit(@RequestBody StripeView stripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
-		// erics test key Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
+		//Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
 		Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
 		
 		// Token is created using Stripe.js or Checkout!
@@ -139,12 +140,7 @@ public class BookMoveController {
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				  });
+		Session session = Session.getInstance(props, new GMailAuthenticator(username, password));
 
 				try {
 
@@ -213,7 +209,7 @@ public class BookMoveController {
 	@ResponseBody
 	public ChargeView addCharge(@RequestParam("customerID") String customerID, @RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		
-		// erics test key Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
+		//Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
 		Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
 		MoveEntity moveEntity = BookMovesDao.findById(moveID);
 		List<ChargeEntity> chargeEntityList = moveEntity.getCharges();
