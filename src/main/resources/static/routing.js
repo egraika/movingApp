@@ -37,7 +37,7 @@
 				templateUrl : 'pages/editMove.html',
 				access: {
 					loginRequired: true,
-					authorizedRoles: [USER_ROLES.admin]
+					authorizedRoles: [USER_ROLES.all]
 				}
 			})
 			
