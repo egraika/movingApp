@@ -23,6 +23,9 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 				}).then(function successCallBack(response) {
 					$location.path('/confirmation').replace();
 				});
+			}, function errorCallback(response) {
+				var errorElement = document.getElementById('card-errors');
+				errorElement.textContent = response.data;
 			});
 	}
 	
