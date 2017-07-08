@@ -25,6 +25,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 				});
 			}, function errorCallback(response) {
 				var errorElement = document.getElementById('card-errors');
+				errorElement.style.color = "Red";
+				errorElement.style.fontSize = "large";
 				errorElement.textContent = response.data.message;
 			});
 	}
