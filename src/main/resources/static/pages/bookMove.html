@@ -34,7 +34,7 @@
 			        <div class='col-sm-6'>
 			        	<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
 			          	<p class="input-group">
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="dateOfMove" name="dateOfMove" ng-model="moveData.dateOfMove" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" class="form-control" />
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="dateOfMove" name="dateOfMove" ng-model="moveData.dateOfMove" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" class="form-control" ng-change="changeDate()" placeholder="mm/dd/yyyy"/>
 						<span class="input-group-btn">
 							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
@@ -63,8 +63,8 @@
 				 </div>
 				 <div class="col-xs-6">
 				  	<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-					<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required>
-						<option value="AK" ng-disabled="true">Alaska</option>
+					<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'">
+						<!-- <option value="AK" ng-disabled="true">Alaska</option>
 						<option value="AL" ng-disabled="true">Alabama</option>
 						<option value="AR" ng-disabled="true">Arkansas</option>
 						<option value="AZ" ng-disabled="true">Arizona</option>
@@ -114,7 +114,11 @@
 						<option value="WA" ng-disabled="true">Washington</option>
 						<option value="WI">Wisconsin</option>
 						<option value="WV" ng-disabled="true">West Virginia</option>
-						<option value="WY" ng-disabled="true">Wyoming</option>
+						<option value="WY" ng-disabled="true">Wyoming</option> -->
+						<option value="IA">Iowa</option>
+						<option value="MN">Minnesota</option>
+						<option value="MT">Montana</option>
+						<option value="WI">Wisconsin</option>
 					</select>
 					<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
 				</div>
@@ -140,7 +144,7 @@
 				 </div>
 				 <div class="col-xs-6">
 				  	<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-					<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" required>
+					<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" required>
 						<option value="AK">Alaska</option>
 						<option value="AL">Alabama</option>
 						<option value="AR">Arkansas</option>

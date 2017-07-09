@@ -1,5 +1,14 @@
 movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout) {
 
+	$scope.changeDate = function(e) {
+     	var numChars = $scope.date.length;
+		if(numChars === 2 || numChars === 5){
+			var thisVal = $scope.date;
+			thisVal += '/';
+			$scope.date = thisVal;
+		}
+      };
+      
 	$scope.bookMove = function() {
 		
 		$scope.moveData.notes = [];
