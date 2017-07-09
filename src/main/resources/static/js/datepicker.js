@@ -26,7 +26,7 @@ angular.module('movingApp').controller('DatepickerPopupDemoCtrl', function ($sco
   function disabled(data) {
     var date = data.date,
       mode = data.mode;
-    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    return data.date <= new Date();
   }
 
   $scope.toggleMin = function() {
