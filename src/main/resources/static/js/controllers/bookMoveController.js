@@ -1,4 +1,4 @@
-movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService) {
+movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout) {
 
 	$scope.bookMove = function() {
 		
@@ -24,7 +24,11 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 				}).then(function successCallBack(response) {
 					bsLoadingOverlayService.stop();
 					$('#checkout').modal('hide');
-					$location.path('/confirmation').replace();
+					$location.path('/confirmation');
+					$route.reload();
+					$timeout( function(){
+						window.location.reload();
+				    }, 5000 );
 				});
 			}, function errorCallback(response) {
 				var errorElement = document.getElementById('card-errors');
@@ -36,8 +40,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 	}
 	
 	// Create a Stripe client
-	//var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
-	var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
+	var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
+	//var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
 
 	// Create an instance of Elements
 	var elements = stripe.elements();
