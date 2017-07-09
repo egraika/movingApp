@@ -95,4 +95,13 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		 });
 	 }
 	 
+	 $scope.changeDate = function(e) {
+		 var numChars = $scope.date.length;
+		 if(numChars === 2 || numChars === 5){
+			 var thisVal = $scope.date;
+			 thisVal += '/';
+			 $scope.date = thisVal;
+		 }
+	 };
+	 
 }]);

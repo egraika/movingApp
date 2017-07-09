@@ -8,7 +8,7 @@
 					<div class="col-xs-4">
 						<label for="dateOfMove">Date Of Move</label>
 						        <p class="input-group">
-						          <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="dateOfMove" name="dateOfMove" ng-model="move.dateOfMove" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" class="form-control"/>
+						          <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="dateOfMove" name="dateOfMove" ng-model="move.dateOfMove" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-change="changeDate()" class="form-control"/>
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 						          </span>
@@ -41,7 +41,7 @@
 					</div>
 					<div class="col-xs-4">
 						<label for="phone">Phone</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="10" ng-minlength="10" id="phone" name="phone" ng-model="move.phone" numbers-only ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="10" ng-minlength="10" id="phone" name="phone" ng-model="move.phone" numbers-only phone-input ng-required="true">
 						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
 					</div>
 				</div>
