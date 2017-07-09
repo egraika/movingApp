@@ -1,5 +1,5 @@
 	// create the module and name it movingApp
-	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table']);
+	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay']);
 
 	movingApp.config(['$locationProvider','$httpProvider','$windowProvider', function($locationProvider, $httpProvider,$windowProvider) {
 		  $locationProvider.hashPrefix('');
@@ -134,7 +134,11 @@
 	      };
 	}]);
 	
-	movingApp.run(function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout) {
+	movingApp.run(function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout,bsLoadingOverlayService) {
+		
+		bsLoadingOverlayService.setGlobalConfig({
+			templateUrl: 'pages/loading-overlay-template.html'
+		});
 		
 		  // route change start code ...
 		 $rootScope.$on('$routeChangeStart', function(event, next) {

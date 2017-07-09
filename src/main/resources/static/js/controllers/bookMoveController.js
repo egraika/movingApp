@@ -1,4 +1,4 @@
-movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location',   function($scope, $http, $sessionStorage,$uibModal, $window,$location) {
+movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService) {
 
 	$scope.bookMove = function() {
 		
@@ -6,6 +6,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 		var jsonString = JSON.stringify($scope.moveData);
 		
 		$scope.stripe.email = $scope.moveData.email;
+		bsLoadingOverlayService.start();
 		$http({
 				method: 'POST',
 				url: '/stripeDeposit',
@@ -21,10 +22,13 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 					data: $scope.moveData,
 					headers:{'Content-Type': 'application/json'}
 				}).then(function successCallBack(response) {
+					bsLoadingOverlayService.stop();
+					$('#checkout').modal('hide');
 					$location.path('/confirmation').replace();
 				});
 			}, function errorCallback(response) {
 				var errorElement = document.getElementById('card-errors');
+				bsLoadingOverlayService.stop();
 				errorElement.style.color = "Red";
 				errorElement.style.fontSize = "large";
 				errorElement.textContent = response.data.message;
@@ -32,8 +36,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 	}
 	
 	// Create a Stripe client
-	var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
-	//var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
+	//var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
+	var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
 
 	// Create an instance of Elements
 	var elements = stripe.elements();
