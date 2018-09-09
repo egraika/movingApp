@@ -27,7 +27,6 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private UserRepo userRepo;
 
-    @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);

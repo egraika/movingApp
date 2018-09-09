@@ -18,7 +18,6 @@ public class RestUnauthorizedEntryPoint implements AuthenticationEntryPoint {
     /**
      * Always returns a 401 error code to the client.
      */
-    @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException exception) throws IOException, ServletException {
         SecurityUtils.sendError(response, exception, HttpServletResponse.SC_UNAUTHORIZED,
