@@ -202,8 +202,8 @@ public class BookMoveController {
 	@ResponseBody
 	public ChargeView addCharge(@RequestParam("customerID") String customerID, @RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		
-		//Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-		Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
+		Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
+		//Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
 		MoveEntity moveEntity = BookMovesDao.findById(moveID);
 		List<ChargeEntity> chargeEntityList = moveEntity.getCharges();
 		ChargeEntity charge = new ChargeEntity();
