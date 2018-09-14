@@ -1,4 +1,4 @@
-movingApp.controller("bookedMoveController", ['$scope', '$http','$routeParams','$sessionStorage',   function($scope, $http,$routeParams,$sessionStorage) {
+movingApp.controller("bookedMoveController", ['$scope', '$http','$routeParams','$sessionStorage','Session',   function($scope, $http,$routeParams,$sessionStorage,Session) {
 	
 //	$scope.getBookedMoves = function() {
 //		$http({
@@ -21,11 +21,11 @@ movingApp.controller("bookedMoveController", ['$scope', '$http','$routeParams','
 	
 	$scope.callServer = function getData(tableState, tableController) {
 		$scope.isLoading = true;
-		
+		var userid = Session.id;
 		$http({
 			method: 'GET',
 			url: '/getBookedMoves',
-			params: {tableState : tableState},
+			params: {tableState : tableState, userid : userid},
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.isLoading = false;

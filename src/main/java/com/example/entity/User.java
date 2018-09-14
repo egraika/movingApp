@@ -13,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
@@ -47,6 +50,10 @@ public class User {
 
 	@Column(name = "enabled")
 	private Boolean enabled;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "user_to_location", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "location_id"))
+	private Set<Location> locations = new HashSet<Location>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
@@ -123,4 +130,13 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public Set<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(Set<Location> locations) {
+		this.locations = locations;
+	}
+
 }

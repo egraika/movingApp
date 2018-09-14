@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.ContactEntity;
-import com.example.model.EmployeeEntity;
 import com.example.model.MoveEntity;
 import com.example.view.Contact;
 import com.example.view.Employee;

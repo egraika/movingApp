@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -14,17 +15,20 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.model.MoveEntity;
+import com.example.entity.Location;
 
 @Transactional
 public interface BookMovesDao extends JpaRepository<MoveEntity, Integer> {
 	
 	public MoveEntity findById(int id);
-	public Page<MoveEntity> findAll(Pageable pageable);
 	
-	@Query("Select m from MoveEntity m where"
-			+ " (:statusSearch = '' OR m.status = :statusSearch)"
+	@Query("Select m from MoveEntity m where m.fromState IN :locations")
+	public Page<MoveEntity> findAll(Pageable pageable, @Param("locations") Object[] objects);
+	
+	@Query("Select m from MoveEntity m where m.fromState IN :locations"
+			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
 			+ " AND (CONCAT(m.firstName, ' ', m.lastName) LIKE %:search%"
 			+ " OR CONCAT(m.lastName, ' ', m.firstName) LIKE %:search%)")
-	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable);
+	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("locations")   Object[] objects);
 }
 

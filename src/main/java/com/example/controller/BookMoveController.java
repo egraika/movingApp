@@ -76,8 +76,8 @@ public class BookMoveController {
 	public Move stripeDesposit(@RequestBody StripeView stripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
-		//Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-		Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
+		Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
+		//Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
 		
 		// Token is created using Stripe.js or Checkout!
 		// Get the payment token submitted by the form:
@@ -131,8 +131,8 @@ public class BookMoveController {
 		BookMovesDao.save(moveEntity);
 		//BookMovesDao.insert(insertMove.getFirstName(), insertMove.getLastName(), insertMove.getEmail(), insertMove.getPhone(), insertMove.getfromStreet(), insertMove.getfromCity(), insertMove.getFromZip(), insertMove.getFromState(), insertMove.getToStreet(), insertMove.getToCity(), insertMove.getToZip(), insertMove.getToState(), insertMove.getComments(), insertMove.getDate());
 		
-		final String username = "contact@collegemovinglabor.com";
-		final String password = "Domovoi26";
+		final String username = "jjuno121@aol.com";
+		final String password = "John1956!";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");

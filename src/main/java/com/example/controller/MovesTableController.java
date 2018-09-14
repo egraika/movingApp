@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.entity.Location;
+import com.example.entity.User;
 import com.example.model.ChargeEntity;
 import com.example.model.ContactEntity;
-import com.example.model.EmployeeEntity;
 import com.example.model.MoveEntity;
 import com.example.model.NoteEntity;
 import com.example.model.TableState;
@@ -38,10 +40,12 @@ public class MovesTableController {
 	@Autowired
 	private com.example.dao.BookMovesDao BookMovesDao;
 
+	@Autowired
+	private com.example.dao.UserRepo UserRepo;
 	
 	@RequestMapping(value = "/getBookedMoves", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<Move> getmyAssignedMembers(@RequestParam("tableState") String state) {
+	public Page<Move> getmyAssignedMembers(@RequestParam("tableState") String state, @RequestParam("userid") Long userid) {
 		Gson gson = new Gson();
 		TableState tableState = gson.fromJson(state, TableState.class);
 		String search = "";
@@ -93,11 +97,16 @@ public class MovesTableController {
 		Page<Move> pages = null;
 		Page<MoveEntity> moveEntities;
 
-
+		User user = UserRepo.findById(userid);
+		Set<Location> locations = user.getLocations();
+		ArrayList<String> locationsStrings = new ArrayList<String>();
+		for (Location location : locations) {
+			locationsStrings.add(location.getLocation());
+		}
 		if (search == "" && statusSearch == "") {
-			moveEntities = BookMovesDao.findAll(pageable);
+			moveEntities = BookMovesDao.findAll(pageable, locationsStrings.toArray());
 		} else {
-			moveEntities = BookMovesDao.findAll(search, statusSearch, pageable);
+			moveEntities = BookMovesDao.findAll(search, statusSearch, pageable, locationsStrings.toArray());
 		}
 		moves = mapToMove(moveEntities.getContent());
 

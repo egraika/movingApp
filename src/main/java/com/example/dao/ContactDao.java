@@ -11,7 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.example.model.ContactEntity;
-import com.example.model.EmployeeEntity;
 import com.example.model.MoveEntity;
 
 @Transactional
