@@ -49,8 +49,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 	}
 	
 	// Create a Stripe client
-	var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
-	//var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
+	//var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
+    var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
 
 	// Create an instance of Elements
 	var elements = stripe.elements();
