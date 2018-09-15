@@ -2,6 +2,7 @@ package com.movingapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,8 @@ public class MovesTableController {
 		Page<Move> pages = null;
 		Page<MoveEntity> moveEntities;
 
-		User user = UserRepo.findById(userid);
+		Optional<User> optionalUser = UserRepo.findById(userid);
+		User user =  optionalUser.get();
 		Set<Location> locations = user.getLocations();
 		ArrayList<String> locationsStrings = new ArrayList<String>();
 		for (Location location : locations) {
