@@ -1,7 +1,8 @@
-<div data-ng-controller="bookedMoveController">
-	<div class="row" st-table="moves" st-pipe="callServer">
+<div data-ng-controller="bookedMoveController as vm">
+	<div class="row" st-table="moves" st-pipe="callServer" ng-hide="isCalendar">
       	<div class="col-xs-12">
 			<h2>Booked Moves</h2>
+			<a ng-click="changeView()">{{bookedMovesView}}</a>
 			<div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
 					<button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">{{itemsByPage}} <span class="caret"></span></button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
@@ -86,5 +87,31 @@
 				</tfoot>
 			</table>
 		</div>
+	</div>
+	<div ng-show="isCalendar">
+		<h2>Booked Moves</h2>
+		<a ng-click="changeView()">{{bookedMovesView}}</a>
+		<mwl-calendar
+				events="vm.events"
+				view="vm.calendarView"
+				view-date="vm.viewDate">
+		</mwl-calendar>
+		<mwl-calendar events="vm.events"
+					  view="vm.calendarView"
+					  view-title="vm.calendarTitle"
+					  view-date="vm.viewDate"
+					  on-event-click="vm.eventClicked(calendarEvent)"
+					  on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+					  edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
+					  delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
+					  on-edit-event-click="vm.eventEdited(calendarEvent)"
+					  on-delete-event-click="vm.eventDeleted(calendarEvent)"
+					  cell-is-open="vm.isCellOpen"
+					  day-view-start="06:00"
+					  day-view-end="22:00"
+					  day-view-split="30"
+					  cell-modifier="vm.modifyCell(calendarCell)">
+		</mwl-calendar>
+
 	</div>
 </div>
