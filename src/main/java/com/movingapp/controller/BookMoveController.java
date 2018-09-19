@@ -2,6 +2,8 @@ package com.movingapp.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,6 +61,10 @@ public class BookMoveController {
 	public Move updateMove(@RequestBody Move move) {
 		
 		MoveEntity moveEntity = moveToMoveEntity(move);
+		if(moveEntity.getMoveStart().isAfter(moveEntity.getMoveEnd())) {
+			moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
+		}
+		moveEntity.setMoveTitle(move.getFirstName() + " " + move.getLastName());
 		BookMovesDao.save(moveEntity);
 
 		return MoveEntityToMove(moveEntity);
@@ -108,19 +114,23 @@ public class BookMoveController {
 		 //Gson gson = new Gson();
 		 //Move insertMove = gson.fromJson(move, Move.class);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
+		Date input = new Date();
+		LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		move.setDateOfBooking(date);
 		MoveEntity moveEntity = moveToMoveEntity(move);
 		
 		List<ChargeEntity> charges = new ArrayList<ChargeEntity>();
 		ChargeEntity charge = new ChargeEntity();
 		charge.setAmount(1);
-		charge.setDate(date);
+		charge.setDate(new Date());
 		charge.setMove(moveEntity);
 		charges.add(charge);
 		moveEntity.setCharges(charges);
 		moveEntity.setStatus("open");
-		
+		moveEntity.setMoveTitle(move.getFirstName() + " " + move.getLastName());
+		moveEntity.setDateOfBooking(LocalDate.now());
+		moveEntity.setMoveStart(moveEntity.getMoveStart().plusHours(8));
+		moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
 		BookMovesDao.save(moveEntity);
 		//BookMovesDao.insert(insertMove.getFirstName(), insertMove.getLastName(), insertMove.getEmail(), insertMove.getPhone(), insertMove.getfromStreet(), insertMove.getfromCity(), insertMove.getFromZip(), insertMove.getFromState(), insertMove.getToStreet(), insertMove.getToCity(), insertMove.getToZip(), insertMove.getToState(), insertMove.getComments(), insertMove.getDate());
 		
@@ -231,16 +241,16 @@ public class BookMoveController {
 	
 	private Move MoveEntityToMove(MoveEntity moveEntity) {
 		Move move = new Move();
-		move.setID(moveEntity.getID());
+		move.setId(moveEntity.getID());
 		List<Note> notes = NoteEntityToNote(moveEntity.getNotes());
 		move.setNotes(notes);
 		move.setComment(moveEntity.getComment());
-		move.setDateOfMove(moveEntity.getDateOfMove());
+		move.setStartsAt(moveEntity.getMoveStart());
 		move.setEmail(moveEntity.getEmail());
 		move.setFirstName(moveEntity.getFirstName());
-		move.setfromCity(moveEntity.getfromCity());
+		move.setFromCity(moveEntity.getfromCity());
 		move.setFromState(moveEntity.getFromState());
-		move.setfromStreet(moveEntity.getfromStreet());
+		move.setFromStreet(moveEntity.getfromStreet());
 		move.setFromZip(moveEntity.getFromZip());
 		move.setLastName(moveEntity.getLastName());
 		move.setPhone(moveEntity.getPhone());
@@ -252,6 +262,8 @@ public class BookMoveController {
 		move.setStripeCustomerID(moveEntity.getStripeCustomerID());
 		move.setCharges(ChargeEntityToCharge(moveEntity.getCharges()));
 		move.setStatus(moveEntity.getStatus());
+		move.setEndsAt(moveEntity.getMoveEnd());
+		move.setTitle(moveEntity.getMoveTitle());
 		
 		return move;
 	}
@@ -262,16 +274,16 @@ public class BookMoveController {
 		
 		for(int i = 0; i < moveEntityList.size(); i++) {
 			Move move = new Move();
-			move.setID(moveEntityList.get(i).getID());
+			move.setId(moveEntityList.get(i).getID());
 			List<Note> notes = NoteEntityToNote(moveEntityList.get(i).getNotes());
 			move.setNotes(notes);
 			move.setComment(moveEntityList.get(i).getComment());
-			move.setDateOfMove(moveEntityList.get(i).getDateOfMove());
+			move.setStartsAt(moveEntityList.get(i).getMoveStart());
 			move.setEmail(moveEntityList.get(i).getEmail());
 			move.setFirstName(moveEntityList.get(i).getFirstName());
-			move.setfromCity(moveEntityList.get(i).getfromCity());
-			move.setFromState(moveEntityList.get(i).getfromStreet());
-			move.setfromStreet(moveEntityList.get(i).getfromStreet());
+			move.setFromCity(moveEntityList.get(i).getfromCity());
+			move.setFromState(moveEntityList.get(i).getFromState());
+			move.setFromStreet(moveEntityList.get(i).getfromStreet());
 			move.setFromZip(moveEntityList.get(i).getFromZip());
 			move.setLastName(moveEntityList.get(i).getLastName());
 			move.setPhone(moveEntityList.get(i).getPhone());
@@ -283,7 +295,9 @@ public class BookMoveController {
 			move.setStripeCustomerID(moveEntityList.get(i).getStripeCustomerID());
 			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
 			move.setStatus(moveEntityList.get(i).getStatus());
-			
+			move.setTitle(moveEntityList.get(i).getMoveTitle());
+			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
+
 			movesList.add(move);
 		}
 		return movesList;
@@ -356,14 +370,14 @@ private List<ChargeEntity> ChargeToChargeEntity(List<ChargeView> chargeList, Mov
 	private MoveEntity moveToMoveEntity(Move move) {
 		
 		MoveEntity moveEntity = new MoveEntity();
-		moveEntity.setID(move.getID());
-		moveEntity.setDateOfMove(move.getDateOfMove());
+		moveEntity.setID(move.getId());
+		moveEntity.setMoveStart(move.getStartsAt());
 		moveEntity.setComment(move.getComment());
 		moveEntity.setEmail(move.getEmail());
 		moveEntity.setFirstName(move.getFirstName());
-		moveEntity.setfromCity(move.getfromCity());
+		moveEntity.setfromCity(move.getFromCity());
 		moveEntity.setFromState(move.getFromState());
-		moveEntity.setfromStreet(move.getfromStreet());
+		moveEntity.setfromStreet(move.getFromStreet());
 		moveEntity.setFromZip(move.getFromZip());
 		moveEntity.setLastName(move.getLastName());
 		moveEntity.setPhone(move.getPhone());
@@ -376,7 +390,8 @@ private List<ChargeEntity> ChargeToChargeEntity(List<ChargeView> chargeList, Mov
 		moveEntity.setStripeCustomerID(move.getStripeCustomerID());
 		moveEntity.setCharges(ChargeToChargeEntity(move.getCharges(), moveEntity));
 		moveEntity.setNotes(NoteToNoteEntity(move.getNotes(), moveEntity));
-		
+		moveEntity.setMoveEnd(move.getEndsAt());
+		moveEntity.setMoveTitle(move.getTitle());
 		return moveEntity;
 	}
 }

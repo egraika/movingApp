@@ -1,7 +1,8 @@
-<div data-ng-controller="bookedMoveController">
-	<div class="row" st-table="moves" st-pipe="callServer">
+<div data-ng-controller="bookedMoveController as vm">
+	<div class="row" st-table="moves" st-pipe="callServer" ng-hide="isCalendar">
       	<div class="col-xs-12">
 			<h2>Booked Moves</h2>
+			<a ng-click="changeView()">{{bookedMovesView}}</a>
 			<div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
 					<button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">{{itemsByPage}} <span class="caret"></span></button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
@@ -21,7 +22,7 @@
 				<thead>
 					<tr>
 						<th>Customer Name</th>
-						<th st-sort="dateOfMove">Date Of Move</th>
+						<th st-sort="moveStart">Date Of Move</th>
 						<th>Status</th>
 						<th st-sort="dateOfBooking" st-sort-default="reverse">Date Booked</th>
 						<th>Actions</th>
@@ -44,7 +45,7 @@
 				<tbody ng-hide="isLoading">
 					<tr ng-repeat="move in moves">
 						<td>{{move.firstName}} {{move.lastName}}</td>
-						<td>{{move.dateOfMove | date:'MM/dd/yyyy'}}</td>
+						<td>{{move.moveStart | date:'MM/dd/yyyy'}}</td>
 						<td>{{move.status}}</td>
 						<td>{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
 						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
@@ -86,5 +87,75 @@
 				</tfoot>
 			</table>
 		</div>
+	</div>
+	<div ng-show="isCalendar">
+		<h2>Booked Moves</h2>
+		<a ng-click="changeView()">{{bookedMovesView}}</a>
+
+		<h2 class="text-center">{{ vm.calendarTitle }}</h2>
+
+		<div class="row">
+
+			<div class="col-md-6 text-center">
+				<div class="btn-group">
+
+					<button
+							class="btn btn-primary"
+							mwl-date-modifier
+							date="vm.viewDate"
+							decrement="vm.calendarView"
+							ng-click="vm.cellIsOpen = false">
+						Previous
+					</button>
+					<button
+							class="btn btn-default"
+							mwl-date-modifier
+							date="vm.viewDate"
+							set-to-today
+							ng-click="vm.cellIsOpen = false">
+						Today
+					</button>
+					<button
+							class="btn btn-primary"
+							mwl-date-modifier
+							date="vm.viewDate"
+							increment="vm.calendarView"
+							ng-click="vm.cellIsOpen = false">
+						Next
+					</button>
+				</div>
+			</div>
+
+			<br class="visible-xs visible-sm">
+
+			<div class="col-md-6 text-center">
+				<div class="btn-group">
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'" ng-click="vm.cellIsOpen = false">Year</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'" ng-click="vm.cellIsOpen = false">Month</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'" ng-click="vm.cellIsOpen = false">Week</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'day'" ng-click="vm.cellIsOpen = false">Day</label>
+				</div>
+			</div>
+
+		</div>
+
+		<br>
+
+		<mwl-calendar
+				events="events"
+				view="vm.calendarView"
+				view-title="vm.calendarTitle"
+				view-date="vm.viewDate"
+				on-event-click="vm.eventClicked(calendarEvent)"
+				on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+				cell-is-open="vm.cellIsOpen"
+				day-view-start="06:00"
+				day-view-end="22:59"
+				day-view-split="30"
+				cell-modifier="vm.modifyCell(calendarCell)"
+				cell-auto-open-disabled="true"
+				on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)">
+		</mwl-calendar>
+		<br><br><br>
 	</div>
 </div>

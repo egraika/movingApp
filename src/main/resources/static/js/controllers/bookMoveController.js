@@ -1,13 +1,4 @@
 movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout) {
-
-	$scope.changeDate = function(e) {
-     	var numChars = $scope.date.length;
-		if(numChars === 2 || numChars === 5){
-			var thisVal = $scope.date;
-			thisVal += '/';
-			$scope.date = thisVal;
-		}
-      };
       
 	$scope.bookMove = function() {
 		
@@ -24,7 +15,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 			}).then(function successCallBack(response) {
 				$scope.moveData.stripeCustomerID = response.data.stripeCustomerID;
 				$scope.moveData.charges = [];
-				
+				$scope.moveData.startsAt = new Date($scope.moveData.moveStart);
 				$http({
 					method: 'POST',
 					url: '/bookMove',
@@ -37,7 +28,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 					$route.reload();
 					$timeout( function(){
 						window.location.reload();
-				    }, 5000 );
+				    }, 20000 );
 				});
 			}, function errorCallback(response) {
 				var errorElement = document.getElementById('card-errors');

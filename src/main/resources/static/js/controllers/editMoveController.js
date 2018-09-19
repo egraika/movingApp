@@ -5,7 +5,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	
 	$scope.init = function() {
 		getMoveData();
-	}	
+	}
 	
 	function getMoveData() {
 		$http({
@@ -15,6 +15,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.move = response.data;
+			$scope.startsAtPicker.date = $scope.move.startsAt;
 		});
 	}
 	
@@ -31,6 +32,12 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	}
 	 
 	 $scope.save = function() {
+	     $scope.move.startsAt = $scope.startsAtPicker.date;
+	     var tmp = moment($scope.move.startsAt);
+	     $scope.move.startsAt = $scope.move.startsAt;
+         if($scope.move.startsAt <= $scope.move.endsAt) {
+            $scope.move.endsAt = moment($scope.move.startsAt).add(1, 'hours');
+         }
 		 $http({
 				method: 'POST',
 				url: '/updateMove',
@@ -94,14 +101,17 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		     },
 		 });
 	 }
-	 
-	 $scope.changeDate = function(e) {
-		 var numChars = $scope.date.length;
-		 if(numChars === 2 || numChars === 5){
-			 var thisVal = $scope.date;
-			 thisVal += '/';
-			 $scope.date = thisVal;
-		 }
-	 };
-	 
+
+     $scope.startsAtPicker = {
+         date: null
+     };
+     $scope.openCalendar = function(e, picker) {
+        var tmp = $scope[picker];
+        tmp.open = true;
+     };
+
+	 Date.prototype.addHours= function(h){
+         this.setHours(this.getHours()+h);
+         return this;
+     }
 }]);
