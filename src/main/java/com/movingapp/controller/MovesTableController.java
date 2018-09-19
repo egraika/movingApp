@@ -116,16 +116,16 @@ public class MovesTableController {
 		
 		for(int i = 0; i < moveEntityList.size(); i++) {
 			Move move = new Move();
-			move.setID(moveEntityList.get(i).getID());
+			move.setId(moveEntityList.get(i).getID());
 			List<Note> notes = NoteEntityToNote(moveEntityList.get(i).getNotes());
 			move.setNotes(notes);
 			move.setComment(moveEntityList.get(i).getComment());
-			move.setDateOfMove(moveEntityList.get(i).getDateOfMove());
+			move.setStartsAt(moveEntityList.get(i).getMoveStart());
 			move.setEmail(moveEntityList.get(i).getEmail());
 			move.setFirstName(moveEntityList.get(i).getFirstName());
-			move.setfromCity(moveEntityList.get(i).getfromCity());
-			move.setFromState(moveEntityList.get(i).getfromStreet());
-			move.setfromStreet(moveEntityList.get(i).getfromStreet());
+			move.setFromCity(moveEntityList.get(i).getfromCity());
+			move.setFromState(moveEntityList.get(i).getFromState());
+			move.setFromStreet(moveEntityList.get(i).getfromStreet());
 			move.setFromZip(moveEntityList.get(i).getFromZip());
 			move.setLastName(moveEntityList.get(i).getLastName());
 			move.setPhone(moveEntityList.get(i).getPhone());
@@ -137,6 +137,8 @@ public class MovesTableController {
 			move.setStripeCustomerID(moveEntityList.get(i).getStripeCustomerID());
 			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
 			move.setStatus(moveEntityList.get(i).getStatus());
+			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
+			move.setTitle(moveEntityList.get(i).getMoveTitle());
 			
 			movesList.add(move);
 		}

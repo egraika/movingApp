@@ -94,7 +94,7 @@ angular.module('movingApp').controller('DatepickerPopupDemoCtrl', function ($sco
   }
   
 //Put our input DOM element into a jQuery Object
-  var $jqDate = jQuery('input[name="dateOfMove"]');
+  var $jqDate = jQuery('input[name="moveStart"]');
 
   //Bind keyup/keydown to the input
   $jqDate.bind('keyup','keydown', function(e){
