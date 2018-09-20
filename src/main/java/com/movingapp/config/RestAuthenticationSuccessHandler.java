@@ -1,6 +1,6 @@
 package com.movingapp.config;
 
-import com.movingapp.entity.User;
+import com.movingapp.entity.Employee;
 import com.movingapp.dao.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,7 +25,7 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication)
             throws ServletException, IOException {
-        User user = userService.findByLogin(authentication.getName());
-        SecurityUtils.sendResponse(response, HttpServletResponse.SC_OK, user);
+        Employee employee = userService.findByLogin(authentication.getName());
+        SecurityUtils.sendResponse(response, HttpServletResponse.SC_OK, employee);
     }
 }

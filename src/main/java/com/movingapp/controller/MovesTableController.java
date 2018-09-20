@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movingapp.entity.Location;
-import com.movingapp.entity.User;
+import com.movingapp.entity.Employee;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
@@ -91,9 +91,9 @@ public class MovesTableController {
 		Page<Move> pages = null;
 		Page<MoveEntity> moveEntities;
 
-		Optional<User> optionalUser = UserRepo.findById(userid);
-		User user =  optionalUser.get();
-		Set<Location> locations = user.getLocations();
+		Optional<Employee> optionalUser = UserRepo.findById(userid);
+		Employee employee =  optionalUser.get();
+		Set<Location> locations = employee.getLocations();
 		ArrayList<String> locationsStrings = new ArrayList<String>();
 		for (Location location : locations) {
 			locationsStrings.add(location.getLocation());

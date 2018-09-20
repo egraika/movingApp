@@ -2,7 +2,7 @@
 //
 //
 //import com.mycompany.myproject.persist.entity.Token;
-//import com.mycompany.myproject.persist.entity.User;
+//import com.mycompany.myproject.persist.entity.Employee;
 //import com.mycompany.myproject.persist.repo.TokenRepo;
 //import com.mycompany.myproject.persist.repo.UserRepo;
 //import org.apache.commons.lang3.time.DateUtils;
@@ -85,7 +85,7 @@
 //        token.setDate(new Date());
 //        token.setValue(generateTokenData());
 //        token.setIpAddress(request.getRemoteAddr());
-//        token.setUserAgent(request.getHeader("User-Agent"));
+//        token.setUserAgent(request.getHeader("Employee-Agent"));
 //        try {
 //            tokenRepo.save(token);
 //            addCookie(token, request, response);
@@ -101,14 +101,14 @@
 //        String login = successfulAuthentication.getName();
 //
 //        log.debug("Creating new persistent login for user {}", login);
-//        User user = userRepo.findByLogin(login);
+//        Employee user = userRepo.findByLogin(login);
 //        Token token = new Token();
 //        token.setSeries(generateSeriesData());
 //        token.setUserLogin(user.getLogin());
 //        token.setValue(generateTokenData());
 //        token.setDate(new Date());
 //        token.setIpAddress(request.getRemoteAddr());
-//        token.setUserAgent(request.getHeader("User-Agent"));
+//        token.setUserAgent(request.getHeader("Employee-Agent"));
 //        try {
 //            tokenRepo.save(token);
 //            addCookie(token, request, response);

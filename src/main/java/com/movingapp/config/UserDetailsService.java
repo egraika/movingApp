@@ -1,7 +1,7 @@
 package com.movingapp.config;
 
 import com.movingapp.entity.Authority;
-import com.movingapp.entity.User;
+import com.movingapp.entity.Employee;
 import com.movingapp.dao.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,20 +31,20 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
 
-        User user = userRepo.findByLogin(login);
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + login + " was not found in the database");
-        } else if (!user.getEnabled()) {
-            throw new UserNotEnabledException("User " + login + " was not enabled");
+        Employee employee = userRepo.findByLogin(login);
+        if (employee == null) {
+            throw new UsernameNotFoundException("Employee " + login + " was not found in the database");
+        } else if (!employee.getEnabled()) {
+            throw new UserNotEnabledException("Employee " + login + " was not enabled");
         }
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        for (Authority authority : user.getAuthorities()) {
+        for (Authority authority : employee.getAuthorities()) {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getName());
             grantedAuthorities.add(grantedAuthority);
         }
 
-        return new org.springframework.security.core.userdetails.User(login, user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(login, employee.getPassword(),
                 grantedAuthorities);
     }
 }
