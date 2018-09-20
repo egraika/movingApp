@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-xs-4">
 						<label for="phone">Phone</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="10" ng-minlength="10" id="phone" name="phone" ng-model="move.phone" numbers-only phone-input ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.phone"  numbers-only phone-input ng-required="true">
 						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
 					</div>
 				</div>
