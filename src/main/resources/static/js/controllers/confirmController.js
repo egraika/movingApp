@@ -64,7 +64,7 @@ movingApp.controller("confirmController", ['$scope', '$http','$window','$session
 				 $timeout(function() {
 					 modalInstance.close();
 					 $location.path("/login");
-				 }, 3000);
+				 }, 2000);
 		     },
 		     resolve: {
 		    	 data: function () {
