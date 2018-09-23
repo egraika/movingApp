@@ -1,11 +1,14 @@
 package com.movingapp.dao;
 
 
-import com.movingapp.entity.Employee;
+import com.movingapp.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 
-public interface UserRepo extends JpaRepository<Employee, Long> {
-	 Employee findByLogin(String login);
+@Transactional
+public interface UserRepo extends JpaRepository<User, Long> {
+	User findByEmail(String email);
+	User findByConfirmationToken(String confirmationToken);
 }

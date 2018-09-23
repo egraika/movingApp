@@ -86,6 +86,20 @@
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
+			.when('/register', {
+            	templateUrl : 'pages/templates/registration.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/confirm', {
+            	templateUrl : 'pages/templates/confirm.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
 			.otherwise({
 				redirectTo: '/error/404',
 				access: {

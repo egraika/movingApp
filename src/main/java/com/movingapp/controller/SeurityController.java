@@ -1,7 +1,7 @@
 package com.movingapp.controller;
 
 import com.movingapp.entity.Token;
-import com.movingapp.entity.Employee;
+import com.movingapp.entity.User;
 import com.movingapp.dao.TokenRepo;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.config.SecurityUtils;
@@ -29,10 +29,10 @@ public class SeurityController {
 
     @RequestMapping(value = "/security/account", method = RequestMethod.GET)
     public @ResponseBody
-    Employee getUserAccount()  {
-        Employee employee = userRepo.findByLogin(SecurityUtils.getCurrentLogin());
-        employee.setPassword(null);
-        return employee;
+    User getUserAccount()  {
+        User user = userRepo.findByEmail(SecurityUtils.getCurrentLogin());
+        user.setPassword(null);
+        return user;
     }
 
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableJpaRepositories("com.movingapp.dao")
 @Import({ SecurityConfig.class })
 public class UiApplication {
-	
+
 	//this adds http too
 //	@Bean
 //	public Integer port() {
