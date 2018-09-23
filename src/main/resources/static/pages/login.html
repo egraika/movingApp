@@ -1,31 +1,25 @@
-<div ng-controller="loginController" style="margin-top:150px;margin-bottom:300px" class="login">
-	<div class="alert alert-danger" ng-show="error">
-		There was a problem logging in. Please try again.
+<div class="container">
+	<div class="col-md-6 col-md-offset-3" ng-controller="loginController" style="margin-top:150px;margin-bottom:300px">
+		<h2>Login</h2>
+		<form name="form" ng-submit="login()" role="form">
+			<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username" class="form-control" ng-model="credentials.username" required />
+				<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" class="form-control" ng-model="credentials.password" required />
+				<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+			</div>
+			<div class="form-actions">
+				<button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
+				<img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+				<a href="#/register" class="btn btn-link">Register</a>
+			</div>
+			<div class="row" ng-class="{'has-error is-focused' : authenticationError}">
+				<div class="col-xs-12"><span ng-show="authenticationError" class="help-block">Please check your credentials and try again.</span></div>
+			</div>
+		</form>
 	</div>
-	<form role="form" ng-submit="login()">
-		<div class="row">
-			<div class="col-xs-4"></div>
-			<div class="form-group col-xs-4">
-				<label for="username">Username:</label> <input type="text"
-					class="form-control" id="username" name="username" ng-model="credentials.username"/>
-			</div>
-			<div class="col-xs-4"></div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4"></div>
-			<div class="col-xs-4">
-				<label for="password">Password:</label> <input type="password"
-					class="form-control" id="password" name="password" ng-model="credentials.password"/>
-			</div>
-			<div class="col-xs-4"></div>
-		</div>
-		<div class="row" style="margin-top:15px">
-			<div class="col-xs-4"></div>
-			<div class="col-xs-4"><button type="submit" class="btn btn-primary">Submit</button></div>
-		</div>
-		<div class="row" ng-class="{'has-error is-focused' : authenticationError}">
-			<div class="col-xs-4"></div>
-			<div class="col-xs-4"><span ng-show="authenticationError" class="help-block">Please check your credentials and try again.</span></div>
-		</div>
-	</form>
 </div>

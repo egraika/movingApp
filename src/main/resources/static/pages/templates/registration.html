@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="col-md-6 col-md-offset-3" data-ng-controller="registrationController" style="margin-top:150px;margin-bottom:300px">
+        <div ng-hide="registered">
+            <h2>Register</h2>
+            <form name="form" id="form" role="form" autocomplete="off">
+                <div class="form-group">
+                    <label for="username">First name</label>
+                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" name="firstName" id="firstName" class="form-control" ng-model="user.firstName" required />
+                    <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="username">Last name</label>
+                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" name="lastName" id="Text1" class="form-control" ng-model="user.lastName" required />
+                    <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" name="email" id="email" class="form-control" ng-model="user.email" required />
+                    <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary" ng-click="register()">Register</button>
+                    <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <a href="#/login" class="btn btn-link">Cancel</a>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12"><span ng-show="error" class="help-block" style="color: red">Email is already taken.</span></div>
+                </div>
+            </form>
+        </div>
+        <div ng-show="registered">
+            <h4>Success!</h4>
+            <p>A confirmation email has been sent to you. Please follow the link to complete your registration.</p>
+        </div>
+    </div>
+</div>

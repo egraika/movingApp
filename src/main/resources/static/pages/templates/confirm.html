@@ -1,0 +1,47 @@
+<div class="container" data-ng-controller="confirmController" ng-init="confirm()">
+    <div class="col-md-6 col-md-offset-3" style="margin-top:150px;margin-bottom:300px">
+        <div ng-show="confirmed">
+            <hr />
+            <h4>Set Your Password</h4>
+            <form name="form" id="form" role="form" autocomplete="off" method="post">
+                <input type="hidden" name="token" ng-value="{{token}}" ng-model="user.confirmationToken" />
+                <div class="form-group input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input name="password" type="password" id="password" placeholder="Password" ng-model="user.password" class="form-control" required />
+                    <span class="glyphicon" aria-hidden="true"></span>
+                </div>
+                <div class="form-group input-group has-feedback">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input type="password" class="form-control" id="signup-password-confirm" placeholder="Confirm Password" name="ConfirmPassword" ng-model="user.confirmPassword"
+                           data-fv-notempty="true"
+                           data-fv-notempty-message="Please confirm password"
+                           data-fv-identical="true"
+                           data-fv-identical-field="password"
+                           data-fv-identical-message="Both passwords must be identical" />
+                    <div class="help-block with-errors"></div>
+                </div>
+                <button type="submit"
+                        class="btn btn-primary block full-width m-b" ng-click="savePassword()">Save
+                </button>
+            </form>
+        </div>
+        <div ng-hide="confirmed">
+            <h4>Confirmation Failed</h4>
+            <p>Token validation has failed</p>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="saveAlert">
+    <div class="modal-body" style="padding:0px">
+        <div class="alert alert-{{alertData.mode}}" style="margin-bottom:0px">
+            <button type="button" class="close" data-ng-click="close()" >
+                <span class="glyphicon glyphicon-remove-circle"></span>
+            </button>
+            <strong>{{alertData.boldTextTitle}}</strong> {{alertData.textAlert}}
+        </div>
+    </div>
+</script>
