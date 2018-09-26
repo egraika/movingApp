@@ -20,9 +20,11 @@
 	  getAccount: function () {
           $rootScope.loadingAccount = true;
           $http.get('security/account')
-              .then(function (response) {
-                  authService.loginConfirmed(response.data);
-              });
+            .then(function(response) {
+                authService.loginConfirmed(response.data);
+            }, function(response) {
+                //auth failed
+            });
       },
       isAuthorized: function (authorizedRoles) {
           if (!angular.isArray(authorizedRoles)) {

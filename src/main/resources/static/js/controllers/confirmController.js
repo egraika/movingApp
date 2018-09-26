@@ -1,7 +1,7 @@
 movingApp.controller("confirmController", ['$scope', '$http','$window','$sessionStorage','$rootScope','bsLoadingOverlayService','$routeParams','$location','$uibModal','$timeout',  function($scope, $http, $window,$sessionStorage,$rootScope,bsLoadingOverlayService,$routeParams,$location,$uibModal,$timeout) {
 
     $scope.confirmed = false;
-    $scope.passwordSet = false;
+    $scope.passwordNotStrongEnough = false;
     $scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 
     $scope.user = {
@@ -36,13 +36,16 @@ movingApp.controller("confirmController", ['$scope', '$http','$window','$session
           	headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
             $scope.responseEntity = response.data;
-          	$scope.passwordSet = true;
+          	$scope.passwordNotStrongEnough = false;
           	bsLoadingOverlayService.stop();
           	openAlert();
         }, function(response) {
             $scope.responseEntity = response.data;
-            $scope.passwordSet = false;
+            $scope.passwordNotStrongEnough = true;
           	bsLoadingOverlayService.stop();
+            $timeout(function() {
+                $scope.passwordNotStrongEnough = false;
+		    }, 3000);
         });
 	}
 

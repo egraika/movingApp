@@ -20,7 +20,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private int id;
+	private Long id;
 
 	@Column(name = "email", nullable = false, unique = true)
 	@Email(message = "Please provide a valid e-mail")
@@ -66,14 +66,6 @@ public class User implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPassword() {
@@ -130,5 +122,13 @@ public class User implements Serializable {
 
 	public void setConfirmationToken(String confirmationToken) {
 		this.confirmationToken = confirmationToken;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

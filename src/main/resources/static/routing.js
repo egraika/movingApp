@@ -236,7 +236,7 @@
 		  // route change start code ...
 		 $rootScope.$on('$routeChangeStart', function(event, next) {
 			 $rootScope.path = $location.path();
-			 $rootScope.currentPath = $location.path() === '/bookmove' || $location.path() === '/contact' || $rootScope.authenticated;
+			 $rootScope.currentPath = $location.path() === '/bookmove' || $location.path() === '/contact' || $location.path() === '/confirm' || $rootScope.authenticated;
 		 if (next.originalPath === "/login" && $rootScope.authenticated) {
 		   event.preventDefault();
 		  } else if (next.access && next.access.loginRequired && !$rootScope.authenticated) {
