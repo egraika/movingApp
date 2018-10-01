@@ -1,4 +1,4 @@
-movingApp.controller("confirmController", ['$scope', '$http','$window','$sessionStorage','$rootScope','bsLoadingOverlayService','$routeParams','$location','$uibModal','$timeout',  function($scope, $http, $window,$sessionStorage,$rootScope,bsLoadingOverlayService,$routeParams,$location,$uibModal,$timeout) {
+movingApp.controller("confirmPasswordReset", ['$scope', '$http','$window','$sessionStorage','$rootScope','bsLoadingOverlayService','$routeParams','$location','$uibModal','$timeout',  function($scope, $http, $window,$sessionStorage,$rootScope,bsLoadingOverlayService,$routeParams,$location,$uibModal,$timeout) {
 
     $scope.confirmed = false;
     $scope.passwordNotStrongEnough = false;
@@ -14,7 +14,7 @@ movingApp.controller("confirmController", ['$scope', '$http','$window','$session
         bsLoadingOverlayService.start();
 		$http({
           	method: 'GET',
-          	url: '/confirmToken',
+          	url: '/confirmPasswordResetToken',
           	params: {'token' : $routeParams.token},
           	headers:{'Content-Type': 'application/json'}
         }).then(function(response) {

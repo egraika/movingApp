@@ -94,7 +94,21 @@
             	}
             })
             .when('/confirm', {
-            	templateUrl : 'pages/templates/confirm.html',
+            	templateUrl : 'pages/templates/confirmationToken.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/reset/password', {
+            	templateUrl : 'pages/templates/passwordReset.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/reset/password/confirm', {
+            	templateUrl : 'pages/templates/confirmPasswordReset.html',
             	access: {
             		loginRequired: false,
             		authorizedRoles: [USER_ROLES.all]

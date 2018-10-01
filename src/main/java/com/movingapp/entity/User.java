@@ -1,6 +1,8 @@
 package com.movingapp.entity;
 
 
+import org.hibernate.annotations.Cascade;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,8 +40,15 @@ public class User implements Serializable {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@Column(name = "confirmation_token")
-	private String confirmationToken;
+	@OneToOne(mappedBy="user")
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	@PrimaryKeyJoinColumn
+	private ConfirmationToken confirmationToken;
+
+	@OneToOne
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	@PrimaryKeyJoinColumn
+	private PasswordResetToken passwordResetToken;
 
 	@Column(name = "phone")
 	private String phone;
@@ -116,11 +125,11 @@ public class User implements Serializable {
 		this.locations = locations;
 	}
 
-	public String getConfirmationToken() {
+	public ConfirmationToken getConfirmationToken() {
 		return confirmationToken;
 	}
 
-	public void setConfirmationToken(String confirmationToken) {
+	public void setConfirmationToken(ConfirmationToken confirmationToken) {
 		this.confirmationToken = confirmationToken;
 	}
 
@@ -130,5 +139,13 @@ public class User implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public PasswordResetToken getPasswordResetToken() {
+		return passwordResetToken;
+	}
+
+	public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+		this.passwordResetToken = passwordResetToken;
 	}
 }
