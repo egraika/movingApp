@@ -7,4 +7,5 @@ import com.movingapp.entity.Authority;
 
 public interface AuthorityRepo extends JpaRepository<Authority, Long> {
 
+    Authority findByName(String name);
 }

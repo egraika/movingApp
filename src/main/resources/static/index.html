@@ -74,25 +74,25 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LogoutController">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="page-scroll" ng-show="currentPath">
+                    <li class="page-scroll" ng-show="currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
                         <a href="#/#services">Services</a>
                     </li>
-                    <li class="page-scroll" ng-show="!currentPath">
+                    <li class="page-scroll" ng-show="!currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
                         <a href="#services">Services</a>
                     </li>
-                    <li class="page-scroll" ng-show="currentPath">
+                    <li class="page-scroll" ng-show="currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
                         <a href="#/#about">About Us</a>
                     </li>
-                    <li class="page-scroll" ng-show="!currentPath">
+                    <li class="page-scroll" ng-show="!currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
                         <a href="#about">About Us</a>
                     </li>
-                    <li class="page-scroll">
+                    <li class="page-scroll" ng-show="(!isUser && !authenticated) || (isUser && authenticated)">
                         <a href="#/bookmove">Book Online</a>
                     </li>
-                    <li class="page-scroll">
+                    <li class="page-scroll" ng-show="(!isUser && !authenticated) || (isUser && authenticated)">
                         <a href="#/contact">Contact</a>
                     </li>
- 				<li ng-show="authenticated"><a href="#/tables">Booked Moves</a></li>
+ 				<li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
 	            	<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
                 </ul>
             </div>

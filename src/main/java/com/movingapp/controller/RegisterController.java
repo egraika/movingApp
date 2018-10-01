@@ -1,13 +1,14 @@
 package com.movingapp.controller;
 
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import com.movingapp.dao.AuthorityRepo;
 import com.movingapp.dao.ConfirmationTokenRepo;
 import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.Authority;
 import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
 import com.movingapp.service.EmailService;
@@ -41,6 +42,9 @@ public class RegisterController {
     @Autowired
     private ConfirmationTokenRepo confirmationTokenRepo;
 
+    @Autowired
+    private AuthorityRepo authorityRepo;
+
     // Process form input data
     @RequestMapping(value = "/register",method = RequestMethod.POST ,consumes = "application/json")
     public @ResponseBody ResponseEntity processRegistrationForm(@RequestBody User user, HttpServletRequest request) {
@@ -61,6 +65,11 @@ public class RegisterController {
         user.setConfirmationToken(confirmationToken);
         confirmationToken.setUser(user);
         user.setConfirmationToken(confirmationToken);
+
+        Optional<Authority> authority = authorityRepo.findById((long)3);
+        Set<Authority> authorityList = new HashSet<>();
+        authorityList.add(authority.get());
+        user.setAuthorities(authorityList);
 
         user = userRepo.save(user);
         confirmationTokenRepo.save(confirmationToken);

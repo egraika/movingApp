@@ -242,7 +242,9 @@
 	}]);
 	
 	movingApp.run(function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout,bsLoadingOverlayService) {
-		
+
+		$rootScope.isUser = false;
+		$rootScope.authenticated = false;
 		bsLoadingOverlayService.setGlobalConfig({
 			templateUrl: 'pages/loading-overlay-template.html'
 		});

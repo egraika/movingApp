@@ -1,6 +1,8 @@
 package com.movingapp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
@@ -40,12 +42,14 @@ public class User implements Serializable {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@PrimaryKeyJoinColumn
 	private ConfirmationToken confirmationToken;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@PrimaryKeyJoinColumn
 	private PasswordResetToken passwordResetToken;

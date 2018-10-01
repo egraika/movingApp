@@ -11,6 +11,7 @@
                 }), config)
                 .then(function successCallback(response) {
 	    		authService.loginConfirmed(response.data);
+
 	    	  }, function errorCallback(response) {
 	    		  $rootScope.authenticationError = true;
 	    		  Session.invalidate();
@@ -22,6 +23,11 @@
           $http.get('security/account')
             .then(function(response) {
                 authService.loginConfirmed(response.data);
+                if(response.data.authorities[0].name == "user") {
+                    $rootScope.isUser = true;
+                } else {
+                    $rootScope.isUser = false;
+                }
             }, function(response) {
                 //auth failed
             });

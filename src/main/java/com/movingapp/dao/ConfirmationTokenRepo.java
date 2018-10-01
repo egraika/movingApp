@@ -27,6 +27,6 @@ public interface ConfirmationTokenRepo extends JpaRepository<ConfirmationToken, 
     void deleteAllExpiredSince(Date now);
 
     @Modifying
-    @Query("delete from PasswordResetToken where user_id = :id")
+    @Query("delete from ConfirmationToken where user_id = :id")
     void deleteByUserId( @Param("id") long id);
 }

@@ -1,7 +1,9 @@
 package com.movingapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "password_reset_token")
-public class PasswordResetToken {
+public class PasswordResetToken implements Serializable {
 
     private static final int EXPIRATION = 60 * 24;
 
@@ -22,6 +24,7 @@ public class PasswordResetToken {
     private String token;
 
     @OneToOne(mappedBy="passwordResetToken")
+    @JsonBackReference
     @Cascade({org.hibernate.annotations.CascadeType.REMOVE,org.hibernate.annotations.CascadeType.PERSIST})
     @PrimaryKeyJoinColumn
     private User user;

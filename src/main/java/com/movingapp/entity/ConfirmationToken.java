@@ -1,7 +1,9 @@
 package com.movingapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "confirmation_token")
-public class ConfirmationToken {
+public class ConfirmationToken implements Serializable {
 
     private static final int EXPIRATION = 60 * 24;
 
@@ -22,6 +24,7 @@ public class ConfirmationToken {
     private String token;
 
     @OneToOne
+    @JsonBackReference
     @Cascade({org.hibernate.annotations.CascadeType.REMOVE,org.hibernate.annotations.CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;
