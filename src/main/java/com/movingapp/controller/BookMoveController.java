@@ -4,40 +4,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-
+import com.movingapp.dao.AuthorityRepo;
+import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.Authority;
+import com.movingapp.entity.User;
+import com.movingapp.service.MoveMapping;
+import com.movingapp.service.UserService;
+import com.movingapp.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
-import com.movingapp.model.NoteEntity;
-import com.movingapp.view.ChargeView;
-import com.movingapp.view.Move;
-import com.movingapp.view.Note;
-import com.movingapp.view.StripeView;
-import com.stripe.Stripe;
-import com.stripe.exception.APIConnectionException;
-import com.stripe.exception.APIException;
-import com.stripe.exception.AuthenticationException;
-import com.stripe.exception.CardException;
-import com.stripe.exception.InvalidRequestException;
-import com.stripe.model.Charge;
-import com.stripe.model.Customer;
-
-import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -54,80 +39,56 @@ public class BookMoveController {
 	
 	@Autowired
 	private HttpServletRequest request;
-	
-	@Transactional
-	@RequestMapping(value = "/updateMove",method = RequestMethod.POST ,consumes = "application/json")
-	@ResponseBody
-	public Move updateMove(@RequestBody Move move) {
-		
-		MoveEntity moveEntity = moveToMoveEntity(move);
-		if(moveEntity.getMoveStart().isAfter(moveEntity.getMoveEnd())) {
-			moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
-		}
-		moveEntity.setMoveTitle(move.getFirstName() + " " + move.getLastName());
-		BookMovesDao.save(moveEntity);
 
-		return MoveEntityToMove(moveEntity);
-	}
+	@Autowired
+	private UserRepo userRepo;
 
-	@RequestMapping(value = "/stripeDeposit",method = RequestMethod.POST ,consumes = "application/json")
-	@ResponseBody
-	public Move stripeDesposit(@RequestBody StripeView stripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		// Set your secret key: remember to change this to your live secret key in production
-		// See your keys here: https://dashboard.stripe.com/account/apikeys
-		Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-		//Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
-		
-		// Token is created using Stripe.js or Checkout!
-		// Get the payment token submitted by the form:
-		String token = stripe.getToken();
+	@Autowired
+	private UserService userService;
 
-		// Create a Customer:
-		Map<String, Object> customerParams = new HashMap<String, Object>();
-		customerParams.put("email", "ericgraika@gmail.com");
-		customerParams.put("source", token);
-		Customer customer = Customer.create(customerParams);
+	@Autowired
+	private AuthorityRepo authorityRepo;
 
-		// Charge the Customer instead of the card:
-		Map<String, Object> chargeParams = new HashMap<String, Object>();
-		chargeParams.put("amount", 100);
-		chargeParams.put("currency", "usd");
-		chargeParams.put("customer", customer.getId());
-		Charge charge = Charge.create(chargeParams);
-
-		// YOUR CODE: Save the customer ID and other info in a database for later.
-
-		// YOUR CODE (LATER): When it's time to charge the customer again, retrieve the customer ID.
-//		Map<String, Object> chargeParams = new HashMap<String, Object>();
-//		chargeParams.put("amount", 1500); // $15.00 this time
-//		chargeParams.put("currency", "usd");
-//		chargeParams.put("customer", customerId);
-//		Charge charge = Charge.create(chargeParams);
-		Move move = new Move();
-		move.setStripeCustomerID(customer.getId());
-		return move;
-	}
+	@Autowired
+	private MoveMapping moveMapping;
 	
 	@RequestMapping(value = "/bookMove",method = RequestMethod.POST ,consumes = "application/json")
 	@ResponseBody
-	public Move submitMove(@RequestBody Move move) {
+	public ResponseEntity<Move> submitMove(@RequestBody Move move, @Param("userId") String userId) {
 		 //Gson gson = new Gson();
 		 //Move insertMove = gson.fromJson(move, Move.class);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date input = new Date();
 		LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		move.setDateOfBooking(date);
-		MoveEntity moveEntity = moveToMoveEntity(move);
+		User userExists;
+		if(userId != null) {
+			userExists = userService.findById(Long.parseLong(userId));
+			UserView userView = new UserView();
+			userView.setId(userExists.getId());
+			move.setUser(userView);
+		} else {
+			userExists = userService.findByEmail(move.getUser().getEmail());
+			if(userExists != null) {
+				return new ResponseEntity<>(move,HttpStatus.BAD_REQUEST);
+			}
+			User user = createNewUser(move.getUser());
+			UserView userView = new UserView();
+			userView.setId(userExists.getId());
+			move.setUser(userView);
+		}
+
+		MoveEntity moveEntity = moveMapping.moveToMoveEntity(move);
 		
-		List<ChargeEntity> charges = new ArrayList<ChargeEntity>();
-		ChargeEntity charge = new ChargeEntity();
-		charge.setAmount(1);
-		charge.setDate(new Date());
-		charge.setMove(moveEntity);
-		charges.add(charge);
-		moveEntity.setCharges(charges);
+//		List<ChargeEntity> charges = new ArrayList<ChargeEntity>();
+//		ChargeEntity charge = new ChargeEntity();
+//		charge.setAmount(1);
+//		charge.setDate(new Date());
+//		charge.setMove(moveEntity);
+//		charges.add(charge);
+//		moveEntity.setCharges(charges);
 		moveEntity.setStatus("open");
-		moveEntity.setMoveTitle(move.getFirstName() + " " + move.getLastName());
+		moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
 		moveEntity.setDateOfBooking(LocalDate.now());
 		moveEntity.setMoveStart(moveEntity.getMoveStart().plusHours(8));
 		moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
@@ -150,9 +111,9 @@ public class BookMoveController {
 					Message message = new MimeMessage(session);
 					message.setFrom(new InternetAddress("MoveMuscle@gmail.com"));
 					message.setRecipients(Message.RecipientType.TO,
-						InternetAddress.parse(move.getEmail()));
+						InternetAddress.parse(moveEntity.getUser().getEmail()));
 					message.setSubject("Move Muscle Comfirmation");
-					message.setText("Your move for the date of " + move.getDateOfBooking().toString() + " has been booked");
+					message.setText("Your move for the date of " + moveEntity.getMoveStart().toLocalDate().toString() + " has been booked");
 
 					Transport.send(message);
 
@@ -162,237 +123,22 @@ public class BookMoveController {
 					throw new RuntimeException(e);
 				}
 		
-		return MoveEntityToMove(moveEntity);
-	}
-	
-//	@RequestMapping(value = "/getBookedMoves",method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<Move> getBookedMoves() {
-//		
-//		List<MoveEntity> moveEntityList = BookMovesDao.findAll();
-//		List<Move> moves = MoveEntityToMoves(moveEntityList);
-//		
-//		return moves;
-//	}
-	
-	@RequestMapping(value = "/getMove",method = RequestMethod.POST)
-	@ResponseBody
-	public Move getMove(@RequestParam("id") int moveID) {
-		
-		MoveEntity moveEntity = BookMovesDao.findById(moveID);
-		Move move = MoveEntityToMove(moveEntity);
-		
-		return move;
-	}
-	
-	@RequestMapping(value = "/addNote",method = RequestMethod.POST)
-	@ResponseBody
-	public Note addNote(@RequestParam("id") int moveID, @RequestParam("username") String username) {
-		
-		MoveEntity moveEntity = BookMovesDao.findById(moveID);
-		List<NoteEntity> noteEntityList = moveEntity.getNotes();
-		NoteEntity note = new NoteEntity();
-		
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		note.setDate(date);
-		note.setAuthor(username);
-		note.setMove(moveEntity);
-		noteEntityList.add(note);
-		moveEntity.setNotes(noteEntityList);
-		
-		MoveEntity moveAfterSave = BookMovesDao.save(moveEntity);
-		List<NoteEntity> newNoteEntity = moveAfterSave.getNotes();
-		
-		List<Note> newNotesList = NoteEntityToNote(newNoteEntity);
-		return newNotesList.get(newNotesList.size()-1);
-	}
-	
-	@RequestMapping(value = "/addCharge",method = RequestMethod.POST)
-	@ResponseBody
-	public ChargeView addCharge(@RequestParam("customerID") String customerID, @RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		
-		Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-		//Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
-		MoveEntity moveEntity = BookMovesDao.findById(moveID);
-		List<ChargeEntity> chargeEntityList = moveEntity.getCharges();
-		ChargeEntity charge = new ChargeEntity();
-		
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		charge.setAmount(amount);
-		charge.setDate(date);
-		charge.setMove(moveEntity);
-		chargeEntityList.add(charge);
-		moveEntity.setCharges(chargeEntityList);;
-
-		Map<String, Object> chargeParams = new HashMap<String, Object>();
-		chargeParams.put("amount", (int) amount*100); // $15.00 this time
-		chargeParams.put("currency", "usd");
-		chargeParams.put("customer", customerID);
-		Charge chargeCustomer = Charge.create(chargeParams);
-		
-		MoveEntity moveAfterSave = BookMovesDao.save(moveEntity);
-		List<ChargeEntity> newChargeEntity = moveAfterSave.getCharges();
-		
-		List<ChargeView> newChargeList = ChargeEntityToCharge(newChargeEntity);
-		return newChargeList.get(newChargeList.size()-1);
-	}
-	
-	private Move MoveEntityToMove(MoveEntity moveEntity) {
-		Move move = new Move();
-		move.setId(moveEntity.getID());
-		List<Note> notes = NoteEntityToNote(moveEntity.getNotes());
-		move.setNotes(notes);
-		move.setComment(moveEntity.getComment());
-		move.setStartsAt(moveEntity.getMoveStart());
-		move.setEmail(moveEntity.getEmail());
-		move.setFirstName(moveEntity.getFirstName());
-		move.setFromCity(moveEntity.getfromCity());
-		move.setFromState(moveEntity.getFromState());
-		move.setFromStreet(moveEntity.getfromStreet());
-		move.setFromZip(moveEntity.getFromZip());
-		move.setLastName(moveEntity.getLastName());
-		move.setPhone(moveEntity.getPhone());
-		move.setToCity(moveEntity.getToCity());
-		move.setToState(moveEntity.getToState());
-		move.setToStreet(moveEntity.getToStreet());
-		move.setToZip(moveEntity.getToZip());
-		move.setDateOfBooking(moveEntity.getDateOfBooking());
-		move.setStripeCustomerID(moveEntity.getStripeCustomerID());
-		move.setCharges(ChargeEntityToCharge(moveEntity.getCharges()));
-		move.setStatus(moveEntity.getStatus());
-		move.setEndsAt(moveEntity.getMoveEnd());
-		move.setTitle(moveEntity.getMoveTitle());
-		
-		return move;
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
-	private List<Move> MoveEntityToMoves(List<MoveEntity> moveEntityList) {
-		
-		List<Move> movesList = new ArrayList<Move>();
-		
-		for(int i = 0; i < moveEntityList.size(); i++) {
-			Move move = new Move();
-			move.setId(moveEntityList.get(i).getID());
-			List<Note> notes = NoteEntityToNote(moveEntityList.get(i).getNotes());
-			move.setNotes(notes);
-			move.setComment(moveEntityList.get(i).getComment());
-			move.setStartsAt(moveEntityList.get(i).getMoveStart());
-			move.setEmail(moveEntityList.get(i).getEmail());
-			move.setFirstName(moveEntityList.get(i).getFirstName());
-			move.setFromCity(moveEntityList.get(i).getfromCity());
-			move.setFromState(moveEntityList.get(i).getFromState());
-			move.setFromStreet(moveEntityList.get(i).getfromStreet());
-			move.setFromZip(moveEntityList.get(i).getFromZip());
-			move.setLastName(moveEntityList.get(i).getLastName());
-			move.setPhone(moveEntityList.get(i).getPhone());
-			move.setToCity(moveEntityList.get(i).getToCity());
-			move.setToState(moveEntityList.get(i).getToState());
-			move.setToStreet(moveEntityList.get(i).getToStreet());
-			move.setToZip(moveEntityList.get(i).getToZip());
-			move.setDateOfBooking(moveEntityList.get(i).getDateOfBooking());
-			move.setStripeCustomerID(moveEntityList.get(i).getStripeCustomerID());
-			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
-			move.setStatus(moveEntityList.get(i).getStatus());
-			move.setTitle(moveEntityList.get(i).getMoveTitle());
-			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
+	private User createNewUser(UserView user) {
+		User saveUser = new User();
+		saveUser.setPhone(user.getPhone());
+		saveUser.setEmail(user.getEmail());
+		saveUser.setLastName(user.getLastName());
+		saveUser.setFirstName(user.getFirstName());
+		Optional<Authority> authority = authorityRepo.findById((long)3);
+		Set<Authority> authorityList = new HashSet<>();
+		authorityList.add(authority.get());
+		saveUser.setAuthorities(authorityList);
+		saveUser.setEnabled(false);
 
-			movesList.add(move);
-		}
-		return movesList;
-	}
-
-	private List<Note> NoteEntityToNote(List<NoteEntity> notesEntityList) {
-		
-		List<Note> noteList = new ArrayList<Note>();
-		
-		for(int i = 0; i < notesEntityList.size(); i++) {
-			Note note = new Note();
-			note.setAuthor(notesEntityList.get(i).getAuthor());
-			note.setComment(notesEntityList.get(i).getComment());
-			note.setDate(notesEntityList.get(i).getDate());
-			note.setID(notesEntityList.get(i).getID());
-			noteList.add(note);
-		}
-		
-		return noteList;
-	}
-	
-private List<NoteEntity> NoteToNoteEntity(List<Note> notesList, MoveEntity move) {
-		
-		List<NoteEntity> noteEntityList = new ArrayList<NoteEntity>();
-		
-		for(int i = 0; i < notesList.size(); i++) {
-			NoteEntity note = new NoteEntity();
-			note.setAuthor(notesList.get(i).getAuthor());
-			note.setComment(notesList.get(i).getComment());
-			note.setDate(notesList.get(i).getDate());
-			note.setID(notesList.get(i).getID());
-			note.setMove(move);
-			noteEntityList.add(note);
-		}
-		
-		return noteEntityList;
-	}
-
-private List<ChargeView> ChargeEntityToCharge(List<ChargeEntity> chargeEntityList) {
-	
-	List<ChargeView> chargeList = new ArrayList<ChargeView>();
-	
-	for(int i = 0; i < chargeEntityList.size(); i++) {
-		ChargeView charge = new ChargeView();
-		charge.setAmount(chargeEntityList.get(i).getAmount());
-		charge.setDate(chargeEntityList.get(i).getDate());
-		charge.setID(chargeEntityList.get(i).getID());
-		chargeList.add(charge);
-	}
-	
-	return chargeList;
-}
-
-private List<ChargeEntity> ChargeToChargeEntity(List<ChargeView> chargeList, MoveEntity Move) {
-	
-	List<ChargeEntity> chargeEntityList = new ArrayList<ChargeEntity>();
-	
-	for(int i = 0; i < chargeList.size(); i++) {
-		ChargeEntity charge = new ChargeEntity();
-		charge.setAmount(chargeList.get(i).getAmount());
-		charge.setDate(chargeList.get(i).getDate());
-		charge.setID(chargeList.get(i).getID());
-		charge.setMove(Move);
-		chargeEntityList.add(charge);
-	}
-	
-	return chargeEntityList;
-}
-
-	private MoveEntity moveToMoveEntity(Move move) {
-		
-		MoveEntity moveEntity = new MoveEntity();
-		moveEntity.setID(move.getId());
-		moveEntity.setMoveStart(move.getStartsAt());
-		moveEntity.setComment(move.getComment());
-		moveEntity.setEmail(move.getEmail());
-		moveEntity.setFirstName(move.getFirstName());
-		moveEntity.setfromCity(move.getFromCity());
-		moveEntity.setFromState(move.getFromState());
-		moveEntity.setfromStreet(move.getFromStreet());
-		moveEntity.setFromZip(move.getFromZip());
-		moveEntity.setLastName(move.getLastName());
-		moveEntity.setPhone(move.getPhone());
-		moveEntity.setToCity(move.getToCity());
-		moveEntity.setToState(move.getToState());
-		moveEntity.setToStreet(move.getToStreet());
-		moveEntity.setToZip(move.getToZip());
-		moveEntity.setDateOfBooking(move.getDateOfBooking());
-		moveEntity.setStatus(move.getStatus());
-		moveEntity.setStripeCustomerID(move.getStripeCustomerID());
-		moveEntity.setCharges(ChargeToChargeEntity(move.getCharges(), moveEntity));
-		moveEntity.setNotes(NoteToNoteEntity(move.getNotes(), moveEntity));
-		moveEntity.setMoveEnd(move.getEndsAt());
-		moveEntity.setMoveTitle(move.getTitle());
-		return moveEntity;
+		return userRepo.save(saveUser);
 	}
 }
 

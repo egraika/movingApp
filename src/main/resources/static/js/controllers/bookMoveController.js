@@ -1,42 +1,50 @@
-movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout) {
-      
+movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout','$rootScope','Session',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout,$rootScope,Session) {
+
+    $scope.init = function() {
+        if($rootScope.authenticated) {
+            $('#firstName').removeAttr('required');
+            $('#lastName').removeAttr('required');
+            $('#email').removeAttr('required');
+            $('#phone').removeAttr('required');
+        }
+    }
 	$scope.bookMove = function() {
-		
 		$scope.moveData.notes = [];
 		var jsonString = JSON.stringify($scope.moveData);
-		
-		$scope.stripe.email = $scope.moveData.email;
+		$scope.moveData.startsAt = new Date($scope.moveData.moveStart);
 		bsLoadingOverlayService.start();
-		$http({
-				method: 'POST',
-				url: '/stripeDeposit',
-				data: $scope.stripe,
-				headers:{'Content-Type': 'application/json'}
-			}).then(function successCallBack(response) {
-				$scope.moveData.stripeCustomerID = response.data.stripeCustomerID;
-				$scope.moveData.charges = [];
-				$scope.moveData.startsAt = new Date($scope.moveData.moveStart);
-				$http({
-					method: 'POST',
-					url: '/bookMove',
-					data: $scope.moveData,
-					headers:{'Content-Type': 'application/json'}
-				}).then(function successCallBack(response) {
-					bsLoadingOverlayService.stop();
-					$('#checkout').modal('hide');
-					$location.path('/confirmation');
-					$route.reload();
-					$timeout( function(){
-						window.location.reload();
-				    }, 20000 );
-				});
-			}, function errorCallback(response) {
-				var errorElement = document.getElementById('card-errors');
-				bsLoadingOverlayService.stop();
-				errorElement.style.color = "Red";
-				errorElement.style.fontSize = "large";
-				errorElement.textContent = response.data.message;
-			});
+        $http({
+			method: 'POST',
+			url: '/bookMove',
+			data: $scope.moveData,
+			params: {"userId": Session.id},
+			headers:{'Content-Type': 'application/json'}
+		}).then(function successCallBack(response) {
+			bsLoadingOverlayService.stop();
+			$location.path('/confirmation');
+			$route.reload();
+			$timeout( function(){
+				window.location.reload();
+			}, 20000 );
+		});
+//		$scope.stripe.email = $scope.moveData.email;
+//		$http({
+//				method: 'POST',
+//				url: '/stripeDeposit',
+//				data: $scope.stripe,
+//				headers:{'Content-Type': 'application/json'}
+//			}).then(function successCallBack(response) {
+//				$scope.moveData.stripeCustomerID = response.data.stripeCustomerID;
+//				$scope.moveData.charges = [];
+//				$scope.moveData.startsAt = new Date($scope.moveData.moveStart);
+//			}, function errorCallback(response) {
+//				var errorElement = document.getElementById('card-errors');
+//				bsLoadingOverlayService.stop();
+//				errorElement.style.color = "Red";
+//				errorElement.style.fontSize = "large";
+//				errorElement.textContent = response.data.message;
+//			});
+//$('#checkout').modal('hide');
 	}
 	
 	// Create a Stripe client

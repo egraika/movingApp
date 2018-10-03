@@ -13,10 +13,6 @@ public class Move{
 	
 
 	private int id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
 	private String fromStreet;
 	private String fromCity;
 	private int fromZip;
@@ -28,6 +24,7 @@ public class Move{
 	private String toState;
 	private List<Note> notes;
 	private List<ChargeView> charges;
+	private UserView user;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
 	private OffsetDateTime startsAt;
@@ -49,36 +46,12 @@ public class Move{
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public UserView getUser() {
+		return user;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUser(UserView user) {
+		this.user = user;
 	}
 
 	public String getFromStreet() {

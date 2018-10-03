@@ -92,6 +92,12 @@
                     <li class="page-scroll" ng-show="(!isUser && !authenticated) || (isUser && authenticated)">
                         <a href="#/contact">Contact</a>
                     </li>
+                    <li ng-hide="authenticated">
+                        <a href="#/login">Login</a>
+                    </li>
+                    <li ng-show="authenticated">
+                        <a href="#/myMoves">My Moves</a>
+                    </li>
  				<li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
 	            	<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
                 </ul>
@@ -170,6 +176,8 @@
     <script src="js/controllers/confirmController.js"></script>
     <script src="js/controllers/confirmPasswordResetController.js"></script>
     <script src="js/controllers/passwordResetController.js"></script>
+    <script src="js/controllers/myMovesController.js"></script>
+    <script src="js/controllers/editMyMoveController.js"></script>
 </body>
 
 </html>

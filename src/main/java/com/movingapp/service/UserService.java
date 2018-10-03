@@ -5,6 +5,8 @@ import com.movingapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service("userService")
 public class UserService {
 
@@ -21,6 +23,11 @@ public class UserService {
 
     public User findByConfirmationToken(String confirmationToken) {
         return userRepository.findByConfirmationToken(confirmationToken);
+    }
+
+    public User findById(long id) {
+        Optional<User> user =  userRepository.findById(id);
+        return user.get();
     }
 
     public User saveUser(User user) {

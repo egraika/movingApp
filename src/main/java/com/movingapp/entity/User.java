@@ -3,6 +3,7 @@ package com.movingapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.model.MoveEntity;
 import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
@@ -39,6 +40,12 @@ public class User implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
+	@Column(name = "cc_last_four")
+	private String ccLastFour;
+
+	@Column(name = "cc_expiration_date")
+	private String ccExpirationDate;
+
 	@Column(name = "enabled")
 	private boolean enabled;
 
@@ -56,6 +63,12 @@ public class User implements Serializable {
 
 	@Column(name = "phone")
 	private String phone;
+
+	@Column(name = "stripe_Customer_ID")
+	private String stripeCustomerID;
+
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
+	private Set<MoveEntity> moves;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "user_to_location", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "location_id"))
@@ -151,5 +164,37 @@ public class User implements Serializable {
 
 	public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
 		this.passwordResetToken = passwordResetToken;
+	}
+
+	public String getStripeCustomerID() {
+		return stripeCustomerID;
+	}
+
+	public void setStripeCustomerID(String stripeCustomerID) {
+		this.stripeCustomerID = stripeCustomerID;
+	}
+
+	public Set<MoveEntity> getMoves() {
+		return moves;
+	}
+
+	public void setMoves(Set<MoveEntity> moves) {
+		this.moves = moves;
+	}
+
+	public String getCcLastFour() {
+		return ccLastFour;
+	}
+
+	public void setCcLastFour(String ccLastFour) {
+		this.ccLastFour = ccLastFour;
+	}
+
+	public String getCcExpirationDate() {
+		return ccExpirationDate;
+	}
+
+	public void setCcExpirationDate(String ccExpirationDate) {
+		this.ccExpirationDate = ccExpirationDate;
 	}
 }
