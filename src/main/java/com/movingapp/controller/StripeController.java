@@ -1,16 +1,24 @@
 package com.movingapp.controller;
 
+import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.service.MoveMapping;
+import com.movingapp.service.UserMapping;
+import com.movingapp.service.UserService;
 import com.movingapp.view.ChargeView;
 import com.movingapp.view.Move;
 import com.movingapp.view.StripeView;
+import com.movingapp.view.UserView;
 import com.stripe.Stripe;
 import com.stripe.exception.*;
+import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,30 +36,50 @@ public class StripeController {
     @Autowired
     private MoveMapping moveMapping;
 
-    @RequestMapping(value = "/stripeDeposit",method = RequestMethod.POST ,consumes = "application/json")
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserMapping userMapping;
+
+    @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
-    public Move stripeDesposit(@RequestBody StripeView stripe) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
         //Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
 
+        User user = userService.findById(userid);
+
         // Token is created using Stripe.js or Checkout!
         // Get the payment token submitted by the form:
         String token = stripe.getToken();
-
-        // Create a Customer:
-        Map<String, Object> customerParams = new HashMap<String, Object>();
-        customerParams.put("email", "ericgraika@gmail.com");
-        customerParams.put("source", token);
-        Customer customer = Customer.create(customerParams);
-
+        Customer customer;
+        Card card;
+        if(user.getStripeCustomerID() == null) {
+            // Create a Customer:
+            Map<String, Object> customerParams = new HashMap<String, Object>();
+            customerParams.put("email", "ericgraika@gmail.com");
+            customerParams.put("source", token);
+            customer = Customer.create(customerParams);
+            card = (Card) customer.getSources().retrieve(customer.getDefaultSource());
+        } else {
+            customer = Customer.retrieve(user.getStripeCustomerID());
+            card = (Card) customer.getSources().retrieve(customer.getDefaultSource());
+            Map<String, Object> params = new HashMap<>();
+            params.put("source", token);
+            customer.update(params);
+        }
         // Charge the Customer instead of the card:
-        Map<String, Object> chargeParams = new HashMap<String, Object>();
-        chargeParams.put("amount", 100);
-        chargeParams.put("currency", "usd");
-        chargeParams.put("customer", customer.getId());
-        Charge charge = Charge.create(chargeParams);
+//        Map<String, Object> chargeParams = new HashMap<String, Object>();
+//        chargeParams.put("amount", 0);
+//        chargeParams.put("currency", "usd");
+//        chargeParams.put("customer", customer.getId());
+//        Charge charge = Charge.create(chargeParams);
 
         // YOUR CODE: Save the customer ID and other info in a database for later.
 
@@ -61,9 +89,13 @@ public class StripeController {
 //		chargeParams.put("currency", "usd");
 //		chargeParams.put("customer", customerId);
 //		Charge charge = Charge.create(chargeParams);
-        Move move = new Move();
-        move.setStripeCustomerID(customer.getId());
-        return move;
+        user.setCcExpirationDate(card.getExpMonth() + "/" + card.getExpYear());
+        user.setCcLastFour(card.getLast4());
+        user.setCcCardType(card.getBrand());
+        user.setStripeCustomerID(customer.getId());
+        userService.saveUser(user);
+        UserView userView = userMapping.UserToUserView(user);
+        return new ResponseEntity<>(userView, HttpStatus.OK);
     }
 
 

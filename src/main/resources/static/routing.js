@@ -128,6 +128,13 @@
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
+            .when('/profile', {
+            	templateUrl : 'pages/user/profile.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
 			.otherwise({
 				redirectTo: '/error/404',
 				access: {

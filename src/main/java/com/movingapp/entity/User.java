@@ -46,6 +46,9 @@ public class User implements Serializable {
 	@Column(name = "cc_expiration_date")
 	private String ccExpirationDate;
 
+	@Column(name = "cc_card_type")
+	private String ccCardType;
+
 	@Column(name = "enabled")
 	private boolean enabled;
 
@@ -196,5 +199,13 @@ public class User implements Serializable {
 
 	public void setCcExpirationDate(String ccExpirationDate) {
 		this.ccExpirationDate = ccExpirationDate;
+	}
+
+	public String getCcCardType() {
+		return ccCardType;
+	}
+
+	public void setCcCardType(String ccCardType) {
+		this.ccCardType = ccCardType;
 	}
 }

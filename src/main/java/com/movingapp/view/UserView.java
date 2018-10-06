@@ -7,6 +7,9 @@ public class UserView {
 	private String firstName;
 	private String lastName;
 	private String phone;
+	private String ccLastFour;
+	private String ccExpirationDate;
+	private String cardType;
 
 	public UserView(){}
 
@@ -49,5 +52,29 @@ public class UserView {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getCcLastFour() {
+		return ccLastFour;
+	}
+
+	public void setCcLastFour(String ccLastFour) {
+		this.ccLastFour = ccLastFour;
+	}
+
+	public String getCcExpirationDate() {
+		return ccExpirationDate;
+	}
+
+	public void setCcExpirationDate(String ccExpirationDate) {
+		this.ccExpirationDate = ccExpirationDate;
+	}
+
+	public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
 	}
 }

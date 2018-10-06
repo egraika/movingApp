@@ -74,23 +74,20 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LogoutController">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="page-scroll" ng-show="currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
+                    <li class="page-scroll" ng-show="currentPath && !authenticated">
                         <a href="#/#services">Services</a>
                     </li>
-                    <li class="page-scroll" ng-show="!currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
+                    <li class="page-scroll" ng-show="!currentPath && !authenticated">
                         <a href="#services">Services</a>
                     </li>
-                    <li class="page-scroll" ng-show="currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
+                    <li class="page-scroll" ng-show="currentPath && !authenticated">
                         <a href="#/#about">About Us</a>
                     </li>
-                    <li class="page-scroll" ng-show="!currentPath && ((!isUser && !authenticated) || (isUser && authenticated))">
+                    <li class="page-scroll" ng-show="!currentPath && !authenticated">
                         <a href="#about">About Us</a>
                     </li>
-                    <li class="page-scroll" ng-show="(!isUser && !authenticated) || (isUser && authenticated)">
+                    <li class="page-scroll">
                         <a href="#/bookmove">Book Online</a>
-                    </li>
-                    <li class="page-scroll" ng-show="(!isUser && !authenticated) || (isUser && authenticated)">
-                        <a href="#/contact">Contact</a>
                     </li>
                     <li ng-hide="authenticated">
                         <a href="#/login">Login</a>
@@ -98,7 +95,10 @@
                     <li ng-show="authenticated">
                         <a href="#/myMoves">My Moves</a>
                     </li>
- 				<li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
+ 				    <li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
+                    <li ng-show="authenticated">
+                        <a href="#/profile">Profile</a>
+                    </li>
 	            	<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
                 </ul>
             </div>
@@ -136,8 +136,9 @@
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>More Information</h3>
+                        <p><a href="#/contact">Contact Us</a></p>
                         <p><a href="#">Privacy Policy</a></p>
-                         <p><a href="#">Terms and Conditions</a></p>
+                        <p><a href="#">Terms and Conditions</a></p>
                     </div>
                 </div>
             </div>
@@ -178,6 +179,7 @@
     <script src="js/controllers/passwordResetController.js"></script>
     <script src="js/controllers/myMovesController.js"></script>
     <script src="js/controllers/editMyMoveController.js"></script>
+    <script src="js/controllers/editProfileController.js"></script>
 </body>
 
 </html>
