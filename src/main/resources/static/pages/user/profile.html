@@ -4,7 +4,7 @@
             <form id="editMoveForm" name="editMoveForm">
                 <h2>My Profile</h2>
                 <hr>
-                <div class="row">
+                <div class="row form-group">
                     <div class="col-xs-4">
                         <label for="firstName">First Name</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="user.firstName" class="form-control"></input>
@@ -14,7 +14,7 @@
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="user.lastName" class="form-control"></input>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <div class="col-xs-4">
                         <label for="email">Email</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control"></input>
@@ -25,7 +25,7 @@
                         <span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
                     </div>
                 </div>
-                <div class="row" ng-show="creditCardSet">
+                <div class="row form-group" ng-show="creditCardSet">
                     <div class="col-xs-4">
                         <label>Current Credit Card</label>
                         <p>{{user.cardType}} ending in {{user.ccLastFour}}</p>

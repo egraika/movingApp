@@ -1,5 +1,6 @@
 package com.movingapp.controller;
 
+import com.movingapp.Constants.MovingAppConstants;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
@@ -8,7 +9,6 @@ import com.movingapp.service.MoveMapping;
 import com.movingapp.service.UserMapping;
 import com.movingapp.service.UserService;
 import com.movingapp.view.ChargeView;
-import com.movingapp.view.Move;
 import com.movingapp.view.StripeView;
 import com.movingapp.view.UserView;
 import com.stripe.Stripe;
@@ -50,8 +50,7 @@ public class StripeController {
     public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-        Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-        //Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
+        Stripe.apiKey = MovingAppConstants.apiKey;
 
         User user = userService.findById(userid);
 
@@ -103,8 +102,7 @@ public class StripeController {
     @ResponseBody
     public ChargeView addCharge(@RequestParam("customerID") String customerID, @RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 
-        Stripe.apiKey = "sk_test_356VkXvxAv3KPrTnpY6iJkTb";
-        //Stripe.apiKey = "sk_live_xi03Kbf02Hqd57v7Zc6lFyge";
+        Stripe.apiKey = MovingAppConstants.apiKey;
         MoveEntity moveEntity = BookMovesDao.findById(moveID);
         List<ChargeEntity> chargeEntityList = moveEntity.getCharges();
         ChargeEntity charge = new ChargeEntity();
