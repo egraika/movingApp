@@ -31,6 +31,9 @@ movingApp.controller("editMyMoveController", ['$scope','$rootScope', '$http','$r
          if($scope.move.startsAt <= $scope.move.endsAt) {
             $scope.move.endsAt = moment($scope.move.startsAt).add(1, 'hours');
          }
+         if($scope.move.isGroundFloor) {
+            $scope.move.isElevator = false;
+         }
 		 $http({
 			method: 'POST',
 			url: '/updateMyMove',

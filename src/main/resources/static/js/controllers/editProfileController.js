@@ -17,9 +17,15 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         }).then(function(response) {
             bsLoadingOverlayService.stop();
             $scope.user = response.data;
-            $scope.creditCardSet = false;
             if($scope.user.ccLastFour != null) {
                 $scope.creditCardSet = true;
+            } else {
+                $scope.creditCardSet = false;
+            }
+            if($scope.user.charges != null) {
+                $scope.isCharges = true;
+            } else {
+                $scope.isCharges = false;
             }
         }, function(response) {
             $scope.error = true;

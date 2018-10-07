@@ -5,6 +5,7 @@ import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
+import com.movingapp.service.ChargeMapping;
 import com.movingapp.service.MoveMapping;
 import com.movingapp.service.UserMapping;
 import com.movingapp.service.UserService;
@@ -100,31 +101,33 @@ public class StripeController {
 
     @RequestMapping(value = "/addCharge",method = RequestMethod.POST)
     @ResponseBody
-    public ChargeView addCharge(@RequestParam("customerID") String customerID, @RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ChargeView addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 
         Stripe.apiKey = MovingAppConstants.apiKey;
         MoveEntity moveEntity = BookMovesDao.findById(moveID);
-        List<ChargeEntity> chargeEntityList = moveEntity.getCharges();
+        User user = userService.findById(moveEntity.getUser().getId());
+        List<ChargeEntity> chargeEntityList = user.getCharges();
         ChargeEntity charge = new ChargeEntity();
 
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         charge.setAmount(amount);
         charge.setDate(date);
-        charge.setMove(moveEntity);
+        charge.setUser(user);
+        charge.setMoveid(moveEntity.getID());
         chargeEntityList.add(charge);
-        moveEntity.setCharges(chargeEntityList);;
+        user.setCharges(chargeEntityList);
 
         Map<String, Object> chargeParams = new HashMap<String, Object>();
         chargeParams.put("amount", (int) amount*100); // $15.00 this time
         chargeParams.put("currency", "usd");
-        chargeParams.put("customer", customerID);
+        chargeParams.put("customer", user.getStripeCustomerID());
         Charge chargeCustomer = Charge.create(chargeParams);
 
-        MoveEntity moveAfterSave = BookMovesDao.save(moveEntity);
-        List<ChargeEntity> newChargeEntity = moveAfterSave.getCharges();
+        User userAfterSave = userRepo.save(user);
+        List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
-        List<ChargeView> newChargeList = moveMapping.ChargeEntityToCharge(newChargeEntity);
+        List<ChargeView> newChargeList = ChargeMapping.ChargeEntityToCharge(newChargeEntity);
         return newChargeList.get(newChargeList.size()-1);
     }
 }

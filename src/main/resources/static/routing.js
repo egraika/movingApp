@@ -25,7 +25,6 @@
 			        authorizedRoles: [USER_ROLES.all]
 			    }
 			})
-
 			.when('/bookmove', {
 				templateUrl : 'pages/bookMove.html',
 				access: {
@@ -40,7 +39,6 @@
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
-			
 			.when('/confirmation', {
 				templateUrl : 'pages/confirmation.html',
 				access: {

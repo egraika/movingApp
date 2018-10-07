@@ -1,10 +1,8 @@
 package com.movingapp.service;
 
 import com.movingapp.entity.User;
-import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
-import com.movingapp.view.ChargeView;
 import com.movingapp.view.Move;
 import com.movingapp.view.Note;
 import com.movingapp.view.UserView;
@@ -41,7 +39,6 @@ public class MoveMapping {
             move.setToStreet(moveEntityList.get(i).getToStreet());
             move.setToZip(moveEntityList.get(i).getToZip());
             move.setDateOfBooking(moveEntityList.get(i).getDateOfBooking());
-            move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
             move.setStatus(moveEntityList.get(i).getStatus());
             move.setTitle(moveEntityList.get(i).getMoveTitle());
             move.setEndsAt(moveEntityList.get(i).getMoveEnd());
@@ -82,39 +79,6 @@ public class MoveMapping {
         }
 
         return noteEntityList;
-    }
-
-    public List<ChargeView> ChargeEntityToCharge(List<ChargeEntity> chargeEntityList) {
-
-        List<ChargeView> chargeList = new ArrayList<ChargeView>();
-
-        if(chargeEntityList != null) {
-            for(int i = 0; i < chargeEntityList.size(); i++) {
-                ChargeView charge = new ChargeView();
-                charge.setAmount(chargeEntityList.get(i).getAmount());
-                charge.setDate(chargeEntityList.get(i).getDate());
-                charge.setID(chargeEntityList.get(i).getID());
-                chargeList.add(charge);
-            }
-        }
-
-        return chargeList;
-    }
-
-    public List<ChargeEntity> ChargeToChargeEntity(List<ChargeView> chargeList, MoveEntity Move) {
-
-        List<ChargeEntity> chargeEntityList = new ArrayList<ChargeEntity>();
-
-        for(int i = 0; i < chargeList.size(); i++) {
-            ChargeEntity charge = new ChargeEntity();
-            charge.setAmount(chargeList.get(i).getAmount());
-            charge.setDate(chargeList.get(i).getDate());
-            charge.setID(chargeList.get(i).getID());
-            charge.setMove(Move);
-            chargeEntityList.add(charge);
-        }
-
-        return chargeEntityList;
     }
 
     public MoveEntity moveToMoveEntity(Move move) {
@@ -159,7 +123,6 @@ public class MoveMapping {
         move.setToStreet(moveEntity.getToStreet());
         move.setToZip(moveEntity.getToZip());
         move.setDateOfBooking(moveEntity.getDateOfBooking());
-        move.setCharges(ChargeEntityToCharge(moveEntity.getCharges()));
         move.setStatus(moveEntity.getStatus());
         move.setEndsAt(moveEntity.getMoveEnd());
         move.setTitle(moveEntity.getMoveTitle());

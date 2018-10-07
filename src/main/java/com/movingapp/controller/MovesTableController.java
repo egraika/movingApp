@@ -131,7 +131,6 @@ public class MovesTableController {
 			move.setToStreet(moveEntityList.get(i).getToStreet());
 			move.setToZip(moveEntityList.get(i).getToZip());
 			move.setDateOfBooking(moveEntityList.get(i).getDateOfBooking());
-			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
 			move.setStatus(moveEntityList.get(i).getStatus());
 			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
 			move.setTitle(moveEntityList.get(i).getMoveTitle());
@@ -163,21 +162,5 @@ public class MovesTableController {
 		
 		return noteList;
 	}
-	
-	private List<ChargeView> ChargeEntityToCharge(List<ChargeEntity> chargeEntityList) {
-		
-		List<ChargeView> chargeList = new ArrayList<ChargeView>();
-		
-		for(int i = 0; i < chargeEntityList.size(); i++) {
-			ChargeView charge = new ChargeView();
-			charge.setAmount(chargeEntityList.get(i).getAmount());
-			charge.setDate(chargeEntityList.get(i).getDate());
-			charge.setID(chargeEntityList.get(i).getID());
-			chargeList.add(charge);
-		}
-		
-		return chargeList;
-	}
-	
 }
 

@@ -52,7 +52,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		 $http({
 				method: 'POST',
 				url: '/addCharge',
-				params: {'customerID' : $scope.move.stripeCustomerID, 'amount' : $scope.amount, 'id' : moveID},
+				params: {'amount' : $scope.amount, 'id' : moveID},
 				headers:{'Content-Type': 'application/json'}
 			}).then(function successCallBack(response) {
 				$scope.move.charges.push(response.data);

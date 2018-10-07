@@ -121,7 +121,6 @@ public class MyMovesController {
 			move.setToStreet(moveEntityList.get(i).getToStreet());
 			move.setToZip(moveEntityList.get(i).getToZip());
 			move.setDateOfBooking(moveEntityList.get(i).getDateOfBooking());
-			move.setCharges(ChargeEntityToCharge(moveEntityList.get(i).getCharges()));
 			move.setStatus(moveEntityList.get(i).getStatus());
 			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
 			move.setTitle(moveEntityList.get(i).getMoveTitle());

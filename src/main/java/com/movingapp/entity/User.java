@@ -1,13 +1,18 @@
 package com.movingapp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -80,6 +85,11 @@ public class User implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
 	private Set<Authority> authorities = new HashSet<Authority>();
+
+	@JsonBackReference
+	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="user")
+	@Fetch(FetchMode.SELECT)
+	private List<ChargeEntity> charges;
 
 	public String getFirstName() {
 		return firstName;
@@ -207,5 +217,13 @@ public class User implements Serializable {
 
 	public void setCcCardType(String ccCardType) {
 		this.ccCardType = ccCardType;
+	}
+
+	public List<ChargeEntity> getCharges() {
+		return charges;
+	}
+
+	public void setCharges(List<ChargeEntity> charges) {
+		this.charges = charges;
 	}
 }

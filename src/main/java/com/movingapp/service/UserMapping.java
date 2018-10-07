@@ -2,7 +2,6 @@ package com.movingapp.service;
 
 import com.movingapp.entity.User;
 import com.movingapp.view.UserView;
-import com.stripe.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +35,7 @@ public class UserMapping {
         userView.setCcLastFour(user.getCcLastFour());
         userView.setCcExpirationDate(user.getCcExpirationDate());
         userView.setCardType(user.getCcCardType());
+        userView.setCharges(ChargeMapping.ChargeEntityToCharge(user.getCharges()));
 
         return userView;
     }

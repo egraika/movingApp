@@ -34,11 +34,6 @@ public class MoveEntity implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
 	private List<NoteEntity> notes;
 
-	@JsonBackReference
-	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
-	@Fetch (FetchMode.SELECT)
-	private List<ChargeEntity> charges;
-
 	@Column(name = "fromStreet")
 	private String fromStreet;
 
@@ -81,6 +76,24 @@ public class MoveEntity implements Serializable {
 
 	@Column(name = "moveTitle")
 	private String moveTitle;
+
+	@Column(name = "isArtwork")
+	private Boolean isArtwork;
+
+	@Column(name = "isAntiques")
+	private Boolean isAntiques;
+
+	@Column(name = "numberOfBoxes", columnDefinition="bigint DEFAULT 0")
+	private long numberOfBoxes;
+
+	@Column(name = "numberOfLargeItems",columnDefinition="bigint DEFAULT 0")
+	private long numberOfLargeItems;
+
+	@Column(name = "isGroundFloor")
+	private Boolean isGroundFloor;
+
+	@Column(name = "isElevator")
+	private Boolean isElevator;
 
 	@JsonBackReference
 	@ManyToOne
@@ -184,14 +197,6 @@ public class MoveEntity implements Serializable {
 		return notes;
 	}
 
-	public void setCharges(List<ChargeEntity> charges) {
-		this.charges = charges;
-	}
-
-	public List<ChargeEntity> getCharges() {
-		return charges;
-	}
-
 	public void setDateOfBooking(LocalDate dateOfBooking) {
 		this.dateOfBooking = dateOfBooking;
 	}
@@ -230,5 +235,53 @@ public class MoveEntity implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Boolean getArtwork() {
+		return isArtwork;
+	}
+
+	public void setArtwork(Boolean artwork) {
+		isArtwork = artwork;
+	}
+
+	public Boolean getAntiques() {
+		return isAntiques;
+	}
+
+	public void setAntiques(Boolean antiques) {
+		isAntiques = antiques;
+	}
+
+	public long getNumberOfBoxes() {
+		return numberOfBoxes;
+	}
+
+	public void setNumberOfBoxes(long numberOfBoxes) {
+		this.numberOfBoxes = numberOfBoxes;
+	}
+
+	public long getNumberOfLargeItems() {
+		return numberOfLargeItems;
+	}
+
+	public void setNumberOfLargeItems(long numberOfLargeItems) {
+		this.numberOfLargeItems = numberOfLargeItems;
+	}
+
+	public Boolean getGroundFloor() {
+		return isGroundFloor;
+	}
+
+	public void setGroundFloor(Boolean groundFloor) {
+		isGroundFloor = groundFloor;
+	}
+
+	public Boolean getElevator() {
+		return isElevator;
+	}
+
+	public void setElevator(Boolean elevator) {
+		isElevator = elevator;
 	}
 }

@@ -1,5 +1,7 @@
 package com.movingapp.view;
 
+import java.util.List;
+
 public class UserView {
 
 	private Long id;
@@ -10,6 +12,7 @@ public class UserView {
 	private String ccLastFour;
 	private String ccExpirationDate;
 	private String cardType;
+	private List<ChargeView> charges;
 
 	public UserView(){}
 
@@ -76,5 +79,13 @@ public class UserView {
 
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
+	}
+
+	public List<ChargeView> getCharges() {
+		return charges;
+	}
+
+	public void setCharges(List<ChargeView> charges) {
+		this.charges = charges;
 	}
 }
