@@ -18,8 +18,6 @@
 			// route for the home page
 			$routeProvider.when('/', {
 				templateUrl : 'pages/home.html',
-				controller : 'loginController',
-			    controllerAs: 'controller',
 				access: {
 					loginRequired: false,
 			        authorizedRoles: [USER_ROLES.all]
