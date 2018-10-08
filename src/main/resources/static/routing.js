@@ -293,11 +293,14 @@
 		// Call when the the client is confirmed
 		 $rootScope.$on('event:auth-loginConfirmed', function(event, data) {
 		  $rootScope.loadingAccount = false;
-		  $rootScope.authenticated = true;
-		  if(data.authorities[0].name == "user") {
+		  if(data != "" && data.authorities[0].name == "user") {
             $rootScope.isUser = true;
-          } else {
+            $rootScope.authenticated = true;
+          } else if(data != "") {
             $rootScope.isUser = false;
+            $rootScope.loadingAccount = true;
+          } else {
+            return;
           }
 		  if($rootScope.isUser) {
 		    var nextLocation = "/myMoves";

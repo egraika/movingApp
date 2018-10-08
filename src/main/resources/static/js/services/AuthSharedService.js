@@ -23,10 +23,12 @@
           $http.get('security/account')
             .then(function(response) {
                 authService.loginConfirmed(response.data);
-                if(response.data.authorities[0].name == "user") {
+                if(response.data != "" && response.data.authorities[0].name == "user") {
                     $rootScope.isUser = true;
-                } else {
+                } else if(response.data != "") {
                     $rootScope.isUser = false;
+                } else {
+                    return;
                 }
             }, function(response) {
                 //auth failed
