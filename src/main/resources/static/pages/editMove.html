@@ -26,21 +26,21 @@
 				<div class="row">
 					<div class="col-xs-4">
 						<label for="firstName">First Name</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control"></input>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control" ng-disabled="true"></input>
 					</div>
 					<div class="col-xs-4">
 						<label for="lastName">Last Name</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control"></input>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control" ng-disabled="true"></input>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-4">
 						<label for="email">Email</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control"></input>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control" ng-disabled="true"></input>
 					</div>
 					<div class="col-xs-4">
 						<label for="phone">Phone</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.user.phone"  numbers-only phone-input ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.user.phone"  numbers-only phone-input ng-required="true" ng-disabled="true">
 						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
 					</div>
 				</div>
