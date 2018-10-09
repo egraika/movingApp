@@ -39,9 +39,11 @@
                 <div class="row" ng-hide="creditCardSet">
                     <div class="col-xs-4 col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><label>Current Credit Card</label></div>
-                            <p style="color: red;">No Credit Card Set</p>
-                            <button type="button" class="btn btn-error btn-sm" data-toggle="modal" data-target="#checkout" data-ng-click="changeCreditCard()">Add a Credit Card</button>
+                            <div class="panel-body">
+                                <label>Current Credit Card</label>
+                                <p style="color: red;">No Credit Card Set</p>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#checkout" data-ng-click="changeCreditCard()">Add Credit Card</button>
+                            </div>
                         </div>
                     </div>
                 </div>

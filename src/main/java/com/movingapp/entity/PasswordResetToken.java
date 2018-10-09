@@ -24,7 +24,6 @@ public class PasswordResetToken implements Serializable {
     private String token;
 
     @OneToOne(mappedBy="passwordResetToken")
-    @JsonBackReference
     @Cascade({org.hibernate.annotations.CascadeType.REMOVE,org.hibernate.annotations.CascadeType.PERSIST})
     @PrimaryKeyJoinColumn
     private User user;

@@ -7,9 +7,12 @@ import java.time.ZoneId;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import com.movingapp.dao.AuthorityRepo;
+import com.movingapp.dao.ConfirmationTokenRepo;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
+import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
+import com.movingapp.service.EmailService;
 import com.movingapp.service.MoveMapping;
 import com.movingapp.service.UserService;
 import com.movingapp.view.*;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +55,13 @@ public class BookMoveController {
 
 	@Autowired
 	private MoveMapping moveMapping;
-	
+
+	@Autowired
+	private EmailService emailService;
+
+	@Autowired
+	private ConfirmationTokenRepo confirmationTokenRepo;
+
 	@RequestMapping(value = "/bookMove",method = RequestMethod.POST ,consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<Move> submitMove(@RequestBody Move move, @Param("userId") String userId) {
@@ -67,6 +77,15 @@ public class BookMoveController {
 			UserView userView = new UserView();
 			userView.setId(userExists.getId());
 			move.setUser(userView);
+
+			SimpleMailMessage registrationEmail = new SimpleMailMessage();
+			registrationEmail.setTo(userExists.getEmail());
+			registrationEmail.setSubject("Move Booked!");
+			registrationEmail.setText("You have successfully booked your move! \n" +
+					"\nPlease log in and complete the additional information section to help us better accommodate your move.\n");
+			registrationEmail.setFrom("noreply@domain.com");
+
+			emailService.sendEmail(registrationEmail);
 		} else {
 			userExists = userService.findByEmail(move.getUser().getEmail());
 			if(userExists != null) {
@@ -74,8 +93,20 @@ public class BookMoveController {
 			}
 			User user = createNewUser(move.getUser());
 			UserView userView = new UserView();
-			userView.setId(userExists.getId());
+			userView.setId(user.getId());
 			move.setUser(userView);
+
+			String appUrl = request.getScheme() + "://" + request.getServerName();
+
+			SimpleMailMessage registrationEmail = new SimpleMailMessage();
+			registrationEmail.setTo(user.getEmail());
+			registrationEmail.setSubject("Move Booked!");
+			registrationEmail.setText("You have successfully booked your move! Please confirm by clicking the link below and setting your password. Your username is: " + user.getEmail() +
+					"\n\nAfter logging in please complete the additional information section to help us better accommodate your move.\n\n"
+					+ appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken());
+			registrationEmail.setFrom("noreply@domain.com");
+
+			emailService.sendEmail(registrationEmail);
 		}
 
 		MoveEntity moveEntity = moveMapping.moveToMoveEntity(move);
@@ -92,37 +123,13 @@ public class BookMoveController {
 		moveEntity.setDateOfBooking(LocalDate.now());
 		moveEntity.setMoveStart(moveEntity.getMoveStart().plusHours(8));
 		moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
+		moveEntity.setElevator(false);
+		moveEntity.setArtwork(false);
+		moveEntity.setGroundFloor(false);
+		moveEntity.setAntiques(false);
 		BookMovesDao.save(moveEntity);
 		//BookMovesDao.insert(insertMove.getFirstName(), insertMove.getLastName(), insertMove.getEmail(), insertMove.getPhone(), insertMove.getfromStreet(), insertMove.getfromCity(), insertMove.getFromZip(), insertMove.getFromState(), insertMove.getToStreet(), insertMove.getToCity(), insertMove.getToZip(), insertMove.getToState(), insertMove.getComments(), insertMove.getDate());
-		
-		final String username = "collegemovinglabor2@gmail.com";
-		final String password = "juno5465";
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		Session session = Session.getInstance(props, new GMailAuthenticator(username, password));
-
-				try {
-
-					Message message = new MimeMessage(session);
-					message.setFrom(new InternetAddress("MoveMuscle@gmail.com"));
-					message.setRecipients(Message.RecipientType.TO,
-						InternetAddress.parse(moveEntity.getUser().getEmail()));
-					message.setSubject("Move Muscle Comfirmation");
-					message.setText("Your move for the date of " + moveEntity.getMoveStart().toLocalDate().toString() + " has been booked");
-
-					Transport.send(message);
-
-					System.out.println("Done");
-
-				} catch (MessagingException e) {
-					throw new RuntimeException(e);
-				}
-		
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
@@ -137,6 +144,11 @@ public class BookMoveController {
 		authorityList.add(authority.get());
 		saveUser.setAuthorities(authorityList);
 		saveUser.setEnabled(false);
+		ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString());
+		saveUser.setConfirmationToken(confirmationToken);
+		confirmationToken.setUser(saveUser);
+
+		confirmationTokenRepo.save(confirmationToken);
 
 		return userRepo.save(saveUser);
 	}

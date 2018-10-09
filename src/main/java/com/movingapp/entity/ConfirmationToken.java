@@ -24,7 +24,6 @@ public class ConfirmationToken implements Serializable {
     private String token;
 
     @OneToOne
-    @JsonBackReference
     @Cascade({org.hibernate.annotations.CascadeType.REMOVE,org.hibernate.annotations.CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;

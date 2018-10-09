@@ -4,6 +4,8 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 	
 	$scope.init = function() {
+		$scope.cardExpired = false;
+		$scope.creditCardSet = false;
 		getMoveData();
 	}
 	
@@ -16,6 +18,14 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		}).then(function successCallBack(response) {
 			$scope.move = response.data;
 			$scope.startsAtPicker.date = $scope.move.startsAt;
+			if($scope.move.user.ccExpirationDate == null) {
+			    $scope.creditCardSet = false;
+			} else {
+			    $scope.creditCardSet = true;
+			    if($scope.move.user.ccExpirationDate <= new Date()) {
+			        $scope.cardExpired = true;
+			    }
+			}
 		});
 	}
 	

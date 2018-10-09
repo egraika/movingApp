@@ -101,6 +101,12 @@ public class MoveMapping {
         moveEntity.setNotes(NoteToNoteEntity(move.getNotes(), moveEntity));
         moveEntity.setMoveEnd(move.getEndsAt());
         moveEntity.setMoveTitle(move.getTitle());
+        moveEntity.setArtwork(move.getArtwork());
+        moveEntity.setElevator(move.getElevator());
+        moveEntity.setGroundFloor(move.getGroundFloor());
+        moveEntity.setAntiques(move.getAntiques());
+        moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
+        moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
         Optional<User> foundUser = userRepo.findById(move.getUser().getId());
         User user = foundUser.get();
         moveEntity.setUser(user);
@@ -126,6 +132,12 @@ public class MoveMapping {
         move.setStatus(moveEntity.getStatus());
         move.setEndsAt(moveEntity.getMoveEnd());
         move.setTitle(moveEntity.getMoveTitle());
+        move.setArtwork(moveEntity.getArtwork());
+        move.setElevator(moveEntity.getElevator());
+        move.setGroundFloor(moveEntity.getGroundFloor());
+        move.setAntiques(moveEntity.getAntiques());
+        move.setNumberOfBoxes(moveEntity.getNumberOfBoxes());
+        move.setNumberOfLargeItems(moveEntity.getNumberOfLargeItems());
         UserView userView = new UserView();
         userView.setEmail(moveEntity.getUser().getEmail());
         userView.setFirstName(moveEntity.getUser().getFirstName());

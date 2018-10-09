@@ -15,6 +15,7 @@ import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -110,7 +111,7 @@ public class RegisterController {
     }
 
     // Process confirmation link
-    @RequestMapping(value="/confirm", method = RequestMethod.POST)
+    @RequestMapping(value="/confirm", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> processConfirmationForm(@RequestBody User user) {
 
         Zxcvbn passwordCheck = new Zxcvbn();

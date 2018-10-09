@@ -69,7 +69,7 @@ public class PasswordResetController {
 
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(user.getEmail());
-        registrationEmail.setSubject("Registration Confirmation");
+        registrationEmail.setSubject("Password Reset");
         registrationEmail.setText("To reset your password, please click the link below:\n"
                 + appUrl + "/#/reset/password/confirm?token=" + user.getPasswordResetToken().getToken() + "\n\n If you did not request a password reset please ignore this email.");
         registrationEmail.setFrom("noreply@domain.com");

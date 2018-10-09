@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movingapp.entity.User;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -30,7 +31,7 @@ public class MoveEntity implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@JsonBackReference
+	@JsonManagedReference(value="notes")
 	@OneToMany(fetch = FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
 	private List<NoteEntity> notes;
 
@@ -77,10 +78,10 @@ public class MoveEntity implements Serializable {
 	@Column(name = "moveTitle")
 	private String moveTitle;
 
-	@Column(name = "isArtwork")
+	@Column(name = "isArtwork", columnDefinition="BOOLEAN DEFAULT false")
 	private Boolean isArtwork;
 
-	@Column(name = "isAntiques")
+	@Column(name = "isAntiques", columnDefinition="BOOLEAN DEFAULT false")
 	private Boolean isAntiques;
 
 	@Column(name = "numberOfBoxes", columnDefinition="bigint DEFAULT 0")
@@ -89,13 +90,13 @@ public class MoveEntity implements Serializable {
 	@Column(name = "numberOfLargeItems",columnDefinition="bigint DEFAULT 0")
 	private long numberOfLargeItems;
 
-	@Column(name = "isGroundFloor")
+	@Column(name = "isGroundFloor", columnDefinition="BOOLEAN DEFAULT false")
 	private Boolean isGroundFloor;
 
-	@Column(name = "isElevator")
+	@Column(name = "isElevator", columnDefinition="BOOLEAN DEFAULT false")
 	private Boolean isElevator;
 
-	@JsonBackReference
+	@JsonBackReference(value="move_user_id")
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;

@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movingapp.entity.User;
@@ -44,7 +45,7 @@ public class ChargeEntity implements Serializable {
 	@Column(name = "moveid")
 	private long moveid;
 
-	@JsonManagedReference
+	@JsonBackReference(value="user_charges")
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinTable(name = "charges_to_user", joinColumns= @JoinColumn(name = "chargeid"), inverseJoinColumns= @JoinColumn(name = "userid"))
 	private User user;

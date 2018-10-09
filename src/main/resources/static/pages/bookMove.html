@@ -165,7 +165,12 @@
 	            	<div class="col-xs-3"></div>
 	            	<div class="col-xs-3"></div>
 	            	<div class="col-xs-3">
-	            		<button type="button" class="btn btn-primary btn-lg pull-right" data-ng-click="bookMove()" style="margin-top: 15px">Proceed to Billing Information</button>
+	            		<button type="button" class="btn btn-primary btn-lg pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
+	            		bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
+	            		bookingForm.phone.$invalid || bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
+	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid">Proceed to Billing Information</button>
+						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 	            	</div>
             </div>
 		</form>

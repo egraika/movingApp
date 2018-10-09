@@ -58,13 +58,11 @@ public class User implements Serializable {
 	private boolean enabled;
 
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
-	@JsonManagedReference
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@PrimaryKeyJoinColumn
 	private ConfirmationToken confirmationToken;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JsonManagedReference
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	@PrimaryKeyJoinColumn
 	private PasswordResetToken passwordResetToken;
@@ -75,6 +73,7 @@ public class User implements Serializable {
 	@Column(name = "stripe_Customer_ID")
 	private String stripeCustomerID;
 
+	@JsonManagedReference(value="move_user_id")
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
 	private Set<MoveEntity> moves;
 	
@@ -86,7 +85,7 @@ public class User implements Serializable {
 	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
 	private Set<Authority> authorities = new HashSet<Authority>();
 
-	@JsonBackReference
+	@JsonManagedReference(value="user_charges")
 	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="user")
 	@Fetch(FetchMode.SELECT)
 	private List<ChargeEntity> charges;

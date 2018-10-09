@@ -1,6 +1,7 @@
 package com.movingapp.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,6 +38,16 @@ public class Move{
 	private String status;
 	private String title;
 	private String color;
+	private long numberOfBoxes;
+	private long numberOfLargeItems;
+	@JsonProperty("isGroundFloor")
+	private Boolean isGroundFloor;
+	@JsonProperty("isElevator")
+	private Boolean isElevator;
+	@JsonProperty("isArtwork")
+	private Boolean isArtwork;
+	@JsonProperty("isAntiques")
+	private Boolean isAntiques;
 
 	public int getId() {
 		return id;
@@ -196,5 +207,53 @@ public class Move{
 
 	public void setEndsAt(OffsetDateTime endsAt) {
 		this.endsAt = endsAt;
+	}
+
+	public Boolean getArtwork() {
+		return isArtwork;
+	}
+
+	public void setArtwork(Boolean artwork) {
+		isArtwork = artwork;
+	}
+
+	public Boolean getAntiques() {
+		return isAntiques;
+	}
+
+	public void setAntiques(Boolean antiques) {
+		isAntiques = antiques;
+	}
+
+	public long getNumberOfBoxes() {
+		return numberOfBoxes;
+	}
+
+	public void setNumberOfBoxes(long numberOfBoxes) {
+		this.numberOfBoxes = numberOfBoxes;
+	}
+
+	public long getNumberOfLargeItems() {
+		return numberOfLargeItems;
+	}
+
+	public void setNumberOfLargeItems(long numberOfLargeItems) {
+		this.numberOfLargeItems = numberOfLargeItems;
+	}
+
+	public Boolean getGroundFloor() {
+		return isGroundFloor;
+	}
+
+	public void setGroundFloor(Boolean groundFloor) {
+		isGroundFloor = groundFloor;
+	}
+
+	public Boolean getElevator() {
+		return isElevator;
+	}
+
+	public void setElevator(Boolean elevator) {
+		isElevator = elevator;
 	}
 }
