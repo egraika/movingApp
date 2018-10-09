@@ -226,7 +226,7 @@
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" min="1" id="amount" ng-model="amount" class="form-control" placeholder="0"></input>
 						<button class="btn btn-primary form-control" style="margin-top: 15px" data-toggle="modal" data-target="#checkout">Charge Customer</button>
 					</div>
-					<div class="col-xs-4" ng-hide="creditCardSet && !cardExpired">
+					<div class="col-xs-4" ng-show="!creditCardSet && !cardExpired">
 						<h4 style="text-center">Add Charge</h4>
 						<p style="color: red;">No Credit Card Set</p>
 					</div>
