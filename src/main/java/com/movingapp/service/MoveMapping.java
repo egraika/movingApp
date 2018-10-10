@@ -9,9 +9,8 @@ import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class MoveMapping {
@@ -144,6 +143,19 @@ public class MoveMapping {
         userView.setId(moveEntity.getUser().getId());
         userView.setLastName(moveEntity.getUser().getLastName());
         userView.setPhone(moveEntity.getUser().getPhone());
+        userView.setCardType(moveEntity.getUser().getCcCardType());
+        userView.setCcLastFour(moveEntity.getUser().getCcLastFour());
+        userView.setCcExpirationDate(moveEntity.getUser().getCcExpirationDate());
+        userView.setCharges(ChargeMapping.ChargeEntityToCharge(moveEntity.getUser().getCharges()));
+
+        String dateString = moveEntity.getUser().getCcExpirationDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.MONTH, Integer.parseInt(dateString.split("/")[0]));
+        calendar.set(Calendar.YEAR, Integer.parseInt(dateString.split("/")[1]));
+        Date date = calendar.getTime();
+
+        userView.setExpirationDate(date);
         move.setUser(userView);
 
         return move;

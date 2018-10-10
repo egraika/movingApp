@@ -1,5 +1,6 @@
 package com.movingapp.view;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserView {
@@ -11,6 +12,7 @@ public class UserView {
 	private String phone;
 	private String ccLastFour;
 	private String ccExpirationDate;
+	private Date expirationDate;
 	private String cardType;
 	private List<ChargeView> charges;
 
@@ -87,5 +89,13 @@ public class UserView {
 
 	public void setCharges(List<ChargeView> charges) {
 		this.charges = charges;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 }

@@ -12,8 +12,8 @@
 					</tr>
 				</thead>
 				<tbody ng-show="isCharges">
-					<tr ng-repeat="charge in move.charges">
-						<td>{{charge.moveID}}</td>
+					<tr ng-repeat="charge in charges">
+						<td>{{charge.moveid}}</td>
 						<td>{{charge.date | date:'MM/dd/yyyy h:mm a'}}</td>
 						<td>{{charge.amount}}</td>
 						<td ng-hide="isUser"><button class="btn btn-danger pull-right" ng-disabled="true">Refund</button></td>

@@ -3,6 +3,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 	
 	$scope.init = function() {
+	    $scope.isCharges = false;
 		getUser();
 	}
 	
@@ -17,6 +18,10 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         }).then(function(response) {
             bsLoadingOverlayService.stop();
             $scope.user = response.data;
+            $scope.charges = $scope.user.charges;
+            if($scope.charges != null) {
+                $scope.isCharges = true;
+            }
             if($scope.user.ccLastFour != null) {
                 $scope.creditCardSet = true;
             } else {
