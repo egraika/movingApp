@@ -1,30 +1,31 @@
 package com.movingapp.controller;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import javax.transaction.Transactional;
 
+import com.movingapp.dao.AuthorityRepo;
+import com.movingapp.dao.ConfirmationTokenRepo;
 import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.Authority;
+import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
 
 @Controller
+@Transactional
 public class RegisterController {
 
     @Autowired
@@ -38,6 +39,12 @@ public class RegisterController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private ConfirmationTokenRepo confirmationTokenRepo;
+
+    @Autowired
+    private AuthorityRepo authorityRepo;
 
     // Process form input data
     @RequestMapping(value = "/register",method = RequestMethod.POST ,consumes = "application/json")
@@ -55,9 +62,18 @@ public class RegisterController {
         user.setEnabled(false);
 
         // Generate random 36-character string token for confirmation link
-        user.setConfirmationToken(UUID.randomUUID().toString());
+        ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString());
+        user.setConfirmationToken(confirmationToken);
+        confirmationToken.setUser(user);
+        user.setConfirmationToken(confirmationToken);
+
+        Optional<Authority> authority = authorityRepo.findById((long)3);
+        Set<Authority> authorityList = new HashSet<>();
+        authorityList.add(authority.get());
+        user.setAuthorities(authorityList);
 
         user = userRepo.save(user);
+        confirmationTokenRepo.save(confirmationToken);
 
         String appUrl = request.getScheme() + "://" + request.getServerName();
 
@@ -65,7 +81,7 @@ public class RegisterController {
         registrationEmail.setTo(user.getEmail());
         registrationEmail.setSubject("Registration Confirmation");
         registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
-                + appUrl + "/#/confirm?token=" + user.getConfirmationToken());
+                + appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken());
         registrationEmail.setFrom("noreply@domain.com");
 
         emailService.sendEmail(registrationEmail);
@@ -75,19 +91,27 @@ public class RegisterController {
 
     // Process confirmation link
     @RequestMapping(value="/confirmToken", method = RequestMethod.GET)
-    public ResponseEntity<String> showConfirmationPage(@RequestParam("token") String token) {
+    public ResponseEntity<User> showConfirmationPage(@RequestParam("token") String token) {
 
-        User user = userService.findByConfirmationToken(token);
+        ConfirmationToken confirmationToken = confirmationTokenRepo.findByToken(token);
+
+        if(confirmationToken == null || confirmationToken.getExpiryDate().before(new Date())) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        User user = confirmationToken.getUser();
 
         if (user == null) { // No token found in DB
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(HttpStatus.OK);
+        user.setConfirmationToken(null);
+
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 
     // Process confirmation link
-    @RequestMapping(value="/confirm", method = RequestMethod.POST)
+    @RequestMapping(value="/confirm", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> processConfirmationForm(@RequestBody User user) {
 
         Zxcvbn passwordCheck = new Zxcvbn();
@@ -99,7 +123,7 @@ public class RegisterController {
         }
 
         // Find the user associated with the reset token
-        User foundUser = userService.findByConfirmationToken(user.getConfirmationToken());
+        User foundUser = userRepo.findByEmail(user.getEmail());
 
         // Set new password
         foundUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -109,6 +133,8 @@ public class RegisterController {
 
         // Save user
         userService.saveUser(foundUser);
+
+        confirmationTokenRepo.deleteByUserId(user.getId());
 
         return new ResponseEntity(HttpStatus.OK);
     }

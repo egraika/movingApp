@@ -1,21 +1,28 @@
 <div class="panel panel-default">
-	<div class="panel-heading">Charges</div>
+	<div class="panel-heading"><label>Charges</label></div>
 	<div class="panel-body">
 		<div style="overflow-y:scroll; overflow-x:hidden; max-height:400px">
 			<table id="notesTable" class="table table-striped">
-				<thead>
+				<thead ng-show="isCharges">
 					<tr>
+						<th>Move ID</th>
 						<th>Date</th>
 						<th>Amount</th>
-						<th class="text-right">Action</th>
+						<th class="text-right" ng-hide="isUser">Action</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr ng-repeat="charge in move.charges">
+				<tbody ng-show="isCharges">
+					<tr ng-repeat="charge in charges">
+						<td>{{charge.moveid}}</td>
 						<td>{{charge.date | date:'MM/dd/yyyy h:mm a'}}</td>
 						<td>{{charge.amount}}</td>
-						<td><button class="btn btn-danger pull-right" ng-disabled="true">Refund</button></td>
+						<td ng-hide="isUser"><button class="btn btn-danger pull-right" ng-disabled="true">Refund</button></td>
 					</tr>
+				</tbody>
+				<tbody ng-hide="isCharges">
+				<tr>
+					<center><p>No Charges on this account</p></center>
+				</tr>
 				</tbody>
 			</table>
 		</div>

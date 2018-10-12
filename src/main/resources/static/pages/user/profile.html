@@ -1,0 +1,113 @@
+<div data-ng-controller="editProfileController" ng-init="init()" style="margin-top:150px;margin-bottom:45px">
+    <div class="container">
+        <div class="well">
+            <form id="editMoveForm" name="editMoveForm">
+                <h2>My Profile</h2>
+                <hr>
+                <div class="row form-group">
+                    <div class="col-xs-4">
+                        <label for="firstName">First Name</label>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="user.firstName" class="form-control"></input>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="lastName">Last Name</label>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="user.lastName" class="form-control"></input>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-4">
+                        <label for="email">Email</label>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control"></input>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="phone">Phone</label>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="user.phone"  numbers-only phone-input ng-required="true">
+                        <span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
+                    </div>
+                </div>
+                <div class="row" ng-show="creditCardSet">
+                    <div class="col-xs-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <label>Current Credit Card</label>
+                                <p>{{user.cardType}} ending in {{user.ccLastFour}}</p>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#checkout" data-ng-click="changeCreditCard()">Change Credit Card</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-hide="creditCardSet">
+                    <div class="col-xs-4 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <label>Current Credit Card</label>
+                                <p style="color: red;">No Credit Card Set</p>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#checkout" data-ng-click="changeCreditCard()">Add Credit Card</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div ng-include src="'pages/charges.html'"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="checkout" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">
+                        Billing Information
+                    </h3>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body" class="bs-loading-container" bs-loading-overlay>
+                    <form method="post" id="payment-form">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Name</label>
+                            <input class="form-control"
+                                   id="card-name" placeholder="Jane Doe" ng-model="$parent.stripe.name" name="name"/>
+                        </div>
+                        <div class="form-row">
+                            <label class="control-label" for="card-element">
+                                Credit or debit card
+                            </label>
+                            <div id="card-element">
+                                <!-- a Stripe Element will be inserted here. -->
+                            </div>
+
+                            <!-- Used to display form errors -->
+                            <div id="card-errors"></div>
+                        </div>
+                        <div class="row" style="margin-top: 15px">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button type="submit" class="btn btn-info btn-block" ng-click="submit()">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+
+                    <div class="col-cs-12 col-centered">
+                        <p class="centered text-center">- Powered by <a href="https://stripe.com/" target="_blank">Stripe.com</a> -</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

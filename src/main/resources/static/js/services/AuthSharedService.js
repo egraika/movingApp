@@ -11,6 +11,7 @@
                 }), config)
                 .then(function successCallback(response) {
 	    		authService.loginConfirmed(response.data);
+
 	    	  }, function errorCallback(response) {
 	    		  $rootScope.authenticationError = true;
 	    		  Session.invalidate();
@@ -20,9 +21,18 @@
 	  getAccount: function () {
           $rootScope.loadingAccount = true;
           $http.get('security/account')
-              .then(function (response) {
-                  authService.loginConfirmed(response.data);
-              });
+            .then(function(response) {
+                authService.loginConfirmed(response.data);
+                if(response.data != "" && response.data.authorities[0].name == "user") {
+                    $rootScope.isUser = true;
+                } else if(response.data != "") {
+                    $rootScope.isUser = false;
+                } else {
+                    return;
+                }
+            }, function(response) {
+                //auth failed
+            });
       },
       isAuthorized: function (authorizedRoles) {
           if (!angular.isArray(authorizedRoles)) {

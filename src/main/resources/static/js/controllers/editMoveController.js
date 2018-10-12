@@ -4,6 +4,9 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 	
 	$scope.init = function() {
+	    $scope.isCharges = false;
+		$scope.cardExpired = false;
+		$scope.creditCardSet = false;
 		getMoveData();
 	}
 	
@@ -15,7 +18,19 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.move = response.data;
+			$scope.charges = $scope.move.user.charges;
+            if($scope.charges != null) {
+                $scope.isCharges = true;
+            }
 			$scope.startsAtPicker.date = $scope.move.startsAt;
+			if($scope.move.user.expirationDate == null) {
+			    $scope.creditCardSet = false;
+			} else {
+			    $scope.creditCardSet = true;
+			    if($scope.move.user.expirationDate <= new Date()) {
+			        $scope.cardExpired = true;
+			    }
+			}
 		});
 	}
 	
@@ -52,10 +67,10 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		 $http({
 				method: 'POST',
 				url: '/addCharge',
-				params: {'customerID' : $scope.move.stripeCustomerID, 'amount' : $scope.amount, 'id' : moveID},
+				params: {'amount' : $scope.amount, 'id' : moveID},
 				headers:{'Content-Type': 'application/json'}
 			}).then(function successCallBack(response) {
-				$scope.move.charges.push(response.data);
+				$scope.move.user.charges.push(response.data);
 			});
 	 }
 	 

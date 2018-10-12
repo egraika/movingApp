@@ -5,6 +5,8 @@ import com.movingapp.entity.User;
 import com.movingapp.dao.TokenRepo;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.config.SecurityUtils;
+import com.movingapp.service.UserMapping;
+import com.movingapp.view.UserView;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,16 +25,20 @@ public class SeurityController {
     @Autowired
     private UserRepo userRepo;
 
-
     @Autowired
     private TokenRepo tokenRepo;
 
+    @Autowired
+    private UserMapping userMapping;
+
     @RequestMapping(value = "/security/account", method = RequestMethod.GET)
-    public @ResponseBody
-    User getUserAccount()  {
+    public @ResponseBody UserView getUserAccount()  {
         User user = userRepo.findByEmail(SecurityUtils.getCurrentLogin());
-        user.setPassword(null);
-        return user;
+        if(user != null) {
+            return userMapping.UserToUserView(user);
+        } else {
+            return null;
+        }
     }
 
 

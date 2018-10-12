@@ -15,8 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.entity.User;
 
 @Entity
 @Table(name = "charges")
@@ -40,10 +42,13 @@ public class ChargeEntity implements Serializable {
 	@Column(name = "date")
 	private Date date;
 
-	@JsonManagedReference
+	@Column(name = "moveid")
+	private long moveid;
+
+	@JsonBackReference(value="user_charges")
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinTable(name = "charges_to_move", joinColumns= @JoinColumn(name = "chargeid"), inverseJoinColumns= @JoinColumn(name = "moveid"))
-	private MoveEntity move;
+	@JoinTable(name = "charges_to_user", joinColumns= @JoinColumn(name = "chargeid"), inverseJoinColumns= @JoinColumn(name = "userid"))
+	private User user;
 	
 	public void setAmount(double amount) {
 		this.amount = amount;
@@ -68,12 +73,20 @@ public class ChargeEntity implements Serializable {
 	public Date getDate() {
 		return date;
 	}
-	
-	public void setMove(MoveEntity move) {
-		this.move = move;
+
+	public User getUser() {
+		return user;
 	}
-	
-	public MoveEntity getMove() {
-		return move;
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public long getMoveid() {
+		return moveid;
+	}
+
+	public void setMoveid(long moveid) {
+		this.moveid = moveid;
 	}
 }

@@ -1,6 +1,7 @@
 package com.movingapp.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,10 +14,6 @@ public class Move{
 	
 
 	private int id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
 	private String fromStreet;
 	private String fromCity;
 	private int fromZip;
@@ -28,6 +25,7 @@ public class Move{
 	private String toState;
 	private List<Note> notes;
 	private List<ChargeView> charges;
+	private UserView user;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
 	private OffsetDateTime startsAt;
@@ -40,6 +38,16 @@ public class Move{
 	private String status;
 	private String title;
 	private String color;
+	private long numberOfBoxes;
+	private long numberOfLargeItems;
+	@JsonProperty("isGroundFloor")
+	private Boolean isGroundFloor;
+	@JsonProperty("isElevator")
+	private Boolean isElevator;
+	@JsonProperty("isArtwork")
+	private Boolean isArtwork;
+	@JsonProperty("isAntiques")
+	private Boolean isAntiques;
 
 	public int getId() {
 		return id;
@@ -49,36 +57,12 @@ public class Move{
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public UserView getUser() {
+		return user;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUser(UserView user) {
+		this.user = user;
 	}
 
 	public String getFromStreet() {
@@ -223,5 +207,53 @@ public class Move{
 
 	public void setEndsAt(OffsetDateTime endsAt) {
 		this.endsAt = endsAt;
+	}
+
+	public Boolean getArtwork() {
+		return isArtwork;
+	}
+
+	public void setArtwork(Boolean artwork) {
+		isArtwork = artwork;
+	}
+
+	public Boolean getAntiques() {
+		return isAntiques;
+	}
+
+	public void setAntiques(Boolean antiques) {
+		isAntiques = antiques;
+	}
+
+	public long getNumberOfBoxes() {
+		return numberOfBoxes;
+	}
+
+	public void setNumberOfBoxes(long numberOfBoxes) {
+		this.numberOfBoxes = numberOfBoxes;
+	}
+
+	public long getNumberOfLargeItems() {
+		return numberOfLargeItems;
+	}
+
+	public void setNumberOfLargeItems(long numberOfLargeItems) {
+		this.numberOfLargeItems = numberOfLargeItems;
+	}
+
+	public Boolean getGroundFloor() {
+		return isGroundFloor;
+	}
+
+	public void setGroundFloor(Boolean groundFloor) {
+		isGroundFloor = groundFloor;
+	}
+
+	public Boolean getElevator() {
+		return isElevator;
+	}
+
+	public void setElevator(Boolean elevator) {
+		isElevator = elevator;
 	}
 }

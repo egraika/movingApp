@@ -6,6 +6,7 @@ import java.util.Date;
 public class ChargeView{
 	
 	private int id;
+	private long moveid;
 	private Date date;
 	private double amount;
 	
@@ -31,5 +32,13 @@ public class ChargeView{
 	
 	public Date getDate() {
 		return date;
+	}
+
+	public long getMoveid() {
+		return moveid;
+	}
+
+	public void setMoveid(long moveid) {
+		this.moveid = moveid;
 	}
 }

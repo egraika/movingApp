@@ -1,5 +1,5 @@
-<div data-ng-controller="editMoveController as ctrl" ng-init="init()" style="margin-top: 100px">
-	<div class="container">
+<div data-ng-controller="editMyMoveController as ctrl" ng-init="init()">
+	<div class="container" ng-hide="error" style="margin-top: 150px">
 		<div class="well">
 			<form id="editMoveForm" name="editMoveForm">
 				<h2>Edit Move - {{move.id}}</h2>
@@ -8,7 +8,7 @@
 					<div class="col-xs-4">
 						<label for="startsAt">Date Of Move</label>
 						<p class="input-group">
-							<input  value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" ng-disabled="true" type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="startsAtPicker.date" is-open="startsAtPicker.open" />
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="startsAt" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="startsAtPicker.date" is-open="startsAtPicker.open" />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="openCalendar($event, 'startsAtPicker')"><i class="fa fa-calendar"></i></button>
 						  	</span>
@@ -16,32 +16,11 @@
 					</div>
 					<div class="col-xs-4">
 						<label for="status">Status</label>
-						<select class="form-control" id="status" name="status" ng-model="move.status">
+						<select class="form-control" id="status" name="status" ng-model="move.status" ng-disabled="true">
 							<option value="open">Open</option>
 							<option value="confirmed">Open and Confirmed</option>
 							<option value="closed">Closed</option>
 						</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-4">
-						<label for="firstName">First Name</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control" ng-disabled="true"></input>
-					</div>
-					<div class="col-xs-4">
-						<label for="lastName">Last Name</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control" ng-disabled="true"></input>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-4">
-						<label for="email">Email</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control" ng-disabled="true"></input>
-					</div>
-					<div class="col-xs-4">
-						<label for="phone">Phone</label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.user.phone"  numbers-only phone-input ng-required="true" ng-disabled="true">
-						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
 					</div>
 				</div>
 				<div class="panel-group form-group" id="accordion" style="margin-top: 20px">
@@ -129,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel-group form-group" id="accordion">
+				<div class="panel-group form-group">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-heading">
@@ -214,35 +193,53 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<div ng-include src="'pages/notes.html'"></div>
-					</div>
-				</div>
 				<hr>
-				<div class="row">
-					<div class="col-xs-4" ng-show="creditCardSet && !cardExpired">
-						<h4 style="text-center">Add Charge</h4>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" min="1" id="amount" ng-model="amount" class="form-control" placeholder="0"></input>
-						<button class="btn btn-primary form-control" style="margin-top: 15px" data-toggle="modal" data-target="#checkout">Charge Customer</button>
+				<h4>Additional Information:</h4>
+				<div class="form-check">
+					<label class="form-check-label" for="inlineCheckbox1">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="move.isArtwork"/>
+						Do you have Artwork?
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label" for="inlineCheckbox2">
+					<input class="form-check-input" type="checkbox" id="inlineCheckbox2" ng-model="move.isAntiques"/>
+						Do you have Antiques?
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label" for="isGroundFloor">
+					<input class="form-check-input" type="checkbox" id="isGroundFloor" ng-model="move.isGroundFloor"/>
+						Are both places on ground level?
+					</label>
+				</div>
+				<div class="form-check" ng-show="move.isGroundFloor">
+					<label class="form-check-label" for="isElevator">
+					<input class="form-check-input" type="checkbox" id="isElevator" ng-model="move.isElevator"/>
+						Is there a usable elevator?
+					</label>
+				</div>
+				<div class="row" style="margin-top:15px">
+					<div class="form-group col-xs-4">
+						<label for="numberOfLargeItems">Number of Large Items</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfLargeItems" ng-model="move.numberOfLargeItems" class="form-control"></input>
 					</div>
-					<div class="col-xs-4" ng-show="!creditCardSet && !cardExpired">
-						<h4 style="text-center">Add Charge</h4>
-						<p style="color: red;">No Credit Card Set</p>
-					</div>
-					<div class="col-xs-4" ng-show="creditCardSet && cardExpired">
-						<h4 style="text-center">Add Charge</h4>
-						<p style="color: red;">Credit Card is Expired</p>
-					</div>
-					<div class="col-xs-8">
-						<div ng-include src="'pages/charges.html'"></div>
+					<div class="form-group col-xs-4">
+						<label for="numberOfBoxes">Number of Boxes</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfBoxes" ng-model="move.numberOfBoxes" class="form-control"></input>
 					</div>
 				</div>
 				<div class="row">
+					<div class="form-group col-xs-12">
+						<label for="comment">Additional Comments:</label>
+						<textarea class="form-control" rows="5" id="comment" ng-model="move.comment" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row" style="margin-top:15px">
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-disabled="editMoveForm.$invalid" ng-click="save()">Save</button>
+						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-disabled="editMoveForm.$invalid" ng-click="save()">Save Move Information</button>
 					</div>
 				</div>
 				<div class="row">
@@ -255,30 +252,14 @@
 			</form>
 		</div>
 	</div>
-	<div class="modal fade" id="checkout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-		            <!-- Modal Header -->
-		      	<div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal">
-		                       <span aria-hidden="true">&times;</span>
-		                       <span class="sr-only">Close</span>
-		                </button>
-		                <h3 class="modal-title" id="myModalLabel">
-		                    Are you sure you want to charge this customer?
-		                </h3>
-		            </div>
-		            
-		            <!-- Modal Body -->
-		            <div class="modal-body">
-		               <div class="row">
-					<div class="col-xs"12">
-						<button class="btn btn-lg btn-primary pull-right" style="margin-right: 15px" ng-click="addCharge()" data-dismiss="modal">Yes</button>
-						<button class="btn btn-lg btn-danger pull-left" style="margin-left: 15px" data-dismiss="modal">Cancel</button>
-					</div>
-				   </div>
-		            </div>
+	<div class="container" ng-show="error" style="margin-top:150px;margin-bottom:300px">
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<h4>Request Failed</h4>
+				<p>You must be logged in as the correct user to view their moves</p>
 			</div>
+			<div class="col-xs-3"></div>
 		</div>
 	</div>
 </div>

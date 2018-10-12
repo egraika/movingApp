@@ -5,18 +5,10 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.entity.User;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -39,26 +31,9 @@ public class MoveEntity implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@JsonBackReference
+	@JsonManagedReference(value="notes")
 	@OneToMany(fetch = FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
 	private List<NoteEntity> notes;
-
-	@JsonBackReference
-	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
-	@Fetch (FetchMode.SELECT)
-	private List<ChargeEntity> charges;
-
-	@Column(name = "firstName")
-	private String firstName;
-
-	@Column(name = "lastName")
-	private String lastName;
-
-	@Column(name = "email")
-	private String email;
-
-	@Column(name = "phone")
-	private String phone;
 
 	@Column(name = "fromStreet")
 	private String fromStreet;
@@ -97,14 +72,34 @@ public class MoveEntity implements Serializable {
 	@Column(name = "dateOfBooking")
 	private LocalDate dateOfBooking;
 
-	@Column(name = "stripe_Customer_ID")
-	private String stripeCustomerID;
-
 	@Column(name = "status")
 	private String status;
 
 	@Column(name = "moveTitle")
 	private String moveTitle;
+
+	@Column(name = "isArtwork", columnDefinition="BOOLEAN DEFAULT false")
+	private Boolean isArtwork;
+
+	@Column(name = "isAntiques", columnDefinition="BOOLEAN DEFAULT false")
+	private Boolean isAntiques;
+
+	@Column(name = "numberOfBoxes", columnDefinition="bigint DEFAULT 0")
+	private long numberOfBoxes;
+
+	@Column(name = "numberOfLargeItems",columnDefinition="bigint DEFAULT 0")
+	private long numberOfLargeItems;
+
+	@Column(name = "isGroundFloor", columnDefinition="BOOLEAN DEFAULT false")
+	private Boolean isGroundFloor;
+
+	@Column(name = "isElevator", columnDefinition="BOOLEAN DEFAULT false")
+	private Boolean isElevator;
+
+	@JsonBackReference(value="move_user_id")
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
 
 	public void setID(int id) {
 		this.id = id;
@@ -114,52 +109,12 @@ public class MoveEntity implements Serializable {
 		return id;
 	}
 
-	public void setStripeCustomerID(String stripeCustomerID) {
-		this.stripeCustomerID = stripeCustomerID;
-	}
-
-	public String getStripeCustomerID() {
-		return stripeCustomerID;
-	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	public String getStatus() {
 		return status;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setLastName(String lastName ) {
-		this.lastName = lastName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setEmail(String email  ) {
-		this.email = email;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getPhone() {
-		return phone;
 	}
 
 	public void setfromStreet(String fromStreet) {
@@ -243,14 +198,6 @@ public class MoveEntity implements Serializable {
 		return notes;
 	}
 
-	public void setCharges(List<ChargeEntity> charges) {
-		this.charges = charges;
-	}
-
-	public List<ChargeEntity> getCharges() {
-		return charges;
-	}
-
 	public void setDateOfBooking(LocalDate dateOfBooking) {
 		this.dateOfBooking = dateOfBooking;
 	}
@@ -281,5 +228,61 @@ public class MoveEntity implements Serializable {
 
 	public void setMoveEnd(OffsetDateTime moveEnd) {
 		this.moveEnd = moveEnd;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Boolean getArtwork() {
+		return isArtwork;
+	}
+
+	public void setArtwork(Boolean artwork) {
+		isArtwork = artwork;
+	}
+
+	public Boolean getAntiques() {
+		return isAntiques;
+	}
+
+	public void setAntiques(Boolean antiques) {
+		isAntiques = antiques;
+	}
+
+	public long getNumberOfBoxes() {
+		return numberOfBoxes;
+	}
+
+	public void setNumberOfBoxes(long numberOfBoxes) {
+		this.numberOfBoxes = numberOfBoxes;
+	}
+
+	public long getNumberOfLargeItems() {
+		return numberOfLargeItems;
+	}
+
+	public void setNumberOfLargeItems(long numberOfLargeItems) {
+		this.numberOfLargeItems = numberOfLargeItems;
+	}
+
+	public Boolean getGroundFloor() {
+		return isGroundFloor;
+	}
+
+	public void setGroundFloor(Boolean groundFloor) {
+		isGroundFloor = groundFloor;
+	}
+
+	public Boolean getElevator() {
+		return isElevator;
+	}
+
+	public void setElevator(Boolean elevator) {
+		isElevator = elevator;
 	}
 }

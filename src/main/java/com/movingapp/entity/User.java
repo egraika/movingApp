@@ -1,8 +1,18 @@
 package com.movingapp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.model.ChargeEntity;
+import com.movingapp.model.MoveEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -20,7 +30,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private int id;
+	private Long id;
 
 	@Column(name = "email", nullable = false, unique = true)
 	@Email(message = "Please provide a valid e-mail")
@@ -35,14 +45,37 @@ public class User implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
+	@Column(name = "cc_last_four")
+	private String ccLastFour;
+
+	@Column(name = "cc_expiration_date")
+	private String ccExpirationDate;
+
+	@Column(name = "cc_card_type")
+	private String ccCardType;
+
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@Column(name = "confirmation_token")
-	private String confirmationToken;
+	@OneToOne(mappedBy="user", fetch=FetchType.LAZY)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	@PrimaryKeyJoinColumn
+	private ConfirmationToken confirmationToken;
+
+	@OneToOne(fetch=FetchType.LAZY)
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	@PrimaryKeyJoinColumn
+	private PasswordResetToken passwordResetToken;
 
 	@Column(name = "phone")
 	private String phone;
+
+	@Column(name = "stripe_Customer_ID")
+	private String stripeCustomerID;
+
+	@JsonManagedReference(value="move_user_id")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
+	private Set<MoveEntity> moves;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "user_to_location", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "location_id"))
@@ -51,6 +84,11 @@ public class User implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
 	private Set<Authority> authorities = new HashSet<Authority>();
+
+	@JsonManagedReference(value="user_charges")
+	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="user")
+	@Fetch(FetchMode.SELECT)
+	private List<ChargeEntity> charges;
 
 	public String getFirstName() {
 		return firstName;
@@ -66,14 +104,6 @@ public class User implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPassword() {
@@ -124,11 +154,75 @@ public class User implements Serializable {
 		this.locations = locations;
 	}
 
-	public String getConfirmationToken() {
+	public ConfirmationToken getConfirmationToken() {
 		return confirmationToken;
 	}
 
-	public void setConfirmationToken(String confirmationToken) {
+	public void setConfirmationToken(ConfirmationToken confirmationToken) {
 		this.confirmationToken = confirmationToken;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public PasswordResetToken getPasswordResetToken() {
+		return passwordResetToken;
+	}
+
+	public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+		this.passwordResetToken = passwordResetToken;
+	}
+
+	public String getStripeCustomerID() {
+		return stripeCustomerID;
+	}
+
+	public void setStripeCustomerID(String stripeCustomerID) {
+		this.stripeCustomerID = stripeCustomerID;
+	}
+
+	public Set<MoveEntity> getMoves() {
+		return moves;
+	}
+
+	public void setMoves(Set<MoveEntity> moves) {
+		this.moves = moves;
+	}
+
+	public String getCcLastFour() {
+		return ccLastFour;
+	}
+
+	public void setCcLastFour(String ccLastFour) {
+		this.ccLastFour = ccLastFour;
+	}
+
+	public String getCcExpirationDate() {
+		return ccExpirationDate;
+	}
+
+	public void setCcExpirationDate(String ccExpirationDate) {
+		this.ccExpirationDate = ccExpirationDate;
+	}
+
+	public String getCcCardType() {
+		return ccCardType;
+	}
+
+	public void setCcCardType(String ccCardType) {
+		this.ccCardType = ccCardType;
+	}
+
+	public List<ChargeEntity> getCharges() {
+		return charges;
+	}
+
+	public void setCharges(List<ChargeEntity> charges) {
+		this.charges = charges;
 	}
 }

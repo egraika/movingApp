@@ -8,10 +8,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serializable;
+
 
 @Entity
 @Table(name = "authority")
-public class Authority {
+public class Authority implements Serializable {
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")

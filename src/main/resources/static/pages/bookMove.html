@@ -1,32 +1,33 @@
 <div style="margin-top:100px;margin-bottom:45px">
     <!-- Page Content -->
     <div class="container">
-	<div data-ng-controller="bookMoveController">
-          <div class="shell" id="bootstrap" id="moveInfo">
+	<div data-ng-controller="bookMoveController" ng-init="init()">
+          <div class="shell" id="moveInfo">
             <h1>Book a move</h1><h3>Fill out the following information to get started</h3>
             <hr>
             <form class="form-horizontal" role="form" name="bookingForm" id="bookingForm">
-            	<div class="row">
+				<input type="hidden" name="userId" ng-model="moveData.user.id" />
+            	<div class="row" ng-hide="authenticated">
             		<div class="col-xs-6">
 					<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.firstName" ng-minlength="2" ng-required="true">
+					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
 				 </div>
-				 <div class="col-xs-6">
+				 <div class="col-xs-6" ng-hide="authenticated">
 				  	<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.lastName" ng-minlength="2" ng-required="true">
+					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
 				</div>
             	</div>
-            	<div class="row">
+            	<div class="row" ng-hide="authenticated">
             		<div class="col-xs-6">
 					<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.email" data-error="Invalid Email Address" ng-required="true">
+					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
 				 </div>
-				 <div class="col-xs-6">
+				 <div class="col-xs-6" ng-hide="authenticated">
 				  	<label class="control-label" for="phone">Phone Number<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.phone" autocomplete="new-password" phone-input ng-required="true">
+					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.user.phone" autocomplete="new-password" phone-input ng-required="true">
 					<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
 				</div>
             	</div>
@@ -164,7 +165,12 @@
 	            	<div class="col-xs-3"></div>
 	            	<div class="col-xs-3"></div>
 	            	<div class="col-xs-3">
-	            		<button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#checkout" style="margin-top: 15px">Proceed to Billing Information</button>
+	            		<button type="button" class="btn btn-primary btn-lg pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
+	            		bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
+	            		bookingForm.phone.$invalid || bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
+	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid">Proceed to Billing Information</button>
+						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 	            	</div>
             </div>
 		</form>
@@ -172,61 +178,6 @@
             	<div class="col-xs-12"><span style="color: red"><i class="glyphicon glyphicon-asterisk"></i> We require a deposit of $1 dollar to reserve a booking appointment</span></div>
             </div>
           </div>
-		   <div class="modal fade" id="checkout" tabindex="-1" role="dialog" 
-		     aria-labelledby="myModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <!-- Modal Header -->
-		            <div class="modal-header">
-		                <button type="button" class="close" 
-		                   data-dismiss="modal">
-		                       <span aria-hidden="true">&times;</span>
-		                       <span class="sr-only">Close</span>
-		                </button>
-		                <h3 class="modal-title" id="myModalLabel">
-		                    Billing Information
-		                </h3>
-		            </div>
-		            
-		            <!-- Modal Body -->
-		            <div class="modal-body" class="bs-loading-container" bs-loading-overlay>
-		               <form method="post" id="payment-form">
-		                	<div class="form-group">
-		                    <label class="control-label" for="name">Name</label>
-		                      <input class="form-control"
-		                      id="card-name" placeholder="Jane Doe" ng-model="$parent.stripe.name" name="name"/>
-		                  </div>
-		                   <div class="form-row">
-					    <label class="control-label" for="card-element">
-					      Credit or debit card
-					    </label>
-					    <div id="card-element">
-					      <!-- a Stripe Element will be inserted here. -->
-					    </div>
-					
-					    <!-- Used to display form errors -->
-					    <div id="card-errors"></div>
-					  </div>
-					<div class="row" style="margin-top: 15px">
-						<div class="col-xs-4"></div>
-						<div class="col-xs-4"></div>
-						<div class="col-xs-4">
-							<button type="submit" class="btn btn-info btn-block" ng-click="submit()">Submit</button>
-		                		</div>
-		                	</div>
-		                </form>   
-		            </div>
-		            
-		            <!-- Modal Footer -->
-		            <div class="modal-footer">
-			            
-			            	<div class="col-cs-12 col-centered">
-			            		<p class="centered text-center">- Powered by <a href="https://stripe.com/" target="_blank">Stripe.com</a> -</p>
-			            	</div>
-			            </div>
-		            </div>
-		        </div>
-		    </div>
 		</div>
 	</div>
 

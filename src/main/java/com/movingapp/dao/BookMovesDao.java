@@ -2,6 +2,7 @@ package com.movingapp.dao;
 
 import javax.transaction.Transactional;
 
+import com.movingapp.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,8 +21,15 @@ public interface BookMovesDao extends JpaRepository<MoveEntity, Integer> {
 	
 	@Query("Select m from MoveEntity m where m.fromState IN :locations"
 			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
-			+ " AND (CONCAT(m.firstName, ' ', m.lastName) LIKE %:search%"
-			+ " OR CONCAT(m.lastName, ' ', m.firstName) LIKE %:search%)")
+			+ " AND m.moveTitle LIKE %:search%")
 	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("locations")   Object[] objects);
+
+	@Query("Select m from MoveEntity m where m.user = :user")
+	public Page<MoveEntity> findAllMyMoves(Pageable pageable, @Param("user") User user);
+
+	@Query("Select m from MoveEntity m where m.user = :user"
+			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
+			+ " AND m.moveTitle LIKE %:search%")
+	public Page<MoveEntity> findAllMyMoves(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("user") User user);
 }
 

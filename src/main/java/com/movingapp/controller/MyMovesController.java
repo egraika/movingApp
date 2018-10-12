@@ -1,25 +1,8 @@
 package com.movingapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import com.movingapp.entity.User;
-import com.movingapp.view.UserView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.google.gson.Gson;
 import com.movingapp.entity.Location;
+import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
@@ -27,10 +10,21 @@ import com.movingapp.model.TableState;
 import com.movingapp.view.ChargeView;
 import com.movingapp.view.Move;
 import com.movingapp.view.Note;
-import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
-public class MovesTableController {
+public class MyMovesController {
 	
 	@Autowired
 	private com.movingapp.dao.BookMovesDao BookMovesDao;
@@ -38,9 +32,9 @@ public class MovesTableController {
 	@Autowired
 	private com.movingapp.dao.UserRepo UserRepo;
 	
-	@RequestMapping(value = "/getBookedMoves", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMyMoves", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<Move> getmyAssignedMembers(@RequestParam("tableState") String state, @RequestParam("userid") Long userid) {
+	public Page<Move> getMyMoves(@RequestParam("tableState") String state, @RequestParam("userid") Long userid) {
 		Gson gson = new Gson();
 		TableState tableState = gson.fromJson(state, TableState.class);
 		String search = "";
@@ -94,15 +88,11 @@ public class MovesTableController {
 
 		Optional<User> optionalUser = UserRepo.findById(userid);
 		User user =  optionalUser.get();
-		Set<Location> locations = user.getLocations();
-		ArrayList<String> locationsStrings = new ArrayList<String>();
-		for (Location location : locations) {
-			locationsStrings.add(location.getLocation());
-		}
+
 		if (search == "" && statusSearch == "") {
-			moveEntities = BookMovesDao.findAll(pageable, locationsStrings.toArray());
+			moveEntities = BookMovesDao.findAllMyMoves(pageable, user);
 		} else {
-			moveEntities = BookMovesDao.findAll(search, statusSearch, pageable, locationsStrings.toArray());
+			moveEntities = BookMovesDao.findAllMyMoves(search, statusSearch, pageable, user);
 		}
 		moves = mapToMove(moveEntities.getContent());
 
@@ -134,13 +124,7 @@ public class MovesTableController {
 			move.setStatus(moveEntityList.get(i).getStatus());
 			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
 			move.setTitle(moveEntityList.get(i).getMoveTitle());
-			UserView userView = new UserView();
-			userView.setPhone(moveEntityList.get(i).getUser().getPhone());
-			userView.setLastName(moveEntityList.get(i).getUser().getLastName());
-			userView.setId(moveEntityList.get(i).getUser().getId());
-			userView.setFirstName(moveEntityList.get(i).getUser().getFirstName());
-			userView.setEmail(moveEntityList.get(i).getUser().getEmail());
-			move.setUser(userView);
+			
 			movesList.add(move);
 		}
 		
@@ -162,5 +146,21 @@ public class MovesTableController {
 		
 		return noteList;
 	}
+	
+	private List<ChargeView> ChargeEntityToCharge(List<ChargeEntity> chargeEntityList) {
+		
+		List<ChargeView> chargeList = new ArrayList<ChargeView>();
+		
+		for(int i = 0; i < chargeEntityList.size(); i++) {
+			ChargeView charge = new ChargeView();
+			charge.setAmount(chargeEntityList.get(i).getAmount());
+			charge.setDate(chargeEntityList.get(i).getDate());
+			charge.setID(chargeEntityList.get(i).getID());
+			chargeList.add(charge);
+		}
+		
+		return chargeList;
+	}
+	
 }
 

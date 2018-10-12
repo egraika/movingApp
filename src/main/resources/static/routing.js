@@ -18,14 +18,11 @@
 			// route for the home page
 			$routeProvider.when('/', {
 				templateUrl : 'pages/home.html',
-				controller : 'loginController',
-			    controllerAs: 'controller',
 				access: {
 					loginRequired: false,
 			        authorizedRoles: [USER_ROLES.all]
 			    }
 			})
-
 			.when('/bookmove', {
 				templateUrl : 'pages/bookMove.html',
 				access: {
@@ -40,7 +37,6 @@
 					authorizedRoles: [USER_ROLES.all]
 				}
 			})
-			
 			.when('/confirmation', {
 				templateUrl : 'pages/confirmation.html',
 				access: {
@@ -94,9 +90,44 @@
             	}
             })
             .when('/confirm', {
-            	templateUrl : 'pages/templates/confirm.html',
+            	templateUrl : 'pages/templates/confirmationToken.html',
             	access: {
             		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/reset/password', {
+            	templateUrl : 'pages/templates/passwordReset.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/reset/password/confirm', {
+            	templateUrl : 'pages/templates/confirmPasswordReset.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/myMoves', {
+            	templateUrl : 'pages/user/myMoves.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/editMyMove/:moveID', {
+            	templateUrl : 'pages/user/editMyMove.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/profile', {
+            	templateUrl : 'pages/user/profile.html',
+            	access: {
+            		loginRequired: true,
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
@@ -228,7 +259,9 @@
 	}]);
 	
 	movingApp.run(function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout,bsLoadingOverlayService) {
-		
+
+		$rootScope.isUser = false;
+		$rootScope.authenticated = false;
 		bsLoadingOverlayService.setGlobalConfig({
 			templateUrl: 'pages/loading-overlay-template.html'
 		});
@@ -236,7 +269,7 @@
 		  // route change start code ...
 		 $rootScope.$on('$routeChangeStart', function(event, next) {
 			 $rootScope.path = $location.path();
-			 $rootScope.currentPath = $location.path() === '/bookmove' || $location.path() === '/contact' || $rootScope.authenticated;
+			 $rootScope.currentPath = $location.path() === '/bookmove' || $location.path() === '/contact' || $location.path() === '/confirm' || $location.path() === '/login' || $rootScope.authenticated;
 		 if (next.originalPath === "/login" && $rootScope.authenticated) {
 		   event.preventDefault();
 		  } else if (next.access && next.access.loginRequired && !$rootScope.authenticated) {
@@ -258,7 +291,20 @@
 		// Call when the the client is confirmed
 		 $rootScope.$on('event:auth-loginConfirmed', function(event, data) {
 		  $rootScope.loadingAccount = false;
-		  var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "/tables");
+		  if(data != "" && data.authorities[0].name == "user") {
+            $rootScope.isUser = true;
+            $rootScope.authenticated = true;
+          } else if(data != "") {
+            $rootScope.isUser = false;
+            $rootScope.loadingAccount = true;
+          } else {
+            return;
+          }
+		  if($rootScope.isUser) {
+		    var nextLocation = "/myMoves";
+		  } else {
+		    var nextLocation = "/tables";
+		  }
 		  var delay = ($location.path() === "/loading" ? 1500 : 0);
 		 
 		  $timeout(function() {
