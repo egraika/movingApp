@@ -1,4 +1,14 @@
-<div data-ng-controller="myMovesController" class="container" style="margin-top:150px;margin-bottom:150px">
+<div data-ng-controller="myMovesController" class="container" style="margin-top:150px;margin-bottom:150px" ng-init="init()">
+    <div class="alert alert-danger" role="alert" ng-hide="creditCardSet">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <a href="#/profile" style="color: red;">Set your credit card information</a>
+    </div>
+    <div class="alert alert-danger" role="alert" ng-show="firstMoveNeedsInfo">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <a href="#/editMyMove/{{moves[0].id}}" style="color: red;">Add move information</a>
+    </div>
     <div class="row" st-table="myMoves" st-pipe="callServer">
         <div class="col-xs-12">
             <h2>My Moves</h2>

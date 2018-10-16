@@ -1,11 +1,13 @@
 	// create the module and name it movingApp
 	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker']);
 
-	movingApp.config(['$locationProvider','$httpProvider','$windowProvider', function($locationProvider, $httpProvider,$windowProvider) {
+	movingApp.config(['$locationProvider','$httpProvider','$windowProvider','stConfig', function($locationProvider, $httpProvider,$windowProvider,stConfig) {
 		  $locationProvider.hashPrefix('');
 		  $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+		  stConfig.sort.delay = 100;
+		  stConfig.pipe.delay = 200;
 	}]);
-	
+
 	movingApp.constant('USER_ROLES', {
 	    all: '*',
 	    admin: 'admin',
@@ -291,7 +293,7 @@
 		// Call when the the client is confirmed
 		 $rootScope.$on('event:auth-loginConfirmed', function(event, data) {
 		  $rootScope.loadingAccount = false;
-		  if(data != "" && data.authorities[0].name == "user") {
+		  if(data != "" && data.authorities != undefined && data.authorities[0].name == "user") {
             $rootScope.isUser = true;
             $rootScope.authenticated = true;
           } else if(data != "") {
@@ -311,6 +313,7 @@
 		   Session.create(data);
 		   $rootScope.account = Session;
 		   $rootScope.authenticated = true;
+		   bsLoadingOverlayService.stop();
 		   $location.path(nextLocation).replace();
 		  }, delay);
 		 

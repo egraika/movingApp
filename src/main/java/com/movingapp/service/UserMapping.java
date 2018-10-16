@@ -17,7 +17,7 @@ public class UserMapping {
 
         userToMap.setFirstName(userView.getFirstName());
         userToMap.setLastName(userView.getLastName());
-        userToMap.setEmail(userView.getEmail());
+        //userToMap.setEmail(userView.getEmail());
         userToMap.setPhone(userView.getPhone());
 
         return userToMap;

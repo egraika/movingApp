@@ -136,7 +136,7 @@ public class BookMoveController {
 	private User createNewUser(UserView user) {
 		User saveUser = new User();
 		saveUser.setPhone(user.getPhone());
-		saveUser.setEmail(user.getEmail());
+		saveUser.setEmail(user.getEmail().toLowerCase());
 		saveUser.setLastName(user.getLastName());
 		saveUser.setFirstName(user.getFirstName());
 		Optional<Authority> authority = authorityRepo.findById((long)3);

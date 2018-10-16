@@ -22,11 +22,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
             bsLoadingOverlayService.stop();
-			$location.path('/confirmation');
-			$route.reload();
-			$timeout( function(){
-				window.location.reload();
-			}, 20000 );
+			$location.path('/confirmation').replace();
         }, function(response) {
             $scope.userExists = true;
         });

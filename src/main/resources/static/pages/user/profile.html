@@ -3,7 +3,10 @@
         <div class="well">
             <form id="editMoveForm" name="editMoveForm">
                 <h2>My Profile</h2>
-                <hr>
+                <hr style="height: 3px;">
+                <div class="row form-group">
+                    <center><h4>Contact Information</h4></center>
+                </div>
                 <div class="row form-group">
                     <div class="col-xs-4">
                         <label for="firstName">First Name</label>
@@ -17,13 +20,19 @@
                 <div class="row form-group">
                     <div class="col-xs-4">
                         <label for="email">Email</label>
-                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control"></input>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control" ng-disabled="true"></input>
                     </div>
                     <div class="col-xs-4">
                         <label for="phone">Phone</label>
-                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="user.phone"  numbers-only phone-input ng-required="true">
-                        <span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
+                        <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="user.phone" numbers-only phone-input>
                     </div>
+                    <div class="col-xs-4">
+                        <button type="button" style="margin-top: 25px" class="btn btn-primary btn-block form-control" data-ng-click="save()">Save Personal Information</button>
+                    </div>
+                </div>
+                <hr style="height: 1px;">
+                <div class="row form-group">
+                    <center><h4>Credit Card and Charge Information</h4></center>
                 </div>
                 <div class="row" ng-show="creditCardSet">
                     <div class="col-xs-4 col-md-4">
@@ -111,3 +120,4 @@
         </div>
     </div>
 </div>
+<div ng-include src="'pages/saveAlert.html'"></div>
