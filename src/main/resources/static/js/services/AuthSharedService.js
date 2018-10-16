@@ -1,4 +1,4 @@
-	movingApp.service('AuthSharedService', function($rootScope, $http, authService, Session) {
+	movingApp.service('AuthSharedService', function($rootScope, $http, authService, Session,bsLoadingOverlayService) {
 	 return {
 	  login: function(credentials) {
 	    var config = {
@@ -15,6 +15,7 @@
 	    	  }, function errorCallback(response) {
 	    		  $rootScope.authenticationError = true;
 	    		  Session.invalidate();
+	    		  bsLoadingOverlayService.stop();
 	    	  });
 	  },
 	  

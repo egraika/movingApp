@@ -17,7 +17,7 @@ public class UserMapping {
 
         userToMap.setFirstName(userView.getFirstName());
         userToMap.setLastName(userView.getLastName());
-        userToMap.setEmail(userView.getEmail());
+        //userToMap.setEmail(userView.getEmail());
         userToMap.setPhone(userView.getPhone());
 
         return userToMap;
@@ -31,6 +31,7 @@ public class UserMapping {
         userView.setFirstName(user.getFirstName());
         userView.setLastName(user.getLastName());
         userView.setPhone(user.getPhone());
+        userView.setAuthorities(user.getAuthorities());
 
         userView.setCcLastFour(user.getCcLastFour());
         userView.setCcExpirationDate(user.getCcExpirationDate());

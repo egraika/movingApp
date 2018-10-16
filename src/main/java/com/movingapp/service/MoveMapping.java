@@ -148,14 +148,16 @@ public class MoveMapping {
         userView.setCcExpirationDate(moveEntity.getUser().getCcExpirationDate());
         userView.setCharges(ChargeMapping.ChargeEntityToCharge(moveEntity.getUser().getCharges()));
 
-        String dateString = moveEntity.getUser().getCcExpirationDate();
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.MONTH, Integer.parseInt(dateString.split("/")[0]));
-        calendar.set(Calendar.YEAR, Integer.parseInt(dateString.split("/")[1]));
-        Date date = calendar.getTime();
+        if(moveEntity.getUser().getCcExpirationDate() != null) {
+            String dateString = moveEntity.getUser().getCcExpirationDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.clear();
+            calendar.set(Calendar.MONTH, Integer.parseInt(dateString.split("/")[0]));
+            calendar.set(Calendar.YEAR, Integer.parseInt(dateString.split("/")[1]));
+            Date date = calendar.getTime();
 
-        userView.setExpirationDate(date);
+            userView.setExpirationDate(date);
+        }
         move.setUser(userView);
 
         return move;

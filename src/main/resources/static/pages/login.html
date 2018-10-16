@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="col-md-6 col-md-offset-3" ng-controller="loginController" style="margin-top:150px;margin-bottom:300px">
+	<div class="col-md-6 col-md-offset-3" ng-controller="loginController" style="margin-top:150px;margin-bottom:300px" bs-loading-overlay>
 		<h2>Login</h2>
 		<form name="form" ng-submit="login()" role="form">
 			<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
