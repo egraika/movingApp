@@ -31,6 +31,7 @@ public class UserMapping {
         userView.setFirstName(user.getFirstName());
         userView.setLastName(user.getLastName());
         userView.setPhone(user.getPhone());
+        userView.setAuthorities(user.getAuthorities());
 
         userView.setCcLastFour(user.getCcLastFour());
         userView.setCcExpirationDate(user.getCcExpirationDate());

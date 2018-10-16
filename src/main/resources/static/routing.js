@@ -36,7 +36,7 @@
 				templateUrl : 'pages/editMove.html',
 				access: {
 					loginRequired: true,
-					authorizedRoles: [USER_ROLES.all]
+					authorizedRoles: [USER_ROLES.admin,USER_ROLES.mover]
 				}
 			})
 			.when('/confirmation', {
@@ -74,7 +74,7 @@
 				templateUrl : 'pages/tables.html',
 				access: {
 					loginRequired: true,
-					authorizedRoles: [USER_ROLES.all]
+					authorizedRoles: [USER_ROLES.admin,USER_ROLES.mover]
 				}
 			})
 			.when('/contactConfirmation', {

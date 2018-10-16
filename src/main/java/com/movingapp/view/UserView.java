@@ -1,7 +1,10 @@
 package com.movingapp.view;
 
+import com.movingapp.entity.Authority;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class UserView {
 
@@ -15,6 +18,8 @@ public class UserView {
 	private Date expirationDate;
 	private String cardType;
 	private List<ChargeView> charges;
+	private Set<Authority> authorities;
+
 
 	public UserView(){}
 
@@ -97,5 +102,13 @@ public class UserView {
 
 	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 }
