@@ -16,8 +16,8 @@ public class ConfirmationToken implements Serializable {
     private static final int EXPIRATION = 60 * 24;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition="BIGSERIAL")
     private Long token_id;
 
     @Column(name = "token")

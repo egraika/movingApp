@@ -31,9 +31,9 @@ public class ChargeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition="BIGSERIAL")
 	@OrderBy
-	@Column(name = "id")
 	private int id;
 	
 	@Column(name = "amount")

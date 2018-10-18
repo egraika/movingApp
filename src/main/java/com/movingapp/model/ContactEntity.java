@@ -25,9 +25,8 @@ public class ContactEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OrderBy
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition="BIGSERIAL")	@OrderBy
 	private int id;
 	
 	@Column(name = "full_name")
