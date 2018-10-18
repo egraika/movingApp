@@ -33,8 +33,9 @@
 						<th>
 							<select class="form-control" st-search="statusSearch" st-input-event="change">
 								<option value="">All</option>
-								<option value="open">Open</option>
-								<option value="confirmed">Confirmed</option>
+								<option value="unconfirmed user">Unconfirmed User</option>
+								<option value="unconfirmed move">Unconfirmed Move</option>
+								<option value="confirmed move">Confirmed Move</option>
 								<option value="closed">Closed</option>
 							</select>
 						</th>
@@ -44,8 +45,8 @@
 				</thead>
 				<tbody ng-hide="isLoading">
 					<tr ng-repeat="move in moves">
-						<td>{{move.firstName}} {{move.lastName}}</td>
-						<td>{{move.moveStart | date:'MM/dd/yyyy'}}</td>
+						<td>{{move.title}}</td>
+						<td>{{move.startsAt | date:'MM/dd/yyyy'}}</td>
 						<td>{{move.status}}</td>
 						<td>{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
 						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>

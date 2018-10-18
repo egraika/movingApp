@@ -34,6 +34,10 @@ public class editMyMoveController {
 			moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
 		}
 		moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
+
+		if(moveEntity.getStatus() == "unconfirmed move") {
+			moveEntity.setStatus("confirmed move");
+		}
 		BookMovesDao.save(moveEntity);
 
 		return moveMapping.MoveEntityToMove(moveEntity);

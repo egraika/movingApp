@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import com.movingapp.dao.AuthorityRepo;
+import com.movingapp.dao.BookMovesDao;
 import com.movingapp.dao.ConfirmationTokenRepo;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
+import com.movingapp.model.MoveEntity;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class RegisterController {
 
     @Autowired
     private AuthorityRepo authorityRepo;
+
+    @Autowired
+    private BookMovesDao bookMovesDao;
 
     // Process form input data
     @RequestMapping(value = "/register",method = RequestMethod.POST ,consumes = "application/json")
@@ -133,6 +138,11 @@ public class RegisterController {
 
         // Save user
         userService.saveUser(foundUser);
+
+        for (MoveEntity move : foundUser.getMoves()) {
+            move.setStatus("unconfirmed move");
+            bookMovesDao.save(move);
+        }
 
         confirmationTokenRepo.deleteByUserId(user.getId());
 

@@ -82,7 +82,7 @@ public class User implements Serializable {
 	private Set<Location> locations = new HashSet<Location>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
+	@JoinTable(name = "users_authority", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_authority", table = "authority", referencedColumnName = "id") })
 	private Set<Authority> authorities = new HashSet<Authority>();
 
 	@JsonManagedReference(value="user_charges")

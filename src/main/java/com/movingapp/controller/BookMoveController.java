@@ -118,7 +118,7 @@ public class BookMoveController {
 //		charge.setMove(moveEntity);
 //		charges.add(charge);
 //		moveEntity.setCharges(charges);
-		moveEntity.setStatus("open");
+		moveEntity.setStatus("unconfirmed user");
 		moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
 		moveEntity.setDateOfBooking(LocalDate.now());
 		moveEntity.setMoveStart(moveEntity.getMoveStart().plusHours(8));
