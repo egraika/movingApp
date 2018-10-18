@@ -18,7 +18,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.move = response.data;
-			$scope.charges = $scope.move.user.charges;
+			$scope.charges = $scope.move.charges;
             if($scope.charges != null) {
                 $scope.isCharges = true;
             }
@@ -33,7 +33,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			}
 		});
 	}
-	
+
 	 $scope.addNote = function() {
 		 var name = Session.firstName + " " + Session.lastName;
 			$http({
@@ -45,7 +45,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				$scope.move.notes.push(response.data);
 			});
 	}
-	 
+
 	 $scope.save = function() {
 	     $scope.move.startsAt = $scope.startsAtPicker.date;
 	     var tmp = moment($scope.move.startsAt);
@@ -62,7 +62,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				openAlert();
 			});
 	 }
-	 
+
 	 $scope.addCharge = function() {
 		 $http({
 				method: 'POST',
@@ -70,7 +70,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				params: {'amount' : $scope.amount, 'id' : moveID},
 				headers:{'Content-Type': 'application/json'}
 			}).then(function successCallBack(response) {
-				$scope.move.user.charges.push(response.data);
+				$scope.charges.push(response.data);
 			});
 	 }
 	 

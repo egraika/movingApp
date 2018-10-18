@@ -1,9 +1,12 @@
 package com.movingapp.controller;
 
 import com.movingapp.dao.AuthorityRepo;
+import com.movingapp.dao.ChargesDao;
 import com.movingapp.dao.UserRepo;
+import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
+import com.movingapp.service.ChargeMapping;
 import com.movingapp.service.MoveMapping;
 import com.movingapp.service.UserService;
 import com.movingapp.view.Move;
@@ -36,6 +39,9 @@ public class editMoveController {
 	@Autowired
 	private MoveMapping moveMapping;
 
+	@Autowired
+	private ChargesDao chargesDao;
+
 	@Transactional
 	@RequestMapping(value = "/updateMove",method = RequestMethod.POST ,consumes = "application/json")
 	@ResponseBody
@@ -56,8 +62,9 @@ public class editMoveController {
 	public Move getMove(@RequestParam("id") int moveID) {
 		
 		MoveEntity moveEntity = BookMovesDao.findById(moveID);
+		List<ChargeEntity> chargeEntities = chargesDao.findByMoveid((long)moveID);
 		Move move = moveMapping.MoveEntityToMove(moveEntity);
-		
+		move.setCharges(ChargeMapping.ChargeEntityToCharge(chargeEntities));
 		return move;
 	}
 	
