@@ -11,7 +11,8 @@
 	movingApp.constant('USER_ROLES', {
 	    all: '*',
 	    admin: 'admin',
-	    user: 'user'
+	    user: 'user',
+	    mover: 'mover'
 	});
 	
 	// configure our routes
