@@ -76,6 +76,8 @@ public class BookMoveController {
 			userExists = userService.findById(Long.parseLong(userId));
 			UserView userView = new UserView();
 			userView.setId(userExists.getId());
+			userView.setFirstName(userExists.getFirstName());
+			userView.setLastName(userExists.getLastName());
 			move.setUser(userView);
 
 			SimpleMailMessage registrationEmail = new SimpleMailMessage();
@@ -94,6 +96,8 @@ public class BookMoveController {
 			User user = createNewUser(move.getUser());
 			UserView userView = new UserView();
 			userView.setId(user.getId());
+			userView.setFirstName(user.getFirstName());
+			userView.setLastName(user.getLastName());
 			move.setUser(userView);
 
 			String appUrl = request.getScheme() + "://" + request.getServerName();
