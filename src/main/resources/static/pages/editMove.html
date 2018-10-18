@@ -220,7 +220,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-4" ng-show="creditCardSet && !cardExpired">
 						<h4 style="text-center">Add Charge</h4>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" min="1" id="amount" ng-model="amount" class="form-control" placeholder="0"></input>
