@@ -44,7 +44,7 @@
           }
           var isAuthorized = false;
           angular.forEach(authorizedRoles, function (authorizedRole) {
-              var authorized = (!!Session.login &&
+              var authorized = (!!Session.email &&
               Session.userRoles.indexOf(authorizedRole) !== -1);
               if (authorized || authorizedRole == '*') {
                   isAuthorized = true;
