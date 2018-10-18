@@ -31,9 +31,9 @@ public class NoteEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@OrderBy
-	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition="BIGSERIAL")
 	private int id;
 	
 	@Lob

@@ -26,9 +26,9 @@ public class MoveEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition="BIGSERIAL")
 	@OrderBy
-	@Column(name = "id")
 	private int id;
 
 	@JsonManagedReference(value="notes")
