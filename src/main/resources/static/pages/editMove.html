@@ -238,18 +238,11 @@
 						<div ng-include src="'pages/charges.html'"></div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-disabled="editMoveForm.$invalid" ng-click="save()">Save</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
-						<span ng-show="editMoveForm.$invalid" style="color:red">Please fix errors before saving.</span>
+						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-click="save()">Save</button>
 					</div>
 				</div>
 			</form>
