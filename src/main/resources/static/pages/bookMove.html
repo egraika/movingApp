@@ -1,26 +1,24 @@
 <div style="margin-top:100px;margin-bottom:45px" bs-loading-overlay>
     <!-- Page Content -->
-    <div class="container">
-	<div data-ng-controller="bookMoveController" ng-init="init()">
-          <div class="shell" id="moveInfo">
-            <h1>Book a move</h1><h3>Fill out the following information to get started</h3>
-            <hr>
-            <form class="form-horizontal" role="form" name="bookingForm" id="bookingForm">
-				<input type="hidden" name="userId" ng-model="moveData.user.id" />
-            	<div class="row" ng-hide="authenticated">
-            		<div class="col-xs-6">
+    <div class="container" data-ng-controller="bookMoveController" ng-init="init()">
+		<h1>Book a move</h1><h3>Fill out the following information to get started</h3>
+		<hr>
+		<form class="form-horizontal" role="form" name="bookingForm" id="bookingForm">
+			<input type="hidden" name="userId" ng-model="moveData.user.id" />
+			<div class="row" ng-hide="authenticated">
+				<div class="col-xs-6">
 					<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
 					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
-				 </div>
-				 <div class="col-xs-6" ng-hide="authenticated">
+				</div>
+				<div class="col-xs-6" ng-hide="authenticated">
 				  	<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
 					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
 				</div>
-            	</div>
-            	<div class="row" ng-hide="authenticated">
-            		<div class="col-xs-6">
+			</div>
+			<div class="row" ng-hide="authenticated">
+				<div class="col-xs-6">
 					<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
 					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
@@ -30,41 +28,41 @@
 					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.user.phone" autocomplete="new-password" phone-input ng-required="true">
 					<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
 				</div>
-            	</div>
-			    <div class="row" ng-controller="DatepickerPopupDemoCtrl">
-			        <div class='col-sm-6'>
-			        	<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
-			          	<p class="input-group">
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="moveStart" name="moveStart" ng-model="moveData.moveStart" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" class="form-control" ng-change="changeDate()" placeholder="mm/dd/yyyy"/>
+			</div>
+			<div class="row" ng-controller="DatepickerPopupDemoCtrl">
+				<div class='col-sm-6'>
+					<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
+					<p class="input-group">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="moveStart" name="moveStart" ng-model="moveData.moveStart" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="changeDate()" placeholder="mm/dd/yyyy" ng-disabled="isBooking"/>
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+							<button type="button" class="btn btn-default" ng-click="open1()" ng-disabled="isBooking"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
 					</p>
 			            <span style="color:red" ng-show="bookingForm.moveStart.$touched && bookingForm.moveStart.$invalid">Date of move is not valid</span>
-			        </div>
-			    </div>
+				</div>
+			</div>
             	<br><h4><b>From Address:</b></h4>
             	<div class="row">
             		<div class="col-xs-6">
-					<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
-				 </div>
-				 <div class="col-xs-6">
-				  	<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
-				</div>
+						<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true">
+						<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
+				 	</div>
+				 	<div class="col-xs-6">
+				  		<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true">
+						<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
+					</div>
             	</div>
             	<div class="row">
             		<div class="col-xs-6">
-					<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
-					<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
-				 </div>
-				 <div class="col-xs-6">
-				  	<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-					<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'">
+						<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
+						<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
+				 	</div>
+				 	<div class="col-xs-6">
+				  		<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
+						<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'">
 						<!-- <option value="AK" ng-disabled="true">Alaska</option>
 						<option value="AL" ng-disabled="true">Alabama</option>
 						<option value="AR" ng-disabled="true">Arkansas</option>
@@ -122,7 +120,7 @@
 						<option value="WI">Wisconsin</option>
 					</select>
 					<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
-				</div>
+					</div>
             	</div>
             	<br><h4><b>To Address:</b></h4>
             	<div class="row">
@@ -135,7 +133,7 @@
 				  	<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
 					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true">
 					<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
-				</div>
+				 </div>
             	</div>
             	<div class="row">
             		<div class="col-xs-6">
@@ -169,38 +167,17 @@
 	            		bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
 	            		bookingForm.phone.$invalid || bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
 	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid">Proceed to Billing Information</button>
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Proceed to Billing Information</button>
 						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 	            	</div>
 					<div class="col-xs-3" ng-show="authenticated">
 						<button type="button" class="btn btn-primary btn-lg pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
 						bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
 	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid">Proceed to Billing Information</button>
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Proceed to Billing Information</button>
 						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 					</div>
-            </div>
+            	</div>
 		</form>
-            <div class="row">
-            	<div class="col-xs-12"><span style="color: red"><i class="glyphicon glyphicon-asterisk"></i> We require a deposit of $1 dollar to reserve a booking appointment</span></div>
-            </div>
-          </div>
-		</div>
 	</div>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
 </div>
