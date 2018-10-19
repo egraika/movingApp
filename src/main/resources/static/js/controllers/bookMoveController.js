@@ -1,6 +1,7 @@
 movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage','$uibModal','$window','$location','bsLoadingOverlayService','$route','$timeout','$rootScope','Session',   function($scope, $http, $sessionStorage,$uibModal, $window,$location,bsLoadingOverlayService,$route,$timeout,$rootScope,Session) {
 
     $scope.userExists = false;
+	$scope.isBooking = false;
     $scope.init = function() {
         if($rootScope.authenticated) {
             $('#firstName').removeAttr('required');
@@ -13,6 +14,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 		$scope.moveData.notes = [];
 		var jsonString = JSON.stringify($scope.moveData);
 		$scope.moveData.startsAt = new Date($scope.moveData.moveStart);
+		$scope.isBooking = true;
 		bsLoadingOverlayService.start();
         $http({
 			method: 'POST',
@@ -21,9 +23,12 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 			params: {"userId": Session.id},
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
+            $scope.isBooking = false;
             bsLoadingOverlayService.stop();
 			$location.path('/confirmation').replace();
         }, function(response) {
+            $scope.isBooking = false;
+            bsLoadingOverlayService.stop();
             $scope.userExists = true;
         });
     }
