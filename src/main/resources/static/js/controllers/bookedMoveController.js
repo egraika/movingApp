@@ -45,7 +45,15 @@ movingApp
         	for(var i = 0; i < $scope.moves.length; i++) {
         		$scope.moves[i].startsAt = new Date($scope.moves[i].startsAt);
         		$scope.moves[i].endsAt = new Date($scope.moves[i].endsAt);
-        		$scope.moves[i].color = calendarConfig.colorTypes.info;
+        		if($scope.moves[i].status == "unconfirmed user") {
+        		    $scope.moves[i].color = calendarConfig.colorTypes.important;
+        		} else if ($scope.moves[i].status == "unconfirmed move") {
+        		    $scope.moves[i].color = calendarConfig.colorTypes.warning;
+        		} else if ($scope.moves[i].status == "confirmed move") {
+        		    $scope.moves[i].color = calendarConfig.colorTypes.info;
+        		} else {
+        		    $scope.moves[i].color = calendarConfig.colorTypes.success;
+        		}
         	}
         	$scope.events = $scope.moves;
             bsLoadingOverlayService.stop();
@@ -141,7 +149,15 @@ movingApp
                 for(var i = 0; i < $scope.moves.length; i++) {
                     $scope.moves[i].startsAt = new Date($scope.moves[i].startsAt);
                     $scope.moves[i].endsAt = new Date($scope.moves[i].endsAt);
-                    $scope.moves[i].color = calendarConfig.colorTypes.info;
+                    if($scope.moves[i].status == "unconfirmed user") {
+                        $scope.moves[i].color = calendarConfig.colorTypes.important;
+                    } else if ($scope.moves[i].status == "unconfirmed move") {
+                        $scope.moves[i].color = calendarConfig.colorTypes.warning;
+                    } else if ($scope.moves[i].status == "confirmed move") {
+                        $scope.moves[i].color = calendarConfig.colorTypes.info;
+                    } else {
+                        $scope.moves[i].color = calendarConfig.colorTypes.success;
+                    }
                 }
                 $scope.events = $scope.moves;
                 $scope.year = vm.viewDate.getFullYear();
