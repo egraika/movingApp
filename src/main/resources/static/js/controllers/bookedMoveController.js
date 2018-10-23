@@ -1,5 +1,5 @@
 movingApp
-    .controller("bookedMoveController", ['$scope', '$http','$routeParams','$sessionStorage','Session','$modal', 'moment','calendarConfig','$location',   function($scope, $http,$routeParams,$sessionStorage,Session,$modal, moment,calendarConfig,$location) {
+    .controller("bookedMoveController", ['$scope', '$http','$routeParams','$sessionStorage','Session','$modal', 'moment','calendarConfig','$location','bsLoadingOverlayService',   function($scope, $http,$routeParams,$sessionStorage,Session,$modal, moment,calendarConfig,$location,bsLoadingOverlayService) {
 
 //	$scope.getBookedMoves = function() {
 //		$http({
@@ -10,7 +10,7 @@ movingApp
 //			$scope.moves = response.data;
 //		});
 //	}
-	
+	$scope.year = (new Date()).getFullYear();
 	$scope.itemsByPage = 10;
 	$scope.isLoading = false;
 	$scope.isError = false;
@@ -28,14 +28,8 @@ movingApp
 			url: '/getBookedMoves',
 			params: {tableState : tableState, userid : userid},
 			headers:{'Content-Type': 'application/json'}
-		}).then(function successCallBack(response) {
-			$scope.moves = response.data.content;
-        	for(var i = 0; i < $scope.moves.length; i++) {
-        		$scope.moves[i].startsAt = new Date($scope.moves[i].startsAt);
-        		$scope.moves[i].endsAt = new Date($scope.moves[i].endsAt);
-        		$scope.moves[i].color = calendarConfig.colorTypes.info;
-        	}
-        	$scope.events = $scope.moves;
+        }).then(function(response) {
+            $scope.moves = response.data.content;
 			$scope.isLoading = false;
 			$scope.noResultsFound = false;
 			$scope.isError = false;
@@ -43,7 +37,30 @@ movingApp
 			if($scope.moves.length == 0) {
 				$scope.noResultsFound = true;
 			}
-		});
+        }, function(response) {
+        });
+	}
+
+	$scope.init = function() {
+	    var userid = Session.id;
+		bsLoadingOverlayService.start();
+        $http({
+			method: 'GET',
+			url: '/getCalenderMoves',
+            params: {userid : userid, year: new Date().getFullYear()},
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+			$scope.moves = response.data;
+        	for(var i = 0; i < $scope.moves.length; i++) {
+        		$scope.moves[i].startsAt = new Date($scope.moves[i].startsAt);
+        		$scope.moves[i].endsAt = new Date($scope.moves[i].endsAt);
+        		$scope.moves[i].color = calendarConfig.colorTypes.info;
+        	}
+        	$scope.events = $scope.moves;
+            bsLoadingOverlayService.stop();
+        }, function(response) {
+            bsLoadingOverlayService.stop();
+        });
 	}
 	
 	$scope.getContacts = function() {
@@ -118,4 +135,29 @@ movingApp
       }
 
     };
+
+    $scope.calenderViewChange = function() {
+        var userid = Session.id;
+        if($scope.year != vm.viewDate.getFullYear()) {
+            bsLoadingOverlayService.start();
+            $http({
+                method: 'GET',
+                url: '/getCalenderMoves',
+                params: {userid : userid, year: vm.viewDate.getFullYear()},
+                headers:{'Content-Type': 'application/json'}
+            }).then(function(response) {
+                $scope.moves = response.data;
+                for(var i = 0; i < $scope.moves.length; i++) {
+                    $scope.moves[i].startsAt = new Date($scope.moves[i].startsAt);
+                    $scope.moves[i].endsAt = new Date($scope.moves[i].endsAt);
+                    $scope.moves[i].color = calendarConfig.colorTypes.info;
+                }
+                $scope.events = $scope.moves;
+                $scope.year = vm.viewDate.getFullYear();
+                bsLoadingOverlayService.stop();
+            }, function(response) {
+                bsLoadingOverlayService.stop();
+            });
+        }
+    }
 }]);

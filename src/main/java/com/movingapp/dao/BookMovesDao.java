@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.movingapp.model.MoveEntity;
 
+import java.util.List;
+
 @Transactional
 public interface BookMovesDao extends JpaRepository<MoveEntity, Integer> {
 	
@@ -23,6 +25,10 @@ public interface BookMovesDao extends JpaRepository<MoveEntity, Integer> {
 			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
 			+ " AND m.moveTitle LIKE %:search%")
 	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("locations")   Object[] objects);
+
+	@Query("Select m from MoveEntity m where m.fromState IN :locations"
+			+ " AND year(m.moveStart) = :year")
+	public List<MoveEntity> findByYear(@Param("year") int year, @Param("locations")   Object[] objects);
 
 	@Query("Select m from MoveEntity m where m.user = :user")
 	public Page<MoveEntity> findAllMyMoves(Pageable pageable, @Param("user") User user);
