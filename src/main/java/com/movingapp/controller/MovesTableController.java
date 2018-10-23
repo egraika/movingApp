@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movingapp.entity.Location;
-import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
 import com.movingapp.model.TableState;
-import com.movingapp.view.ChargeView;
 import com.movingapp.view.Move;
 import com.movingapp.view.Note;
 import com.google.gson.Gson;

@@ -1,15 +1,6 @@
 movingApp
     .controller("bookedMoveController", ['$scope', '$http','$routeParams','$sessionStorage','Session','$modal', 'moment','calendarConfig','$location','bsLoadingOverlayService',   function($scope, $http,$routeParams,$sessionStorage,Session,$modal, moment,calendarConfig,$location,bsLoadingOverlayService) {
 
-//	$scope.getBookedMoves = function() {
-//		$http({
-//			method: 'GET',
-//			url: '/getBookedMoves',
-//			headers:{'Content-Type': 'application/json'}
-//		}).then(function successCallBack(response) {
-//			$scope.moves = response.data;
-//		});
-//	}
 	$scope.year = (new Date()).getFullYear();
 	$scope.itemsByPage = 10;
 	$scope.isLoading = false;
