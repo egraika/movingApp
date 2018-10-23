@@ -1,4 +1,4 @@
-<div data-ng-controller="bookedMoveController as vm">
+<div data-ng-controller="bookedMoveController as vm" ng-init="init()" bs-loading-overlay>
 	<div class="row" st-table="moves" st-pipe="callServer" ng-hide="isCalendar">
       	<div class="col-xs-12">
 			<h2>Booked Moves</h2>
@@ -105,7 +105,7 @@
 							mwl-date-modifier
 							date="vm.viewDate"
 							decrement="vm.calendarView"
-							ng-click="vm.cellIsOpen = false">
+							ng-click="vm.cellIsOpen = false;calenderViewChange();">
 						Previous
 					</button>
 					<button
@@ -113,7 +113,7 @@
 							mwl-date-modifier
 							date="vm.viewDate"
 							set-to-today
-							ng-click="vm.cellIsOpen = false">
+							ng-click="vm.cellIsOpen = false;calenderViewChange();">
 						Today
 					</button>
 					<button
@@ -121,7 +121,7 @@
 							mwl-date-modifier
 							date="vm.viewDate"
 							increment="vm.calendarView"
-							ng-click="vm.cellIsOpen = false">
+							ng-click="vm.cellIsOpen = false;calenderViewChange();">
 						Next
 					</button>
 				</div>

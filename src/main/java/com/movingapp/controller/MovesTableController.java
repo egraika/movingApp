@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.movingapp.entity.User;
+import com.movingapp.service.MoveMapping;
 import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movingapp.entity.Location;
-import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.model.NoteEntity;
 import com.movingapp.model.TableState;
-import com.movingapp.view.ChargeView;
 import com.movingapp.view.Move;
 import com.movingapp.view.Note;
 import com.google.gson.Gson;
@@ -109,6 +108,22 @@ public class MovesTableController {
 		pages = new PageImpl<Move>(moves, pageable, moveEntities.getTotalElements());
 
 		return pages;
+	}
+
+	@RequestMapping(value = "/getCalenderMoves", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Move> getCalendarMoves(@RequestParam("userid") Long userid, @RequestParam("year") int year) {
+		Optional<User> optionalUser = UserRepo.findById(userid);
+		User user =  optionalUser.get();
+		Set<Location> locations = user.getLocations();
+		ArrayList<String> locationsStrings = new ArrayList<String>();
+		for (Location location : locations) {
+			locationsStrings.add(location.getLocation());
+		}
+
+		List<MoveEntity> moves = BookMovesDao.findByYear(year, locationsStrings.toArray());
+
+		return mapToMove(moves);
 	}
 
 
