@@ -1,4 +1,4 @@
-	movingApp.service('AuthSharedService', function($rootScope, $http, authService, Session,bsLoadingOverlayService) {
+	movingApp.service('AuthSharedService',['$rootScope', '$http', 'authService', 'Session','bsLoadingOverlayService', function($rootScope, $http, authService, Session,bsLoadingOverlayService) {
 	 return {
 	  login: function(credentials) {
 	    var config = {
@@ -53,4 +53,4 @@
           return isAuthorized;
       }
 	 };
-	});
+	}]);
