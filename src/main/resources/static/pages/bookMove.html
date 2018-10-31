@@ -167,14 +167,14 @@
 	            		bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
 	            		bookingForm.phone.$invalid || bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
 	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Proceed to Billing Information</button>
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Book Move</button>
 						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 	            	</div>
 					<div class="col-xs-3" ng-show="authenticated">
 						<button type="button" class="btn btn-primary btn-lg pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
 						bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
 	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Proceed to Billing Information</button>
+	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Book Move</button>
 						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 					</div>
             	</div>

@@ -1,4 +1,4 @@
-movingApp.controller('ErrorController', function ($scope, $routeParams) {
+movingApp.controller('ErrorController', ['$scope', '$routeParams', function ($scope, $routeParams) {
     $scope.code = $routeParams.code;
 
     switch ($scope.code) {
@@ -13,4 +13,4 @@ movingApp.controller('ErrorController', function ($scope, $routeParams) {
             $scope.message = "Oops! unexpected error"
     }
 
-});
+}]);

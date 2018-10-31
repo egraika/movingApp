@@ -1,4 +1,4 @@
-angular.module('movingApp').controller('DatepickerPopupDemoCtrl', function ($scope) {
+angular.module('movingApp').controller('DatepickerPopupDemoCtrl',['$scope', function ($scope) {
   $scope.today = function() {
     $scope.dt = new Date();
   };
@@ -109,4 +109,4 @@ angular.module('movingApp').controller('DatepickerPopupDemoCtrl', function ($sco
           }
     }
   });
-});
+}]);

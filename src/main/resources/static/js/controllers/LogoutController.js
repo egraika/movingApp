@@ -1,4 +1,4 @@
-movingApp.controller('LogoutController', function ($scope, $http, $location,$rootScope) {
+movingApp.controller('LogoutController',  ['$scope', '$http', '$location','$rootScope',  function ($scope, $http, $location,$rootScope) {
 	
     $scope.logout = function() {
     	$http({
@@ -13,4 +13,4 @@ movingApp.controller('LogoutController', function ($scope, $http, $location,$roo
     		    // or server returns response with an error status.
     		  });
     }
-});
+}]);
