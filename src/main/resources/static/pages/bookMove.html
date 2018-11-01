@@ -1,183 +1,247 @@
 <div style="margin-top:100px;margin-bottom:45px" bs-loading-overlay>
     <!-- Page Content -->
     <div class="container" data-ng-controller="bookMoveController" ng-init="init()">
-		<h1>Book a move</h1><h3>Fill out the following information to get started</h3>
-		<hr>
+		<h1>Book a move</h1>
 		<form class="form-horizontal" role="form" name="bookingForm" id="bookingForm">
 			<input type="hidden" name="userId" ng-model="moveData.user.id" />
-			<div class="row" ng-hide="authenticated">
-				<div class="col-xs-6">
-					<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
+			<div ng-show="step == 'type'">
+				<h3>Start by choosing a service</h3>
+				<hr>
+				<div>
+					<label class="labl">
+						<input type="radio" name="radioname" value="truckAndCrew" checked="checked"/>
+						<div class="row">
+							<div class="col-xs-12">
+								<p><b>Moving (truck + crew) 2 hr min.</b></p>
+								<p style="font-weight: normal !important;">$119.00/hr</p>
+								<p style="font-weight: normal !important;">Move your possessions from your old home to a new one. A Truck and 2 Movers. Additional Hours $119/hr</p>
+							</div>
+						</div>
+					</label>
+					<hr>
+					<label class="labl">
+						<input type="radio" name="radioname" value="onlyCrew"/>
+						<div class="row">
+							<div class="col-xs-12">
+								<p><b>Moving (crew only) 2 hr min.</b></p>
+								<p style="font-weight: normal !important;">$89.00/hr</p>
+								<p style="font-weight: normal !important;">Labor to help you with your move. Includes loading and/or unloading. 2 Movers for 2 Hours. Additional hours $89</p>
+							</div>
+						</div>
+					</label>
+					<hr>
+					<label class="labl">
+						<input type="radio" name="radioname" value="packing"/>
+						<div class="row">
+							<div class="col-xs-12">
+								<p><b>Packing and unpacking</b></p>
+								<p style="font-weight: normal !important;">$80.00/hr</p>
+								<p style="font-weight: normal !important;">Come to your home to help you with your packing and unpacking needs. You can chose to have us pack either one room, two rooms, just your kitchen or your whole house.  *Moving Materials Seperate
+
+									A packing professional is skilled at using padded surfaces to protect breakable items, organizing items in their appropriate boxes, will assure that needed items aren't being packed, and will be sure to attach detailed labels to boxes for easy unpacking. </p>
+							</div>
+						</div>
+					</label>
+					<hr>
 				</div>
-				<div class="col-xs-6" ng-hide="authenticated">
-				  	<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
+				<div class="row">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterType()" style="margin-top: 15px">Next Step</button>
+					</div>
 				</div>
 			</div>
-			<div class="row" ng-hide="authenticated">
-				<div class="col-xs-6">
-					<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
-				 </div>
-				 <div class="col-xs-6" ng-hide="authenticated">
-				  	<label class="control-label" for="phone">Phone Number<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.user.phone" autocomplete="new-password" phone-input ng-required="true">
-					<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
+			<div ng-show="step == 'personal'">
+				<h3>Fill out your contact information</h3>
+				<hr>
+				<div style="margin-bottom:150px;">
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
+							<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
+							<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
+							<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="phone">Phone Number<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.user.phone" autocomplete="new-password" phone-input ng-required="true">
+							<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforePersonal();" style="margin-top: 15px">Back</button>
+						</div>
+						<div class="col-xs-3"></div>
+						<div class="col-xs-3"></div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterPersonal()" style="margin-top: 15px" ng-disabled="
+                            bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
+                            bookingForm.phone.$invalid">To Final Step</button>
+							<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row" ng-controller="DatepickerPopupDemoCtrl">
-				<div class='col-sm-6'>
-					<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
-					<p class="input-group">
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="moveStart" name="moveStart" ng-model="moveData.moveStart" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="changeDate()" placeholder="mm/dd/yyyy" ng-disabled="isBooking"/>
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="open1()" ng-disabled="isBooking"><i class="glyphicon glyphicon-calendar"></i></button>
-						</span>
-					</p>
-			            <span style="color:red" ng-show="bookingForm.moveStart.$touched && bookingForm.moveStart.$invalid">Date of move is not valid</span>
+			<div ng-show="step == 'move'">
+				<h3>Fill out your move information</h3>
+				<hr>
+				<div class="row" ng-controller="DatepickerPopupDemoCtrl">
+					<div class='col-sm-6'>
+						<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
+						<p class="input-group">
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="moveStart" name="moveStart" ng-model="moveData.moveStart" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="changeDate()" placeholder="mm/dd/yyyy" ng-disabled="isBooking"/>
+							<span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open1()" ng-disabled="isBooking"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+						</p>
+						<span style="color:red" ng-show="bookingForm.moveStart.$touched && bookingForm.moveStart.$invalid">Date of move is not valid</span>
+					</div>
 				</div>
-			</div>
-            	<br><h4><b>From Address:</b></h4>
-            	<div class="row">
-            		<div class="col-xs-6">
+				<br><h4><b>From Address:</b></h4>
+				<div class="row">
+					<div class="col-xs-6">
 						<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true">
 						<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
-				 	</div>
-				 	<div class="col-xs-6">
-				  		<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+						<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true">
 						<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
 					</div>
-            	</div>
-            	<div class="row">
-            		<div class="col-xs-6">
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
 						<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
 						<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
-				 	</div>
-				 	<div class="col-xs-6">
-				  		<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
+					</div>
+					<div class="col-xs-6">
+						<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
 						<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'">
-						<!-- <option value="AK" ng-disabled="true">Alaska</option>
-						<option value="AL" ng-disabled="true">Alabama</option>
-						<option value="AR" ng-disabled="true">Arkansas</option>
-						<option value="AZ" ng-disabled="true">Arizona</option>
-						<option value="CA" ng-disabled="true">California</option>
-						<option value="CO" ng-disabled="true">Colorado</option>
-						<option value="CT" ng-disabled="true">Connecticut</option>
-						<option value="DC" ng-disabled="true">District of Columbia</option>
-						<option value="DE" ng-disabled="true">Delaware</option>
-						<option value="FL" ng-disabled="true">Florida</option>
-						<option value="GA" ng-disabled="true">Georgia</option>
-						<option value="HI" ng-disabled="true">Hawaii</option>
-						<option value="IA">Iowa</option>
-						<option value="ID" ng-disabled="true">Idaho</option>
-						<option value="IL" ng-disabled="true">Illinois</option>
-						<option value="IN" ng-disabled="true">Indiana</option>
-						<option value="KS" ng-disabled="true">Kansas</option>
-						<option value="KY" ng-disabled="true">Kentucky</option>
-						<option value="LA" ng-disabled="true">Louisiana</option>
-						<option value="MA" ng-disabled="true">Massachusetts</option>
-						<option value="MD" ng-disabled="true">Maryland</option>
-						<option value="ME" ng-disabled="true">Maine</option>
-						<option value="MI" ng-disabled="true">Michigan</option>
-						<option value="MN" selected>Minnesota</option>
-						<option value="MO" ng-disabled="true">Missouri</option>
-						<option value="MS" ng-disabled="true">Mississippi</option>
-						<option value="MT">Montana</option>
-						<option value="NC" ng-disabled="true">North Carolina</option>
-						<option value="ND" ng-disabled="true">North Dakota</option>
-						<option value="NE" ng-disabled="true">Nebraska</option>
-						<option value="NH" ng-disabled="true">New Hampshire</option>
-						<option value="NJ" ng-disabled="true">New Jersey</option>
-						<option value="NM" ng-disabled="true">New Mexico</option>
-						<option value="NV" ng-disabled="true">Nevada</option>
-						<option value="NY" ng-disabled="true">New York</option>
-						<option value="OH" ng-disabled="true">Ohio</option>
-						<option value="OK" ng-disabled="true">Oklahoma</option>
-						<option value="OR" ng-disabled="true">Oregon</option>
-						<option value="PA" ng-disabled="true">Pennsylvania</option>
-						<option value="RI" ng-disabled="true">Rhode Island</option>
-						<option value="SC" ng-disabled="true">South Carolina</option>
-						<option value="SD" ng-disabled="true">South Dakota</option>
-						<option value="TN" ng-disabled="true">Tennessee</option>
-						<option value="TX" ng-disabled="true">Texas</option>
-						<option value="UT" ng-disabled="true">Utah</option>
-						<option value="VA" ng-disabled="true">Virginia</option>
-						<option value="VT" ng-disabled="true">Vermont</option>
-						<option value="WA" ng-disabled="true">Washington</option>
-						<option value="WI">Wisconsin</option>
-						<option value="WV" ng-disabled="true">West Virginia</option>
-						<option value="WY" ng-disabled="true">Wyoming</option> -->
-						<option value="IA">Iowa</option>
-						<option value="MN">Minnesota</option>
-						<option value="MT">Montana</option>
-						<option value="WI">Wisconsin</option>
-					</select>
-					<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
+							<!-- <option value="AK" ng-disabled="true">Alaska</option>
+                            <option value="AL" ng-disabled="true">Alabama</option>
+                            <option value="AR" ng-disabled="true">Arkansas</option>
+                            <option value="AZ" ng-disabled="true">Arizona</option>
+                            <option value="CA" ng-disabled="true">California</option>
+                            <option value="CO" ng-disabled="true">Colorado</option>
+                            <option value="CT" ng-disabled="true">Connecticut</option>
+                            <option value="DC" ng-disabled="true">District of Columbia</option>
+                            <option value="DE" ng-disabled="true">Delaware</option>
+                            <option value="FL" ng-disabled="true">Florida</option>
+                            <option value="GA" ng-disabled="true">Georgia</option>
+                            <option value="HI" ng-disabled="true">Hawaii</option>
+                            <option value="IA">Iowa</option>
+                            <option value="ID" ng-disabled="true">Idaho</option>
+                            <option value="IL" ng-disabled="true">Illinois</option>
+                            <option value="IN" ng-disabled="true">Indiana</option>
+                            <option value="KS" ng-disabled="true">Kansas</option>
+                            <option value="KY" ng-disabled="true">Kentucky</option>
+                            <option value="LA" ng-disabled="true">Louisiana</option>
+                            <option value="MA" ng-disabled="true">Massachusetts</option>
+                            <option value="MD" ng-disabled="true">Maryland</option>
+                            <option value="ME" ng-disabled="true">Maine</option>
+                            <option value="MI" ng-disabled="true">Michigan</option>
+                            <option value="MN" selected>Minnesota</option>
+                            <option value="MO" ng-disabled="true">Missouri</option>
+                            <option value="MS" ng-disabled="true">Mississippi</option>
+                            <option value="MT">Montana</option>
+                            <option value="NC" ng-disabled="true">North Carolina</option>
+                            <option value="ND" ng-disabled="true">North Dakota</option>
+                            <option value="NE" ng-disabled="true">Nebraska</option>
+                            <option value="NH" ng-disabled="true">New Hampshire</option>
+                            <option value="NJ" ng-disabled="true">New Jersey</option>
+                            <option value="NM" ng-disabled="true">New Mexico</option>
+                            <option value="NV" ng-disabled="true">Nevada</option>
+                            <option value="NY" ng-disabled="true">New York</option>
+                            <option value="OH" ng-disabled="true">Ohio</option>
+                            <option value="OK" ng-disabled="true">Oklahoma</option>
+                            <option value="OR" ng-disabled="true">Oregon</option>
+                            <option value="PA" ng-disabled="true">Pennsylvania</option>
+                            <option value="RI" ng-disabled="true">Rhode Island</option>
+                            <option value="SC" ng-disabled="true">South Carolina</option>
+                            <option value="SD" ng-disabled="true">South Dakota</option>
+                            <option value="TN" ng-disabled="true">Tennessee</option>
+                            <option value="TX" ng-disabled="true">Texas</option>
+                            <option value="UT" ng-disabled="true">Utah</option>
+                            <option value="VA" ng-disabled="true">Virginia</option>
+                            <option value="VT" ng-disabled="true">Vermont</option>
+                            <option value="WA" ng-disabled="true">Washington</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WV" ng-disabled="true">West Virginia</option>
+                            <option value="WY" ng-disabled="true">Wyoming</option> -->
+							<option value="IA">Iowa</option>
+							<option value="MN">Minnesota</option>
+							<option value="MT">Montana</option>
+							<option value="WI">Wisconsin</option>
+						</select>
+						<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
 					</div>
-            	</div>
-            	<br><h4><b>To Address:</b></h4>
-            	<div class="row">
-            		<div class="col-xs-6">
-					<label class="control-label" for="toStreet">Street<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.toStreet.$touched && bookingForm.toStreet.$invalid">Street address is required</span>
-				 </div>
-				 <div class="col-xs-6">
-				  	<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true">
-					<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
-				 </div>
-            	</div>
-            	<div class="row">
-            		<div class="col-xs-6">
-					<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
-					<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true">
-					<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
-				 </div>
-				 <div class="col-xs-6">
-				  	<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-					<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" required>
-						<option value="IA">Iowa</option>
-						<option value="MN">Minnesota</option>
-						<option value="MT">Montana</option>
-						<option value="WI">Wisconsin</option>
-					</select>
-					<span style="color:red" ng-show="bookingForm.toState.$touched && bookingForm.toState.$error.required">Please select a state</span>
 				</div>
-            	</div>
-            	<div class="row">
-            		<div class="col-xs-12">
-					<label class="control-label" for="comments">Additional Comments</label>
-					<textarea rows="4" class="form-control" id="comment" name="comment" ng-model="moveData.comment"><%= <b>Encode.forHtmlContent(UNTRUSTED)</b> %></textarea>
-				 </div>
-            	</div>
-            	<div class="row">
-	            	<div class="col-xs-3"></div>
-	            	<div class="col-xs-3"></div>
-	            	<div class="col-xs-3"></div>
-	            	<div class="col-xs-3" ng-hide="authenticated">
-	            		<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
-	            		bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
-	            		bookingForm.phone.$invalid || bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
-	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Book Move</button>
-						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
-	            	</div>
-					<div class="col-xs-3" ng-show="authenticated">
-						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
-						bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
-	            		bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
-	            		bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Book Move</button>
-						<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
+				<br><h4><b>To Address:</b></h4>
+				<div class="row">
+					<div class="col-xs-6">
+						<label class="control-label" for="toStreet">Street<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true">
+						<span style="color:red" ng-show="bookingForm.toStreet.$touched && bookingForm.toStreet.$invalid">Street address is required</span>
 					</div>
-            	</div>
+					<div class="col-xs-6">
+						<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true">
+						<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true">
+						<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
+					</div>
+					<div class="col-xs-6">
+						<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
+						<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" required>
+							<option value="IA">Iowa</option>
+							<option value="MN">Minnesota</option>
+							<option value="MT">Montana</option>
+							<option value="WI">Wisconsin</option>
+						</select>
+						<span style="color:red" ng-show="bookingForm.toState.$touched && bookingForm.toState.$error.required">Please select a state</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<label class="control-label" for="comments">Additional Comments</label>
+						<textarea rows="4" class="form-control" id="comment" name="comment" ng-model="moveData.comment"><%= <b>Encode.forHtmlContent(UNTRUSTED)</b> %></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforeMove()" style="margin-top: 15px">Back</button>
+					</div>
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3">
+						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
+                            bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
+                            bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||
+                            bookingForm.toCity.$invalid && bookingForm.toState.$invalid || bookingForm.toZip.$invalid || isBooking">Book Move</button>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

@@ -137,6 +137,17 @@ public class BookMoveController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/checkUser", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> checkUser(@Param("email") String email) {
+		User userExists;
+		userExists = userService.findByEmail(email);
+		if(userExists != null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(HttpStatus.OK);
+	}
+
 	private User createNewUser(UserView user) {
 		User saveUser = new User();
 		saveUser.setPhone(user.getPhone());
