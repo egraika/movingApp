@@ -2,6 +2,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
 
     $scope.userExists = false;
 	$scope.isBooking = false;
+	$scope.step = "type";
+
     $scope.init = function() {
         if($rootScope.authenticated) {
             $('#firstName').removeAttr('required');
@@ -31,5 +33,42 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
             bsLoadingOverlayService.stop();
             $scope.userExists = true;
         });
+    }
+
+    $scope.afterType = function() {
+        if($rootScope.authenticated) {
+            $scope.step = "move";
+        } else {
+            $scope.step = "personal";
+        }
+    }
+
+    $scope.afterPersonal = function() {
+        $scope.userExists = false;
+        bsLoadingOverlayService.start();
+        $http({
+			method: 'GET',
+			url: '/checkUser',
+			params: {"email": $scope.moveData.user.email},
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            bsLoadingOverlayService.stop();
+            $scope.step = "move";
+        }, function(response) {
+            bsLoadingOverlayService.stop();
+            $scope.userExists = true;
+        });
+    }
+
+    $scope.beforeMove = function() {
+        if($rootScope.authenticated) {
+            $scope.step = "type";
+        } else {
+            $scope.step = "personal";
+        }
+    }
+
+    $scope.beforePersonal = function() {
+        $scope.step = "type";
     }
 }]);
