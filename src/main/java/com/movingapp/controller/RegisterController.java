@@ -123,7 +123,7 @@ public class RegisterController {
 
         Strength strength = passwordCheck.measure(user.getPassword());
 
-        if (strength.getScore() < 2) {
+        if (strength.getScore() < 1) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
