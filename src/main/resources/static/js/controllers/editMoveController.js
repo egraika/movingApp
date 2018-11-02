@@ -83,7 +83,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		     keyboard: true,
 		     backdropClick: true,
 		     size: 'sm',
-		     controller: function($scope, data){
+		     controller: ['$scope', 'data', function($scope, data){
 		    	 $scope.alertData = data;
 		    	 $scope.close = function(){
 		    		 modalInstance.close();
@@ -92,7 +92,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				 $timeout(function() {
 					 modalInstance.close();
 				 }, 2000);
-		     },
+		     }],
 		     resolve: {
 		    	 data: function () {
 		    		 return $scope.alertData;
@@ -108,12 +108,12 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		     keyboard: true,
 		     backdropClick: true,
 		     size: 'sm',
-		     controller: function($scope, data){
+		     controller: [ '$scope', 'data', function($scope, data){
 		    	 //$scope.alertData = data;
 		    	 $scope.close = function(){
 		    		 modalInstance.close();
 				 };
-		     },
+		     }],
 		 });
 	 }
 

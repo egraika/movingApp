@@ -58,7 +58,7 @@ movingApp.controller("confirmPasswordReset", ['$scope', '$http','$window','$sess
 		     keyboard: true,
 		     backdropClick: true,
 		     size: 'sm',
-		     controller: function($scope, data){
+		     controller: ['$scope', 'data', function($scope, data){
 		    	 $scope.alertData = data;
 		    	 $scope.close = function(){
 		    		 modalInstance.close();
@@ -68,7 +68,7 @@ movingApp.controller("confirmPasswordReset", ['$scope', '$http','$window','$sess
 					 modalInstance.close();
 					 $location.path("/login");
 				 }, 2000);
-		     },
+		     }],
 		     resolve: {
 		    	 data: function () {
 		    		 return $scope.alertData;
