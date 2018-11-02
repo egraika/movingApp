@@ -113,6 +113,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         				params: {'userid': userid },
         				headers:{'Content-Type': 'application/json'}
         			}).then(function successCallBack(response) {
+        			    $scope.creditCardSet = true;
         			    $scope.ccLastFour = response.data.ccLastFour;
         			    $scope.cardType = response.data.cardType;
         				bsLoadingOverlayService.stop();
