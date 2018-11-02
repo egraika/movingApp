@@ -41,6 +41,7 @@ public class MoveMapping {
             move.setStatus(moveEntityList.get(i).getStatus());
             move.setTitle(moveEntityList.get(i).getMoveTitle());
             move.setEndsAt(moveEntityList.get(i).getMoveEnd());
+            move.setType(moveEntityList.get(i).getType());
 
             movesList.add(move);
         }
@@ -106,6 +107,7 @@ public class MoveMapping {
         moveEntity.setAntiques(move.getAntiques());
         moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
         moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
+        moveEntity.setType(move.getType());
         Optional<User> foundUser = userRepo.findById(move.getUser().getId());
         User user = foundUser.get();
         moveEntity.setUser(user);
@@ -137,6 +139,7 @@ public class MoveMapping {
         move.setAntiques(moveEntity.getAntiques());
         move.setNumberOfBoxes(moveEntity.getNumberOfBoxes());
         move.setNumberOfLargeItems(moveEntity.getNumberOfLargeItems());
+        move.setType(moveEntity.getType());
         UserView userView = new UserView();
         userView.setEmail(moveEntity.getUser().getEmail());
         userView.setFirstName(moveEntity.getUser().getFirstName());

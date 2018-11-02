@@ -93,6 +93,9 @@ public class MoveEntity implements Serializable {
 	@Column(name = "isElevator", columnDefinition="BOOLEAN DEFAULT false")
 	private Boolean isElevator;
 
+	@Column(name = "type")
+	private String type;
+
 	@JsonBackReference(value="move_user_id")
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
@@ -281,5 +284,13 @@ public class MoveEntity implements Serializable {
 
 	public void setElevator(Boolean elevator) {
 		isElevator = elevator;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

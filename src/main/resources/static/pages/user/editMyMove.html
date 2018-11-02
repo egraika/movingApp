@@ -15,6 +15,14 @@
 						</p>
 					</div>
 					<div class="col-xs-4">
+						<label for="type">Type</label>
+						<select class="form-control" id="type" name="type" ng-model="move.type">
+							<option value="withTruck">Crew with truck</option>
+							<option value="onlyCrew">Crew only</option>
+							<option value="packing">Packing and unpacking</option>
+						</select>
+					</div>
+					<div class="col-xs-4">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status" ng-model="move.status" ng-disabled="true">
 							<option value="unconfirmed user">Unconfirmed User</option>
@@ -195,6 +203,7 @@
 					</div>
 				</div>
 				<hr>
+				<section id="additionalInfo">
 				<h4>Additional Information:</h4>
 				<div class="form-check">
 					<label class="form-check-label" for="inlineCheckbox1">
@@ -236,6 +245,7 @@
 						<textarea class="form-control" rows="5" id="comment" ng-model="move.comment" class="form-control"></textarea>
 					</div>
 				</div>
+				</section>
 				<div class="row" style="margin-top:15px">
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4"></div>

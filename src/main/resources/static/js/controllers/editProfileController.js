@@ -114,8 +114,8 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         				headers:{'Content-Type': 'application/json'}
         			}).then(function successCallBack(response) {
         			    $scope.creditCardSet = true;
-        			    $scope.ccLastFour = response.data.ccLastFour;
-        			    $scope.cardType = response.data.cardType;
+        			    $scope.user.ccLastFour = response.data.ccLastFour;
+        			    $scope.user.cardType = response.data.cardType;
         				bsLoadingOverlayService.stop();
         				$('#checkout').modal('hide');
         			}, function errorCallback(response) {
@@ -125,6 +125,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         				errorElement.style.fontSize = "large";
         				errorElement.textContent = response.data.message;
         			});
+
 	}
 
 	// Create an instance of the card Element
