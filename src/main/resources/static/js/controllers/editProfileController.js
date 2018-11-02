@@ -58,7 +58,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 		     keyboard: true,
 		     backdropClick: true,
 		     size: 'sm',
-		     controller: function($scope, data){
+		     controller: ['$scope', 'data', function($scope, data){
 		    	 $scope.alertData = data;
 		    	 $scope.close = function(){
 		    		 modalInstance.close();
@@ -67,7 +67,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 				 $timeout(function() {
 					 modalInstance.close();
 				 }, 2000);
-		     },
+		     }],
 		     resolve: {
 		    	 data: function () {
 		    		 return $scope.alertData;
