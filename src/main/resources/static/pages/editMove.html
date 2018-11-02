@@ -15,6 +15,14 @@
 						</p>
 					</div>
 					<div class="col-xs-4">
+						<label for="type">Type</label>
+						<select class="form-control" id="type" name="type" ng-model="move.type">
+							<option value="withTruck">Crew with truck</option>
+							<option value="onlyCrew">Crew only</option>
+							<option value="packing">Packing and unpacking</option>
+						</select>
+					</div>
+					<div class="col-xs-4">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status" ng-model="move.status">
 							<option value="unconfirmed user">Unconfirmed User</option>

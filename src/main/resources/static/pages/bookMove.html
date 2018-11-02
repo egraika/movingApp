@@ -9,8 +9,8 @@
 				<hr>
 				<div>
 					<label class="labl">
-						<input type="radio" name="radioname" value="truckAndCrew" checked="checked"/>
-						<div class="row">
+						<input type="radio" name="radioname" value="withTruck" checked="checked" ng-model="moveData.type"/>
+						<div class="row" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Moving (truck + crew) 2 hr min.</b></p>
 								<p style="font-weight: normal !important;">$119.00/hr</p>
@@ -20,8 +20,8 @@
 					</label>
 					<hr>
 					<label class="labl">
-						<input type="radio" name="radioname" value="onlyCrew"/>
-						<div class="row">
+						<input type="radio" name="radioname" value="onlyCrew" ng-model="moveData.type"/>
+						<div class="row" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Moving (crew only) 2 hr min.</b></p>
 								<p style="font-weight: normal !important;">$89.00/hr</p>
@@ -31,8 +31,8 @@
 					</label>
 					<hr>
 					<label class="labl">
-						<input type="radio" name="radioname" value="packing"/>
-						<div class="row">
+						<input type="radio" name="radioname" value="packing" ng-model="moveData.type"/>
+						<div class="row" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Packing and unpacking</b></p>
 								<p style="font-weight: normal !important;">$80.00/hr</p>
@@ -127,7 +127,7 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
 						<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
 					</div>
 					<div class="col-xs-6">
@@ -208,7 +208,7 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true">
 						<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
 					</div>
 					<div class="col-xs-6">

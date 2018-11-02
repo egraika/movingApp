@@ -48,6 +48,7 @@ public class Move{
 	private Boolean isArtwork;
 	@JsonProperty("isAntiques")
 	private Boolean isAntiques;
+	private String type;
 
 	public int getId() {
 		return id;
@@ -255,5 +256,13 @@ public class Move{
 
 	public void setElevator(Boolean elevator) {
 		isElevator = elevator;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
