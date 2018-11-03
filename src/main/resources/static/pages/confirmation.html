@@ -1,12 +1,20 @@
 <div style="margin-top: 100px;margin-bottom:550px">
    <div class="row">
    	<div class="col-xs-12">
-   		<h1 style="text-align: center;">Thank you for booking with Move Muscle LLC. </h1>
+   		<h1 style="text-align: center;">You are almost done booking your move! </h1>
    	</div>
    </div>
-      <div class="row">
-   	<div class="col-xs-12">
-   		<h3 style="text-align: center;">A confirmation email has been sent to the email you provided. We will be in contact with you about the move as the date of the move approaches. </h3>
-   	</div>
+	<div class="row" ng-show="authenticated">
+   		<div class="col-xs-12">
+   			<h3 style="text-align: center;">Please continue to "My Moves" and fill out the additional information section to finalize your move. Thank you for using us for all your moving needs!
+			</h3>
+			<center><button type="button" class="btn btn-primary btn-block pull-right" href="#/myMoves" style="margin-top: 15px">View my moves</button></center>
+   		</div>
    </div>
+	<div class="row" ng-hide="authenticated">
+		<div class="col-xs-12">
+			<h3 style="text-align: center;">A confirmation email has been sent to the email you provided. Please click the link provided in the email and set your password to create your account. Then login and complete the additional information section to help us better accommodate your move.</h3>
+			<center><button type="button" class="btn btn-primary btn-block pull-right" href="#/" style="margin-top: 15px">To the Home Page</button></center>
+		</div>
+	</div>
 </div>
