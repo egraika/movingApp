@@ -11,6 +11,8 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
             $('#email').removeAttr('required');
             $('#phone').removeAttr('required');
         }
+        $scope.moveData = {};
+        $scope.moveData.type = 'withTruck';
     }
 	$scope.bookMove = function() {
 		$scope.moveData.notes = [];
