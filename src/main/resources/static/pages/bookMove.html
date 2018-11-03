@@ -45,10 +45,10 @@
 					<hr>
 				</div>
 				<div class="row">
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3">
+					<div class="col-lg-3 col-xs-2"></div>
+					<div class="col-lg-3 col-xs-2"></div>
+					<div class="col-lg-3 col-xs-3"></div>
+					<div class="col-lg-3 col-xs-5">
 						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterType()" style="margin-top: 15px">Next Step</button>
 					</div>
 				</div>
@@ -76,18 +76,18 @@
 							<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
 						</div>
 						<div class="col-xs-6">
-							<label class="control-label" for="phone">Phone Number<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="phone" name="phone" ng-model="moveData.user.phone" autocomplete="new-password" phone-input ng-required="true">
+							<label class="control-label" for="cell">Phone Number<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="cell" name="cell" ng-model="moveData.user.phone" phone-input ng-required="true">
 							<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-3">
+						<div class="col-lg-3 col-xs-5">
 							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforePersonal();" style="margin-top: 15px">Back</button>
 						</div>
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3"></div>
-						<div class="col-xs-3">
+						<div class="col-lg-3 col-xs-1"></div>
+						<div class="col-lg-3 col-xs-1"></div>
+						<div class="col-lg-3 col-xs-5">
 							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterPersonal()" style="margin-top: 15px" ng-disabled="
                             bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
                             bookingForm.phone.$invalid">To Final Step</button>
@@ -229,12 +229,12 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-3">
+					<div class="col-lg-3 col-xs-5">
 						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforeMove()" style="margin-top: 15px">Back</button>
 					</div>
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3">
+					<div class="col-lg-3 col-xs-1"></div>
+					<div class="col-lg-3 col-xs-1"></div>
+					<div class="col-lg-3 col-xs-5">
 						<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="bookMove()" style="margin-top: 15px" ng-disabled="
                             bookingForm.fromStreet.$invalid || bookingForm.fromCity.$invalid ||
                             bookingForm.fromState.$invalid || bookingForm.fromZip.$invalid || bookingForm.toStreet.$invalid ||

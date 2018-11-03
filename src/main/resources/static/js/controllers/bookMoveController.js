@@ -13,6 +13,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
         }
         $scope.moveData = {};
         $scope.moveData.type = 'withTruck';
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 	$scope.bookMove = function() {
 		$scope.moveData.notes = [];
@@ -40,8 +41,10 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
     $scope.afterType = function() {
         if($rootScope.authenticated) {
             $scope.step = "move";
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         } else {
             $scope.step = "personal";
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
     }
 
@@ -65,12 +68,15 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
     $scope.beforeMove = function() {
         if($rootScope.authenticated) {
             $scope.step = "type";
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         } else {
             $scope.step = "personal";
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
     }
 
     $scope.beforePersonal = function() {
         $scope.step = "type";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 }]);
