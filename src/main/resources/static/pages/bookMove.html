@@ -77,8 +77,8 @@
 						</div>
 						<div class="col-xs-6">
 							<label class="control-label" for="cell">Phone Number<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="cell" name="cell" ng-model="moveData.user.phone" phone-input ng-required="true">
-							<span style="color:red" ng-show="bookingForm.phone.$touched && bookingForm.phone.$invalid">A valid phone number is required</span>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="cell" name="cell" ng-model="moveData.user.phone" autocomplete="none" phone-input ng-required="true">
+							<span style="color:red" ng-show="bookingForm.cell.$touched && bookingForm.cell.$invalid">A valid phone number is required</span>
 						</div>
 					</div>
 					<div class="row">
@@ -90,7 +90,7 @@
 						<div class="col-lg-3 col-xs-5">
 							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterPersonal()" style="margin-top: 15px" ng-disabled="
                             bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
-                            bookingForm.phone.$invalid">To Final Step</button>
+                            bookingForm.cell.$invalid">To Final Step</button>
 							<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
 						</div>
 					</div>
