@@ -223,6 +223,48 @@
 						</div>
 					</div>
 				</div>
+				<hr>
+				<h4>Additional Information:</h4>
+				<div class="form-check">
+					<label class="form-check-label" for="inlineCheckbox1">
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="move.isArtwork"/>
+						Do you have Artwork?
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label" for="inlineCheckbox2">
+						<input class="form-check-input" type="checkbox" id="inlineCheckbox2" ng-model="move.isAntiques"/>
+						Do you have Antiques?
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label" for="isGroundFloor">
+						<input class="form-check-input" type="checkbox" id="isGroundFloor" ng-model="move.isGroundFloor"/>
+						Are both places on ground level?
+					</label>
+				</div>
+				<div class="form-check" ng-show="move.isGroundFloor">
+					<label class="form-check-label" for="isElevator">
+						<input class="form-check-input" type="checkbox" id="isElevator" ng-model="move.isElevator"/>
+						Is there a usable elevator?
+					</label>
+				</div>
+				<div class="row" style="margin-top:15px">
+					<div class="form-group col-xs-4">
+						<label for="numberOfLargeItems">Number of Large Items</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfLargeItems" ng-model="move.numberOfLargeItems" class="form-control"></input>
+					</div>
+					<div class="form-group col-xs-4">
+						<label for="numberOfBoxes">Number of Boxes</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfBoxes" ng-model="move.numberOfBoxes" class="form-control"></input>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-12">
+						<label for="comment">Additional Comments:</label>
+						<textarea class="form-control" rows="5" id="comment" ng-model="move.comment" class="form-control"></textarea>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-xs-12">
 						<div ng-include src="'pages/notes.html'"></div>
