@@ -3,7 +3,7 @@ header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
   height: 100vh;
-  height: 650px;
+  min-height: 650px;
   background-image: url("../img/moving.webp");
   background-position: center center;
   background-size: cover;
