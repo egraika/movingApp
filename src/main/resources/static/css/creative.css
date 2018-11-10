@@ -71,3 +71,63 @@ header.masthead p {
     max-width: 250px;
     margin: 25px auto 30px;
 }
+
+.profile {
+    position: relative;
+    margin:0px;
+    padding-right:5px;
+}
+
+.desk-hide {
+    display: none !important;
+ }
+ .desk-show {
+    display: block !important;
+ }
+
+@media screen and (max-width: 600px) {
+
+ .img-max {
+   width: 100% !important;
+   max-width: 100% !important;
+   height: auto !important;
+ }
+
+ .max-width {
+   max-width: 100% !important;
+ }
+
+ .mobile-wrapper {
+   width: 85% !important;
+   max-width: 85% !important;
+ }
+
+ .mobile-padding {
+   padding-left: 5% !important;
+   padding-right: 5% !important;
+ }
+
+ /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */
+ .mobile-hide {
+    display: none !important;
+ }
+ .mobile-show {
+    display: block !important;
+ }
+
+}
+
+@media (min-width: 600px) {
+  .navbar-custom .navbar-brand {
+    padding-top:33px;
+  }
+
+  .navbar-custom .navbar-toggle {
+    margin-top: 25px;
+  }
+
+  .navbar-custom .navbar-nav li a {
+    margin-top: 19px;
+  }
+}
+
