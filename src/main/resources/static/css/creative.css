@@ -157,3 +157,9 @@ header.masthead p {
   }
 }
 
+@media (max-width: 600px) {
+    .navbar-custom {
+        position: absolute !important;
+    }
+}
+
