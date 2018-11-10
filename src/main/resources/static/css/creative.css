@@ -9,6 +9,16 @@ header.masthead {
   background-size: cover;
 }
 
+header.masthead-small {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  height: 100vh;
+  min-height: 650px;
+  background-image: url("../img/moving-small.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
 header.masthead:before{
     content: '';
     position: absolute;
@@ -115,6 +125,9 @@ header.masthead p {
     display: block !important;
  }
 
+ .intro-text .name {
+    color:#002f5f !important;
+ }
 }
 
 @media (min-width: 600px) {
