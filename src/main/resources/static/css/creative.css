@@ -61,3 +61,13 @@ header.masthead p {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.header-divider {
+    border-color: #fff;
+    padding: 0;
+    border: none;
+    border-top: solid 5px;
+    text-align: center;
+    max-width: 250px;
+    margin: 25px auto 30px;
+}
