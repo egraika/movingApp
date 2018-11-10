@@ -16,6 +16,10 @@ header.masthead-small {
   background-image: url("../img/moving-small.jpg");
   background-size:cover;
   background-position: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 header.masthead:before{
@@ -36,7 +40,6 @@ header.masthead:before{
      left: 0;
      bottom: 0;
      background: rgba(0,0,0,0.6);
-     padding-top:50px;
   }
 
 header.masthead hr {
