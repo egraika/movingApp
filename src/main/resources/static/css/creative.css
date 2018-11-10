@@ -14,6 +14,8 @@ header.masthead-small {
   background-image: url("../img/moving-small2.jpg");
   background-size:cover;
   background-position: right;
+  position: relative;
+  top: 0;
 }
 
 header.masthead:before{
@@ -102,7 +104,7 @@ header.masthead p {
     display: block !important;
  }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 460px) {
 
  .img-max {
    width: 100% !important;
@@ -137,7 +139,7 @@ header.masthead p {
   }
 }
 
-@media (min-width: 450px) {
+@media (min-width: 460px) {
   .navbar-custom .navbar-brand {
     padding-top:33px;
   }
