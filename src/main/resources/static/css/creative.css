@@ -11,9 +11,9 @@ header.masthead {
 
 header.masthead-small {
   height: 100vh;
-  background-image: url("../img/moving-small.jpg");
+  background-image: url("../img/moving-small2.jpg");
   background-size:cover;
-  background-position: center;
+  background-position: right;
 }
 
 header.masthead:before{
@@ -25,6 +25,16 @@ header.masthead:before{
     bottom: 0;
     background: rgba(0,0,0,0.6);
  }
+
+ header.masthead-small:before{
+     content: '';
+     position: absolute;
+     top: 0;
+     right: 0;
+     left: 0;
+     bottom: 0;
+     background: rgba(0,0,0,0.6);
+  }
 
 header.masthead hr {
   margin-top: 30px;
@@ -92,7 +102,7 @@ header.masthead p {
     display: block !important;
  }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 450px) {
 
  .img-max {
    width: 100% !important;
@@ -123,11 +133,11 @@ header.masthead p {
  }
 
   .intro-text .name {
-     padding-top:100px;
+     padding-top:80px;
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 450px) {
   .navbar-custom .navbar-brand {
     padding-top:33px;
   }
@@ -147,3 +157,10 @@ header.masthead p {
     }
 }
 
+#services {
+ padding-top:50px;
+}
+
+#about {
+ padding-top:50px;
+}
