@@ -26,16 +26,6 @@ header.masthead:before{
     background: rgba(0,0,0,0.6);
  }
 
- header.masthead-small:before{
-     content: '';
-     position: absolute;
-     top: 50px;
-     right: 0;
-     left: 0;
-     bottom: 0;
-     background: rgba(0,0,0,0.6);
-  }
-
 header.masthead hr {
   margin-top: 30px;
   margin-bottom: 30px;
