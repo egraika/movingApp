@@ -35,6 +35,9 @@ public class ChargeEntity implements Serializable {
 	@Column(name = "id", columnDefinition="BIGSERIAL")
 	@OrderBy
 	private int id;
+
+	@Column(name = "chargeid")
+	private String chargeid;
 	
 	@Column(name = "amount")
 	private double amount;
@@ -44,6 +47,9 @@ public class ChargeEntity implements Serializable {
 
 	@Column(name = "moveid")
 	private long moveid;
+
+	@Column(name = "type")
+	private String type;
 
 	@JsonBackReference(value="user_charges")
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -88,5 +94,21 @@ public class ChargeEntity implements Serializable {
 
 	public void setMoveid(long moveid) {
 		this.moveid = moveid;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getChargeid() {
+		return chargeid;
+	}
+
+	public void setChargeid(String chargeid) {
+		this.chargeid = chargeid;
 	}
 }

@@ -7,6 +7,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-public interface ChargesDao extends JpaRepository<ChargeEntity, Long> {
+public interface ChargesDao extends JpaRepository<ChargeEntity, Integer> {
 	List<ChargeEntity> findByMoveid(long moveid);
 }

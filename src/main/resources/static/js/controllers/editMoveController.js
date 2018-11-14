@@ -1,6 +1,8 @@
 movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$routeParams','$uibModal','$timeout','$sessionStorage','Session', function($scope,$rootScope, $http, $routeParams,$uibModal, $timeout,$sessionStorage, Session) {
 	
 	var moveID = $routeParams.moveID;
+	$scope.refundError = false;
+	$scope.chargeError = false;
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 	
 	$scope.init = function() {
@@ -16,10 +18,10 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			url: '/getMove',
 			params: {'id' : moveID},
 			headers:{'Content-Type': 'application/json'}
-		}).then(function successCallBack(response) {
+        }).then(function(response) {
 			$scope.move = response.data;
 			$scope.charges = $scope.move.charges;
-            if($scope.charges != null) {
+            if($scope.charges.length > 0) {
                 $scope.isCharges = true;
             }
 			$scope.startsAtPicker.date = $scope.move.startsAt;
@@ -31,7 +33,9 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			        $scope.cardExpired = true;
 			    }
 			}
-		});
+        }, function(response) {
+            $scope.getMoveDataError = true;
+        });
 	}
 
 	 $scope.addNote = function() {
@@ -69,9 +73,31 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				url: '/addCharge',
 				params: {'amount' : $scope.amount, 'id' : moveID},
 				headers:{'Content-Type': 'application/json'}
-			}).then(function successCallBack(response) {
-				$scope.charges.push(response.data);
-			});
+         }).then(function(response) {
+			$scope.isCharges = true;
+		    $scope.charges.push(response.data);
+         }, function(response) {
+            $scope.chargeError = true;
+         });
+	 }
+
+	 $scope.addRefund = function() {
+	 $scope.refundError = false;
+		 $http({
+				method: 'POST',
+				url: '/refundCharge',
+				params: {'amount' : $scope.amountToRefund, 'id' : $scope.currentChargeId},
+				headers:{'Content-Type': 'application/json'}
+         }).then(function(response) {
+            $('#refund').modal('hide');
+            $scope.charges.push(response.data);
+         }, function(response) {
+            $scope.refundError = true;
+         });
+	 }
+
+	 $scope.setChargeId = function(id) {
+	    $scope.currentChargeId = id;
 	 }
 	 
 	 function openAlert(){
@@ -98,22 +124,6 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 		    		 return $scope.alertData;
 				 }
 		     }
-		 });
-	 }
-	 
-	 function openChargeAlert(){
-		 var modalInstance = $uibModal.open({
-		     templateUrl: 'chargeAlert',
-		     backdrop: true,
-		     keyboard: true,
-		     backdropClick: true,
-		     size: 'sm',
-		     controller: [ '$scope', 'data', function($scope, data){
-		    	 //$scope.alertData = data;
-		    	 $scope.close = function(){
-		    		 modalInstance.close();
-				 };
-		     }],
 		 });
 	 }
 
