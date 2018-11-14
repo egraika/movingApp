@@ -1,6 +1,7 @@
 package com.movingapp.controller;
 
 import com.movingapp.Constants.MovingAppConstants;
+import com.movingapp.dao.ChargesDao;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
@@ -17,16 +18,14 @@ import com.stripe.exception.*;
 import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
+import com.stripe.model.Refund;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class StripeController {
@@ -45,6 +44,9 @@ public class StripeController {
 
     @Autowired
     private UserMapping userMapping;
+
+    @Autowired
+    private ChargesDao chargesDao;
 
     @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
@@ -101,7 +103,7 @@ public class StripeController {
 
     @RequestMapping(value = "/addCharge",method = RequestMethod.POST)
     @ResponseBody
-    public ChargeView addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ResponseEntity<ChargeView> addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 
         Stripe.apiKey = MovingAppConstants.apiKey;
         MoveEntity moveEntity = BookMovesDao.findById(moveID);
@@ -111,6 +113,7 @@ public class StripeController {
 
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
+        charge.setType("Charge");
         charge.setAmount(amount);
         charge.setDate(date);
         charge.setUser(user);
@@ -122,12 +125,59 @@ public class StripeController {
         chargeParams.put("amount", (int) amount*100); // $15.00 this time
         chargeParams.put("currency", "usd");
         chargeParams.put("customer", user.getStripeCustomerID());
+        chargeParams.put("receipt_email", user.getEmail());
         Charge chargeCustomer = Charge.create(chargeParams);
+        if(!chargeCustomer.getStatus().equals("succeeded")) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        charge.setChargeid(chargeCustomer.getId());
 
         User userAfterSave = userRepo.save(user);
         List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
         List<ChargeView> newChargeList = ChargeMapping.ChargeEntityToCharge(newChargeEntity);
-        return newChargeList.get(newChargeList.size()-1);
+        return new ResponseEntity(newChargeList.get(newChargeList.size()-1), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/refundCharge",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ChargeView> refundCharge(@RequestParam("amount") int amount, @RequestParam("id") int chargeId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+
+        Stripe.apiKey = MovingAppConstants.apiKey;
+        ChargeEntity chargeEntity;
+        Optional<ChargeEntity> optionalChargeEntity = chargesDao.findById(chargeId);
+        if(optionalChargeEntity.isPresent()) {
+            chargeEntity = optionalChargeEntity.get();
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        User user = chargeEntity.getUser();
+        List<ChargeEntity> chargeEntities = user.getCharges();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("charge",chargeEntity.getChargeid());
+        params.put("amount", amount);
+        Refund refund = Refund.create(params);
+
+        if(!refund.getStatus().equals("succeeded")) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        ChargeEntity newChargeEntity = new ChargeEntity();
+        Date date = new Date();
+        newChargeEntity.setType("Refund");
+        newChargeEntity.setAmount(amount);
+        newChargeEntity.setDate(date);
+        newChargeEntity.setUser(user);
+        newChargeEntity.setMoveid(chargeEntity.getMoveid());
+        chargeEntities.add(newChargeEntity);
+        user.setCharges(chargeEntities);
+
+        User userAfterSave = userRepo.save(user);
+        List<ChargeEntity> newChargeEntities = userAfterSave.getCharges();
+
+        List<ChargeView> newChargeList = ChargeMapping.ChargeEntityToCharge(newChargeEntities);
+        return new ResponseEntity(newChargeList.get(newChargeList.size()-1), HttpStatus.OK);
     }
 }

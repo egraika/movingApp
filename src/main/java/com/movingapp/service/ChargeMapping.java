@@ -17,8 +17,10 @@ public class ChargeMapping {
             for(int i = 0; i < chargeEntityList.size(); i++) {
                 ChargeView charge = new ChargeView();
                 charge.setAmount(chargeEntityList.get(i).getAmount());
+                charge.setType(chargeEntityList.get(i).getType());
                 charge.setDate(chargeEntityList.get(i).getDate());
                 charge.setID(chargeEntityList.get(i).getID());
+                charge.setChargeid(chargeEntityList.get(i).getChargeid());
                 charge.setMoveid(chargeEntityList.get(i).getMoveid());
                 chargeList.add(charge);
             }
@@ -34,9 +36,11 @@ public class ChargeMapping {
         for(int i = 0; i < chargeList.size(); i++) {
             ChargeEntity charge = new ChargeEntity();
             charge.setAmount(chargeList.get(i).getAmount());
+            charge.setType(chargeList.get(i).getType());
             charge.setDate(chargeList.get(i).getDate());
             charge.setID(chargeList.get(i).getID());
             charge.setUser(user);
+            charge.setChargeid(chargeList.get(i).getChargeid());
             charge.setMoveid(chargeList.get(i).getMoveid());
             chargeEntityList.add(charge);
         }
