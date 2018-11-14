@@ -1,9 +1,9 @@
 movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$routeParams','$uibModal','$timeout','$sessionStorage','Session','bsLoadingOverlayService', function($scope,$rootScope, $http, $routeParams,$uibModal, $timeout,$sessionStorage, Session,bsLoadingOverlayService) {
 
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
-	
 	$scope.init = function() {
 	    $scope.isCharges = false;
+	    $scope.isProfile = true;
 		getUser();
 	}
 	
