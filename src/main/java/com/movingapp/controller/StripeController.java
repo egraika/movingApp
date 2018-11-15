@@ -50,7 +50,7 @@ public class StripeController {
 
     @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws StripeException {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe.apiKey = MovingAppConstants.apiKey;
@@ -103,7 +103,7 @@ public class StripeController {
 
     @RequestMapping(value = "/addCharge",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ChargeView> addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ResponseEntity<ChargeView> addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws StripeException {
 
         Stripe.apiKey = MovingAppConstants.apiKey;
         MoveEntity moveEntity = BookMovesDao.findById(moveID);
@@ -141,7 +141,7 @@ public class StripeController {
 
     @RequestMapping(value = "/refundCharge",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ChargeView> refundCharge(@RequestParam("amount") int amount, @RequestParam("id") int chargeId) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+    public ResponseEntity<ChargeView> refundCharge(@RequestParam("amount") int amount, @RequestParam("id") int chargeId) throws StripeException {
 
         Stripe.apiKey = MovingAppConstants.apiKey;
         ChargeEntity chargeEntity;
@@ -161,6 +161,7 @@ public class StripeController {
         Refund refund = Refund.create(params);
 
         if(!refund.getStatus().equals("succeeded")) {
+            ChargeView chargeView =  new ChargeView();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

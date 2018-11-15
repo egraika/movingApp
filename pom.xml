@@ -162,9 +162,9 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
 		<dependency>
-		  <groupId>com.stripe</groupId>
-		  <artifactId>stripe-java</artifactId>
-		  <version>3.5.0</version>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>7.6.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
 		<dependency>
