@@ -40,7 +40,7 @@ public class editProfileController {
 
 	@RequestMapping(value = "/getMyProfile",method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<UserView> getMyProfile(@RequestParam("userid") long userid) throws CardException, APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
+	public ResponseEntity<UserView> getMyProfile(@RequestParam("userid") long userid) {
 
 		User user = userService.findById(userid);
 

@@ -3,6 +3,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	var moveID = $routeParams.moveID;
 	$scope.refundError = false;
 	$scope.chargeError = false;
+	$scope.refundAmountError = false;
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
 	
 	$scope.init = function() {
@@ -82,7 +83,12 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	 }
 
 	 $scope.addRefund = function() {
-	 $scope.refundError = false;
+         $scope.refundAmountError = false;
+         $scope.refundError = false;
+         if($scope.amountToRefund > $scope.currentChargeAmount) {
+            $scope.refundAmountError = true;
+            return;
+         }
 		 $http({
 				method: 'POST',
 				url: '/refundCharge',
@@ -96,8 +102,9 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
          });
 	 }
 
-	 $scope.setChargeId = function(id) {
+	 $scope.setChargeId = function(id, amount) {
 	    $scope.currentChargeId = id;
+	    $scope.currentChargeAmount = amount;
 	 }
 	 
 	 function openAlert(){
