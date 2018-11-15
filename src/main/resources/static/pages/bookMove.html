@@ -115,24 +115,24 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true" autocomplete="from street-address">
 						<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
 					</div>
 					<div class="col-xs-6">
 						<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true" autocomplete="from locality">
 						<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true" autocomplete="from postal-code">
 						<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
 					</div>
 					<div class="col-xs-6">
 						<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
-						<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'">
+						<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'" autocomplete="from region">
 							<!-- <option value="AK" ng-disabled="true">Alaska</option>
                             <option value="AL" ng-disabled="true">Alabama</option>
                             <option value="AR" ng-disabled="true">Arkansas</option>
@@ -196,24 +196,24 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="toStreet">Street<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true" autocomplete="to street-address">
 						<span style="color:red" ng-show="bookingForm.toStreet.$touched && bookingForm.toStreet.$invalid">Street address is required</span>
 					</div>
 					<div class="col-xs-6">
 						<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true" autocomplete="to locality">
 						<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true">
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true" autocomplete="to postal-code">
 						<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
 					</div>
 					<div class="col-xs-6">
 						<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-						<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" required>
+						<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" autocomplete="to region" required>
 							<option value="IA">Iowa</option>
 							<option value="MN">Minnesota</option>
 							<option value="MT">Montana</option>
