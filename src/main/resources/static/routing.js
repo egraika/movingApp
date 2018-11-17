@@ -134,6 +134,8 @@
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
+            .state('sitemap.xml', {url: '/sitemap.xml'})
+            .state('robots.txt', {url: '/robots.txt'})
 			.otherwise({
 				redirectTo: '/error/404',
 				access: {
