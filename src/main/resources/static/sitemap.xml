@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.movemuscle.com</loc><priority>0.5</priority></url>
-  <url><loc>https://www.movemuscle.com/#maincontent</loc><priority>0.5</priority></url>
-  <url><loc>https://www.movemuscle.com/#page-top</loc><priority>0.5</priority></url>
-  <url><loc>https://www.movemuscle.com/#</loc><priority>0.5</priority></url>
-  <url><loc>https://www.movemuscle.com/#/#services</loc><priority>0.5</priority></url>
   <url><loc>https://www.movemuscle.com/#services</loc><priority>0.5</priority></url>
-  <url><loc>https://www.movemuscle.com/#/#about</loc><priority>0.5</priority></url>
   <url><loc>https://www.movemuscle.com/#about</loc><priority>0.5</priority></url>
   <url><loc>https://www.movemuscle.com/#/bookmove</loc><priority>0.5</priority></url>
   <url><loc>https://www.movemuscle.com/#/login</loc><priority>0.5</priority></url>
