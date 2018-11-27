@@ -79,7 +79,7 @@ public class BookMoveController {
 			userView.setFirstName(userExists.getFirstName());
 			userView.setLastName(userExists.getLastName());
 			move.setUser(userView);
-			move.setType("unconfirmed move");
+			move.setStatus("unconfirmed move");
 
 			SimpleMailMessage registrationEmail = new SimpleMailMessage();
 			registrationEmail.setTo(userExists.getEmail());
@@ -100,7 +100,7 @@ public class BookMoveController {
 			userView.setFirstName(user.getFirstName());
 			userView.setLastName(user.getLastName());
 			move.setUser(userView);
-			move.setType("unconfirmed user");
+			move.setStatus("unconfirmed user");
 
 			String appUrl = request.getScheme() + "://" + request.getServerName();
 

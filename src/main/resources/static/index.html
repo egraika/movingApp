@@ -123,15 +123,18 @@
                     <li class="page-scroll">
                         <a href="#/bookmove">Book Online</a>
                     </li>
-                    <li ng-hide="authenticated">
-                        <a href="#/login">Login</a>
-                    </li>
                     <li ng-show="authenticated">
                         <a href="#/myMoves">My Moves</a>
                     </li>
  				    <li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
                     <li ng-show="authenticated">
                         <a href="#/profile">Profile</a>
+                    </li>
+                    <li ng-show="isUser || !authenticated">
+                        <a href="#/contact">Contact Us</a>
+                    </li>
+                    <li ng-hide="authenticated">
+                        <a href="#/login">Login</a>
                     </li>
 	            	<li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
                 </ul>
