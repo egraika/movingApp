@@ -5,15 +5,13 @@ movingApp.controller("contactController", ['$scope', '$http','$window','$session
 	}
 	
 	$scope.newContact = function() {
-		var s = 0;
 		$http({
 			method: 'POST',
 			url: '/newContact',
 			data: $scope.contact,
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
-			$location.path('/contactConfirmation').replace();
-			
+			$location.path("/contactConfirmation");
 		});
 	}
 	
