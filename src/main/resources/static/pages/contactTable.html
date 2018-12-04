@@ -1,9 +1,9 @@
 <div data-ng-controller="contactController" ng-init="init()">
-	<div class="row" st-table="moves" st-pipe="callServer">
+	<div class="row" st-table="contacts" st-pipe="callServer">
       	<div class="col-xs-12">
 			<h2>Contacts</h2>
-			<div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
-					<button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">{{itemsByPage}} <span class="caret"></span></button>
+			<div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown>
+					<button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle>{{itemsByPage}} <span class="caret"></span></button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
 					      <li role="menuitem" ng-click="selectItem(10)"><a href="">10</a></li>
 					      <li role="menuitem" ng-click="selectItem(25)"><a href="">25</a></li>

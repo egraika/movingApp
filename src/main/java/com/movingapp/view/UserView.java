@@ -1,6 +1,7 @@
 package com.movingapp.view;
 
 import com.movingapp.entity.Authority;
+import com.movingapp.entity.Location;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ public class UserView {
 	private String email;
 	private String firstName;
 	private String lastName;
+	private String fullName;
 	private String phone;
 	private String ccLastFour;
 	private String ccExpirationDate;
@@ -19,6 +21,8 @@ public class UserView {
 	private String cardType;
 	private List<ChargeView> charges;
 	private Set<Authority> authorities;
+	private Set<Location> locations;
+	private String locationsArray;
 
 
 	public UserView(){}
@@ -110,5 +114,29 @@ public class UserView {
 
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public Set<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(Set<Location> locations) {
+		this.locations = locations;
+	}
+
+	public String getLocationsArray() {
+		return locationsArray;
+	}
+
+	public void setLocationsArray(String locationsArray) {
+		this.locationsArray = locationsArray;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }

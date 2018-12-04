@@ -1,8 +1,5 @@
 package com.movingapp.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
@@ -79,6 +76,7 @@ public class User implements Serializable {
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "user_to_location", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "location_id"))
+	@OrderBy("location ASC")
 	private Set<Location> locations = new HashSet<Location>();
 
 	@ManyToMany(fetch = FetchType.EAGER)

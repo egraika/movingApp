@@ -80,13 +80,6 @@ public class MovesTableController {
 		}
 		pageable = new PageRequest(pageNumber, itemsPerPage, sort);
 
-		Integer searchLong = new Integer(0);
-		try {
-			searchLong = Integer.parseInt(search);
-		} catch (Exception e) {
-
-		}
-
 		List<Move> moves;
 		Page<Move> pages = null;
 		Page<MoveEntity> moveEntities;

@@ -134,6 +134,13 @@
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
+            .when('/users', {
+            	templateUrl : 'pages/user/usersTable.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.admin]
+            	}
+            })
 			.otherwise({
 				redirectTo: '/error/404',
 				access: {

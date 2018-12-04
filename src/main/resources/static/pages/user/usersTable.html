@@ -1,0 +1,103 @@
+<div data-ng-controller="userTableController" class="container" style="margin-top:150px;margin-bottom:150px">
+    <div class="row" st-table="users" st-pipe="callServer">
+        <div class="col-xs-12">
+            <h2>Users</h2>
+            <div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
+                <button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle>{{itemsByPage}} <span class="caret"></span></button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
+                    <li role="menuitem" ng-click="selectItem(10)"><a href="">10</a></li>
+                    <li role="menuitem" ng-click="selectItem(25)"><a href="">25</a></li>
+                    <li role="menuitem" ng-click="selectItem(50)"><a href="">50</a></li>
+                    <li role="menuitem" ng-click="selectItem(100)"><a href="">100</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 pull-right ">
+                <div class="form-group has-feedback">
+                    <input st-search="globalSearch" placeholder="Search this table..." class="input-sm form-control" type="search"/>
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>picture</th>
+                    <th st-sort="firstName">First Name</th>
+                    <th st-sort="lastName" st-sort-default="true">Last Name</th>
+                    <th>Email</th>
+                    <th>Type</th>
+                    <th>Locations</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <select class="form-control" st-search="userTypeSearch" st-input-event="change">
+                            <option value="">All</option>
+                            <option value="admin">Admin</option>
+                            <option value="mover">Mover</option>
+                            <option value="user">User</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select class="form-control" st-search="locationSearch" st-input-event="change">
+                            <option value="">All</option>
+                            <option value="MN">MN</option>
+                            <option value="IA">IA</option>
+                            <option value="CA">CA</option>
+                        </select>
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody ng-hide="isLoading">
+                <tr ng-repeat="user in users">
+                    <td width="10%">picture</td>
+                    <td width="10%">{{user.firstName}}</td>
+                    <td width="10%">{{user.lastName}}</td>
+                    <td width="20%">{{user.email}}</td>
+                    <td width="10%">{{user.authorities[0].name}}</td>
+                    <td width="30%">{{user.locationsArray}}</td>
+                    <td width="10%"><a type="button" class="btn btn-primary pull-right" href="/edit/user/{{user.id}}">Edit</a></td>
+                </tr>
+                </tbody>
+                <tbody ng-show="isLoading">
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="loading-indicator">
+                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody ng-show="isError">
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div class="loading-indicator">
+                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                            <strong> Error Loading Data.  Please Refresh the Page.</strong>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody ng-show="noResultsFound">
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                        <strong> No Results Found.  Please Refine Search.</strong>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
