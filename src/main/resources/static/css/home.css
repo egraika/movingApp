@@ -33,3 +33,20 @@ img.center {
 }
 
 html,body{ margin:0; padding:0; height:100%; width:100%; }
+
+.profile-pic {
+    max-height:170px;
+    max-width:180px;
+    position: absolute;
+    margin-left:70px;
+    margin-top: 50px;
+}
+
+.profile-pic-row {
+    margin-top:200px;
+}
+
+.profile-pic-users-table {
+    max-height:40px;
+    max-width:40px;
+}

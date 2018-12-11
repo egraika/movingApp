@@ -1,5 +1,7 @@
 package com.movingapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ public class Location {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
+	@JsonProperty("name")
 	@Column(name = "location", nullable = false)
 	private String location;
 

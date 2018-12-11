@@ -3,6 +3,7 @@ package com.movingapp.view;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.Location;
 
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,10 @@ public class UserView {
 	private Set<Authority> authorities;
 	private Set<Location> locations;
 	private String locationsArray;
-
+	private Boolean enabled;
+	public Date createdOn;
+	private String picture;
+	private String picture_type;
 
 	public UserView(){}
 
@@ -138,5 +142,37 @@ public class UserView {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public String getPicture_type() {
+		return picture_type;
+	}
+
+	public void setPicture_type(String picture_type) {
+		this.picture_type = picture_type;
 	}
 }

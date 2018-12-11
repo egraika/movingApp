@@ -5,7 +5,7 @@ import com.movingapp.entity.User;
 import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +14,6 @@ public class UserMapping {
 
     @Autowired
     private UserService userService;
-
-    public User UserViewToUser(UserView userView) {
-
-        User userToMap = userService.findById(userView.getId());
-
-        userToMap.setFirstName(userView.getFirstName());
-        userToMap.setLastName(userView.getLastName());
-        //userToMap.setEmail(userView.getEmail());
-        userToMap.setPhone(userView.getPhone());
-
-        return userToMap;
-    }
 
     public UserView UserToUserView(User user) {
 
@@ -41,6 +29,14 @@ public class UserMapping {
         userView.setCcExpirationDate(user.getCcExpirationDate());
         userView.setCardType(user.getCcCardType());
         userView.setCharges(ChargeMapping.ChargeEntityToCharge(user.getCharges()));
+        userView.setEnabled(user.getEnabled());
+        userView.setLocations(user.getLocations());
+        userView.setCreatedOn(user.getCreatedOn());
+        if(user.getPicture() != null) {
+            String base64Encoded = Base64.getEncoder().encodeToString(user.getPicture());
+            userView.setPicture(base64Encoded);
+        }
+
 
         return userView;
     }
@@ -63,6 +59,13 @@ public class UserMapping {
             userView.setCardType(user.getCcCardType());
             userView.setCharges(ChargeMapping.ChargeEntityToCharge(user.getCharges()));
             userView.setLocations(user.getLocations());
+            userView.setEnabled(user.getEnabled());
+            userView.setCreatedOn(user.getCreatedOn());
+            if(user.getPicture() != null) {
+                String base64Encoded = Base64.getEncoder().encodeToString(user.getPicture());
+                userView.setPicture(base64Encoded);
+            }
+
             String locationsArray = "";
             for(Location location : user.getLocations()) {
                 locationsArray += location.getLocation() + ",";

@@ -38,7 +38,6 @@
                             <option value="">All</option>
                             <option value="admin">Admin</option>
                             <option value="mover">Mover</option>
-                            <option value="user">User</option>
                         </select>
                     </th>
                     <th>
@@ -54,13 +53,16 @@
                 </thead>
                 <tbody ng-hide="isLoading">
                 <tr ng-repeat="user in users">
-                    <td width="10%">picture</td>
+                    <td width="10%">
+                        <img ng-show="user.picture" data-ng-src="data:image/{{user.picture_type}};base64,{{user.picture}}" class="img-responsive img-circle profile-pic-users-table">
+                        <img ng-hide="user.picture" ng-src="/img/defaultuser.jpg" class="img-responsive img-circle profile-pic-users-table">
+                    </td>
                     <td width="10%">{{user.firstName}}</td>
                     <td width="10%">{{user.lastName}}</td>
                     <td width="20%">{{user.email}}</td>
                     <td width="10%">{{user.authorities[0].name}}</td>
                     <td width="30%">{{user.locationsArray}}</td>
-                    <td width="10%"><a type="button" class="btn btn-primary pull-right" href="/edit/user/{{user.id}}">Edit</a></td>
+                    <td width="10%"><a type="button" class="btn btn-primary pull-right" href="/#/edit/user/{{user.id}}">Edit</a></td>
                 </tr>
                 </tbody>
                 <tbody ng-show="isLoading">

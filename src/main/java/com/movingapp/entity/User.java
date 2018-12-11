@@ -8,6 +8,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
+import java.sql.Blob;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +89,21 @@ public class User implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="user")
 	@Fetch(FetchMode.SELECT)
 	private List<ChargeEntity> charges;
+
+	@Column(name="created_on", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date createdOn;
+
+	@Column(name = "picture")
+	private byte[] picture;
+
+	@Column(name = "picture_type")
+	private String picture_type;
+
+	@PrePersist
+	protected void onCreate() {
+		createdOn = new Date();
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -222,5 +239,29 @@ public class User implements Serializable {
 
 	public void setCharges(List<ChargeEntity> charges) {
 		this.charges = charges;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getPicture_type() {
+		return picture_type;
+	}
+
+	public void setPicture_type(String picture_type) {
+		this.picture_type = picture_type;
 	}
 }

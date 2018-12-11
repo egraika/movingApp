@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class SeurityController {
     private UserMapping userMapping;
 
     @RequestMapping(value = "/security/account", method = RequestMethod.GET)
-    public @ResponseBody UserView getUserAccount()  {
+    public @ResponseBody UserView getUserAccount() throws UnsupportedEncodingException {
         User user = userRepo.findByEmail(SecurityUtils.getCurrentLogin());
         if(user != null) {
             return userMapping.UserToUserView(user);
