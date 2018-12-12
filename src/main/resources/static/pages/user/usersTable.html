@@ -1,7 +1,10 @@
-<div data-ng-controller="userTableController" class="container" style="margin-top:150px;margin-bottom:150px">
+<div data-ng-controller="userTableController" class="container" style="margin-top:150px;margin-bottom:150px" ng-init="init()">
     <div class="row" st-table="users" st-pipe="callServer">
         <div class="col-xs-12">
-            <h2>Users</h2>
+            <h2>
+                <span>Users</span>
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addUser">Add Employee</button>
+            </h2>
             <div id="itemsPerPageDropdownDiv" class="btn-group pull-right" uib-dropdown is-open="status.isopen">
                 <button id="itemsPerPageDropdown" type="button" class="btn btn-primary" uib-dropdown-toggle>{{itemsByPage}} <span class="caret"></span></button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="itemsPerPageDropdown" ng-model="itemsByPage">
@@ -100,6 +103,80 @@
                 </tr>
                 </tfoot>
             </table>
+        </button>
+        </div>
+    </div>
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h3 class="modal-title" id="myModalLabel">
+                            Add Employee
+                        </h3>
+                    </div>
+                    <form id="editnewuserForm" name="editnewuserForm">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="firstName">First Name</label>
+                                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="newuser.firstName" class="form-control" ng-bind-html="trustAsHtml(newuser.firstName)" required></input>
+                                    <span style="color:red" ng-show="editnewuserForm.firstName.$dirty && editnewuserForm.firstName.$invalid">First Name Required</span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="lastName">Last Name</label>
+                                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="newuser.lastName" class="form-control" ng-bind-html="trustAsHtml(newuser.lastName)" required></input>
+                                    <span style="color:red" ng-show="editnewuserForm.lastName.$dirty && editnewuserForm.lastName.$invalid">First Name Required</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="email">Email</label>
+                                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" id="email" ng-model="newuser.email" class="form-control" ng-bind-html="trustAsHtml(newuser.email)" required></input>
+                                    <span style="color:red" ng-show="editnewuserForm.email.$dirty && editnewuserForm.email.$invalid">A valid email required</span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="phone">Phone</label>
+                                    <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="newuser.phone" numbers-only phone-input>
+                                    <span style="color:red" ng-show="editnewuserForm.phone.$dirty && editnewuserForm.phone.$invalid">A valid phone number is required</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label for="authority">Authority</label>
+                                    <select class="form-control" id="authority" name="authority" ng-model="newuser.authority" ng-init="newuser.authority = 'admin'">
+                                        <option value="mover">Mover</option>
+                                        <option value="admin" selected>Admin</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label for="enabled">Enabled</label>
+                                    <select class="form-control" id="enabled" name="enabled" ng-model="newuser.enabled" ng-options="o.value as o.label for o in enabledOptions" ng-init="newuser.enabled = true"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <dualmultiselect options="locationOptions" ng-model="newuser.locations"></dualmultiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-lg btn-primary pull-right" style="margin-right: 15px" ng-click="addEmployee()" data-dismiss="modal" ng-disabled="editnewuserForm.$invalid">Add</button>
+                                    <button class="btn btn-lg btn-danger pull-left" style="margin-left: 15px" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

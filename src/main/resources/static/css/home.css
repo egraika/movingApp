@@ -49,12 +49,10 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
     .profile-pic-mobile-div {
        float: left;
        width: 60px;
-       background-color:red;
     }
 
     .mobile-header-text {
        margin-left: 10px;
-              background-color:green;
     }
 
     .profile-pic {

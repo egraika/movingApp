@@ -100,10 +100,20 @@ public class editUserController {
 
 	@RequestMapping(value = "/getAllOtherLocations",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<List<Location>> getLocations(@RequestParam("userid") long userid) {
+	public ResponseEntity<List<Location>> getAllOtherLocations(@RequestParam("userid") long userid) {
 
 		User user = userRepo.findById(userid).get();
 		List<Location> locations = locationDao.findAllNotAssignedToUser(user.getLocations());
+
+		return new ResponseEntity<>(locations, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/getLocations",method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<Location>> getLocations(@RequestParam("userid") long userid) {
+
+		User user = userRepo.findById(userid).get();
+		List<Location> locations = locationDao.findAll(user.getLocations());
 
 		return new ResponseEntity<>(locations, HttpStatus.OK);
 	}

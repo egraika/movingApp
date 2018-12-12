@@ -17,4 +17,6 @@ public interface LocationDao extends JpaRepository<Location, Integer> {
     @Query("Select l from Location l where not(l IN :locations)")
     List<Location> findAllNotAssignedToUser(@Param("locations") Set<Location> objects);
 
+    @Query("Select l from Location l where l IN :locations")
+    List<Location> findAll(@Param("locations") Set<Location> objects);
 }

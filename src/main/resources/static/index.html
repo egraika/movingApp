@@ -122,13 +122,14 @@
                     <li class="page-scroll" ng-show="!currentPath && !authenticated">
                         <a href="#about">About Us</a>
                     </li>
-                    <li class="page-scroll">
+                    <li ng-hide="!isUser && authenticated" class="page-scroll">
                         <a href="#/bookmove">Book Online</a>
                     </li>
                     <li ng-show="authenticated">
                         <a href="#/myMoves">My Moves</a>
                     </li>
  				    <li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
+                    <li ng-show="authenticated"><a href="#/users">Employees</a></li>
                     <li ng-show="authenticated">
                         <a href="#/profile">Profile</a>
                     </li>
