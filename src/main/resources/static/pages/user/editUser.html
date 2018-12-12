@@ -2,49 +2,56 @@
 	<div class="container" style="margin-top: 150px">
 		<div class="well">
 			<form id="editUserForm" name="editUserForm">
-				<h2>Edit User - {{user.id}}</h2>
+				<div class="profile-pic-mobile-div">
+					<img ng-show="user.picture" data-ng-src="data:image/{{user.picture_type}};base64,{{user.picture}}" class="img-responsive img-circle profile-pic-mobile">
+					<img ng-hide="user.picture" ng-src="/img/defaultuser.jpg" class="img-responsive img-circle profile-pic-mobile">
+				</div>
+				<div class="mobile-header-text">
+					<h2 class="header-text">Edit User - {{user.id}}</h2>
+				</div>
 				<hr>
 				<div class="row">
 					<img ng-show="user.picture" data-ng-src="data:image/{{user.picture_type}};base64,{{user.picture}}" class="img-responsive img-circle profile-pic">
 					<img ng-hide="user.picture" ng-src="/img/defaultuser.jpg" class="img-responsive img-circle profile-pic">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4" >
+					<input type="file" id="file" name="file" ng-model="file" class="profile-pic-row"/>
+					<button class="btn btn-primary profile-pic-row2" ng-click="updatePicture()">Update Picture</button>
+					<div class="col-sm-2 col-md-4 col-lg-4"></div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4" >
 						<label for="enabled">Enabled</label>
 						<select class="form-control" id="enabled" name="enabled" ng-model="user.enabled" ng-options="o.value as o.label for o in enabledOptions">
 						</select>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="createdOn">Created On</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="createdOn" class="form-control" datetime-picker="MM/dd/yyyy" ng-model="user.createdOn" ng-disabled="true"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
+					<div class="col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="firstName">First Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="user.firstName" class="form-control" ng-bind-html="trustAsHtml(user.firstName)"></input>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="lastName">Last Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="user.lastName" class="form-control" ng-bind-html="trustAsHtml(user.lastName)"></input>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
+					<div class="col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="email">Email</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control" ng-bind-html="trustAsHtml(user.email)"></input>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="phone">Phone</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="user.phone" numbers-only phone-input>
 						<span style="color:red" ng-show="editUserForm.phone.$dirty && editUserForm.phone.$invalid">A valid phone number is required</span>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-4">
-					</div>
-					<div class="col-xs-4">
+					<div class="col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
 						<label for="authority">Authority</label>
 						<select class="form-control" id="authority" name="authority" ng-model="user.authority">
 							<option value="user">User</option>
@@ -52,28 +59,25 @@
 							<option value="admin">Admin</option>
 						</select>
 					</div>
-					<div class="col-xs-4"></div>
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-4"></div>
 				</div>
 				<div class="row">
-					<div class="col-xs-4">
-						<input type="file" id="file" name="file" style="margin-top:50px;" ng-model="file"/>
-						<button class="btn btn-primary" ng-click="updatePicture()" style="margin-top:15px;">Update Picture</button>
-					</div>
-					<div class="col-xs-8">
+					<div class="col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 						<dualmultiselect options="locationOptions" ng-model="user.locations"></dualmultiselect>
 					</div>
 				</div>
 				<div class="row" style="margin-top:15px">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 						<button type="submit" class="btn btn-primary pull-right btn-block" class="form-control" ng-disabled="editUserForm.phone.$dirty && editUserForm.$invalid" ng-click="save()">Save User Information</button>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 						<span ng-show="editUserForm.phone.$dirty && editUserForm.$invalid" style="color:red">Please fix errors before saving.</span>
 					</div>
 				</div>
