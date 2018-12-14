@@ -8,8 +8,8 @@ movingApp.controller("editUserController", ['$scope','$rootScope', '$http','$rou
     }
 
     $scope.enabledOptions = [
-        {value: false, label: 'False'},
         {value: true, label: 'True'},
+        {value: false, label: 'False'},
     ];
 
 	function getUser() {
@@ -112,4 +112,20 @@ movingApp.controller("editUserController", ['$scope','$rootScope', '$http','$rou
 
          r.readAsDataURL(f);
      }
+
+     	function saveUser() {
+     	    bsLoadingOverlayService.start();
+     		$http({
+     			method: 'POST',
+     			url: '/updateUser',
+     			data: $scope.user,
+     			headers:{'Content-Type': 'application/json'}
+             }).then(function(response) {
+                 bsLoadingOverlayService.stop();
+             }, function(response) {
+                 $scope.error = true;
+                 bsLoadingOverlayService.stop();
+             });
+     	}
+
 }]);
