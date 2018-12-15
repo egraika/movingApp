@@ -21,6 +21,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
 			$scope.move = response.data;
+			getAllNotAssignedUsers();
 			$scope.charges = $scope.move.charges;
             if($scope.charges.length > 0) {
                 $scope.isCharges = true;
@@ -38,6 +39,29 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
             $scope.getMoveDataError = true;
         });
 	}
+
+
+     function getAllNotAssignedUsers() {
+		$http({
+			method: 'GET',
+			url: '/getAllNotAssignedToMove',
+			params: {'moveid' : $scope.move.id},
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            $scope.userOptions = {
+                title: 'Assigned Users',
+                filterPlaceHolder: 'Start typing to filter the locations below.',
+                labelAll: 'Other Users',
+                labelSelected: 'Selected Users',
+                /* angular will use this to filter your lists */
+                orderProperty: 'location',
+                /* this contains the initial list of all items (i.e. the left side) */
+                items: response.data,
+                selectedItems: $scope.move.assignedUsers
+            };
+        }, function(response) {
+        });
+     }
 
 	 $scope.addNote = function() {
 		 var name = Session.firstName + " " + Session.lastName;

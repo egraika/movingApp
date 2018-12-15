@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 public class Move{
@@ -26,6 +27,7 @@ public class Move{
 	private List<Note> notes;
 	private List<ChargeView> charges;
 	private UserView user;
+	private List<UserView> assignedUsers;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
 	private OffsetDateTime startsAt;
@@ -264,5 +266,13 @@ public class Move{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<UserView> getAssignedUsers() {
+		return assignedUsers;
+	}
+
+	public void setAssignedUsers(List<UserView> assignedUsers) {
+		this.assignedUsers = assignedUsers;
 	}
 }

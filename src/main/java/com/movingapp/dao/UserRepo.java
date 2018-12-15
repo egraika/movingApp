@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 
 @Transactional
@@ -31,4 +32,9 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query("Select distinct u from User u join u.locations t where t in (:locations) and (:userType) MEMBER OF u.authorities and (:location) MEMBER OF u.locations and (lower(u.firstName) LIKE lower(concat('%', :search,'%')) or lower(u.lastName) LIKE lower(concat('%', :search,'%')) or lower(u.email) LIKE lower(concat('%', :search,'%')))")
 	public Page<User> findByUserTypeAndLocationFilter(Pageable pageable, @Param("locations") Set<Location> objects, @Param("userType") Authority userType, @Param("location") Location location, @Param("search") String search);
 
+	@Query("Select u from User u where not(u IN :users)")
+	List<User> findAllNotAssignedToUser(@Param("users") List<User> objects);
+
+	@Query("Select u from User u")
+	List<User> findAllWithLocation();
 }

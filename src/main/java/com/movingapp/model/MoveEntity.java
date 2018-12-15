@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "booked_moves")
@@ -31,6 +35,9 @@ public class MoveEntity implements Serializable {
 	@JsonManagedReference(value="notes")
 	@OneToMany(fetch = FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="move")
 	private List<NoteEntity> notes;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Location location;
 
 	@Column(name = "fromStreet")
 	private String fromStreet;
@@ -100,6 +107,11 @@ public class MoveEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
+	@JoinTable(name = "assigned_users_to_moves", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "move_id"))
+	private List<User> assignedUsers;
 
 	public void setID(int id) {
 		this.id = id;
@@ -292,5 +304,21 @@ public class MoveEntity implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<User> getAssignedUsers() {
+		return assignedUsers;
+	}
+
+	public void setAssignedUsers(List<User> assignedUsers) {
+		this.assignedUsers = assignedUsers;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 }
