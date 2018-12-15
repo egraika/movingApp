@@ -6,8 +6,6 @@ import com.movingapp.entity.PasswordResetToken;
 import com.movingapp.entity.User;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
-import com.nulabinc.zxcvbn.Strength;
-import com.nulabinc.zxcvbn.Zxcvbn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

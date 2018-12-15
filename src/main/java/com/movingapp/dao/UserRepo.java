@@ -4,7 +4,6 @@ package com.movingapp.dao;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,9 +31,9 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query("Select distinct u from User u join u.locations t where t in (:locations) and (:userType) MEMBER OF u.authorities and (:location) MEMBER OF u.locations and (lower(u.firstName) LIKE lower(concat('%', :search,'%')) or lower(u.lastName) LIKE lower(concat('%', :search,'%')) or lower(u.email) LIKE lower(concat('%', :search,'%')))")
 	public Page<User> findByUserTypeAndLocationFilter(Pageable pageable, @Param("locations") Set<Location> objects, @Param("userType") Authority userType, @Param("location") Location location, @Param("search") String search);
 
-	@Query("Select u from User u where not(u IN :users)")
-	List<User> findAllNotAssignedToUser(@Param("users") List<User> objects);
+	@Query("Select u from User u join u.authorities a where a in (:authorities) and not(u IN :users) and :location MEMBER OF u.locations")
+	List<User> findAllNotAssignedToUser(@Param("users") List<User> objects, @Param("location") Location location, @Param("authorities") List<Authority> authorities);
 
-	@Query("Select u from User u")
-	List<User> findAllWithLocation();
+	@Query("Select u from User u join u.authorities a where a in (:authorities) and :location MEMBER OF u.locations")
+	List<User> findAllWithLocation(@Param("location") Location location, @Param("authorities") List<Authority> authorities);
 }

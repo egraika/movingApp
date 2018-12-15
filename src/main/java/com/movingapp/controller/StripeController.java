@@ -14,7 +14,7 @@ import com.movingapp.view.ChargeView;
 import com.movingapp.view.StripeView;
 import com.movingapp.view.UserView;
 import com.stripe.Stripe;
-import com.stripe.exception.*;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;

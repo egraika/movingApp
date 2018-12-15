@@ -1,10 +1,10 @@
 package com.movingapp.controller;
 
-import com.movingapp.entity.Token;
-import com.movingapp.entity.User;
+import com.movingapp.config.SecurityUtils;
 import com.movingapp.dao.TokenRepo;
 import com.movingapp.dao.UserRepo;
-import com.movingapp.config.SecurityUtils;
+import com.movingapp.entity.Token;
+import com.movingapp.entity.User;
 import com.movingapp.service.UserMapping;
 import com.movingapp.view.UserView;
 import io.swagger.annotations.Api;

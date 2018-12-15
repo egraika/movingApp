@@ -15,6 +15,7 @@ movingApp.controller("bookMoveController", ['$scope', '$http','$sessionStorage',
         $scope.moveData.type = 'withTruck';
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
+
 	$scope.bookMove = function() {
 		$scope.moveData.notes = [];
 		var jsonString = JSON.stringify($scope.moveData);

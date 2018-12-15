@@ -1,12 +1,11 @@
 package com.movingapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.movingapp.model.MoveEntity;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
@@ -17,13 +16,10 @@ public class Location {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
+	//json property name is for dualbox list display
 	@JsonProperty("name")
 	@Column(name = "location", nullable = false)
 	private String location;
-
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="location")
-	public List<MoveEntity> moves;
 
 	public Long getId() {
 		return id;
@@ -39,13 +35,5 @@ public class Location {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public List<MoveEntity> getMoves() {
-		return moves;
-	}
-
-	public void setMoves(List<MoveEntity> moves) {
-		this.moves = moves;
 	}
 }

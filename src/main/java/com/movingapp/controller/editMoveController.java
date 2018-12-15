@@ -2,7 +2,10 @@ package com.movingapp.controller;
 
 import com.movingapp.dao.AuthorityRepo;
 import com.movingapp.dao.ChargesDao;
+import com.movingapp.dao.LocationDao;
 import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.Authority;
+import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
@@ -17,9 +20,11 @@ import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class editMoveController {
@@ -38,6 +43,9 @@ public class editMoveController {
 
 	@Autowired
 	private AuthorityRepo authorityRepo;
+
+	@Autowired
+	private LocationDao locationDao;
 
 	@Autowired
 	private MoveMapping moveMapping;
@@ -68,10 +76,12 @@ public class editMoveController {
 	public List<UserView> getAllNotAssignedUsersToMove(@RequestParam("moveid") int moveid) {
 		List<User> users;
 		MoveEntity moveEntity = BookMovesDao.findById(moveid);
+		Location location = locationDao.findByLocation(moveEntity.getFromState());
+		List<Authority> authorities = authorityRepo.findAllThatNotUser();
 		if(moveEntity.getAssignedUsers().size() > 0) {
-			users = userRepo.findAllNotAssignedToUser(moveEntity.getAssignedUsers());
+			users = userRepo.findAllNotAssignedToUser(moveEntity.getAssignedUsers(), location, authorities);
 		} else {
-			users = userRepo.findAllWithLocation();
+			users = userRepo.findAllWithLocation(location, authorities);
 		}
 		return userMapping.UsersToUserViews(users);
 	}

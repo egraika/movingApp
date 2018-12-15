@@ -9,7 +9,6 @@ import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -111,6 +110,7 @@ public class MoveMapping {
         moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
         moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
         moveEntity.setType(move.getType());
+        moveEntity.setAssignedUsers(userMapping.UserViewsToUsers(move.getAssignedUsers()));
         Optional<User> foundUser = userRepo.findById(move.getUser().getId());
         User user = foundUser.get();
         moveEntity.setUser(user);

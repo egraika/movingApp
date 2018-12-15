@@ -5,8 +5,9 @@ import com.movingapp.entity.User;
 import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Base64;
+
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -67,14 +68,36 @@ public class UserMapping {
             }
 
             String locationsArray = "";
+            int i = 0;
             for(Location location : user.getLocations()) {
+                if(i == 5) {
+                    locationsArray = locationsArray.substring(0,locationsArray.length()-1);
+                    locationsArray += "....";
+                    break;
+                }
                 locationsArray += location.getLocation() + ",";
+                i++;
             }
-            locationsArray = locationsArray.substring(0,locationsArray.length()-1);
+            if(locationsArray.length() > 0) {
+                locationsArray = locationsArray.substring(0,locationsArray.length()-1);
+            }
             userView.setLocationsArray(locationsArray);
             userViews.add(userView);
         }
 
         return userViews;
+    }
+
+    public List<User> UserViewsToUsers(List<UserView> userViews) {
+
+        List<User> userList = new ArrayList<>();
+
+        for(UserView userView  : userViews) {
+            User user = new User();
+            user.setId(userView.getId());
+            userList.add(user);
+        }
+
+        return userList;
     }
 }

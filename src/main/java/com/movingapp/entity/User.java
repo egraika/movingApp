@@ -7,15 +7,13 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "user")

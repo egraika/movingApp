@@ -3,7 +3,6 @@ package com.movingapp.view;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.Location;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +13,7 @@ public class UserView {
 	private String email;
 	private String firstName;
 	private String lastName;
+	private String name;
 	private String fullName;
 	private String phone;
 	private String ccLastFour;
@@ -174,5 +174,13 @@ public class UserView {
 
 	public void setPicture_type(String picture_type) {
 		this.picture_type = picture_type;
+	}
+
+	public String getName() {
+		return firstName + " " + lastName;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

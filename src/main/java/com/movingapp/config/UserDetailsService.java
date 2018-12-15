@@ -1,8 +1,8 @@
 package com.movingapp.config;
 
+import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.User;
-import com.movingapp.dao.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

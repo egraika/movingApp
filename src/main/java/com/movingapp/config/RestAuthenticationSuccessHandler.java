@@ -1,7 +1,7 @@
 package com.movingapp.config;
 
-import com.movingapp.entity.User;
 import com.movingapp.dao.UserRepo;
+import com.movingapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

@@ -1,10 +1,5 @@
 package com.movingapp.controller;
 
-import java.util.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-
 import com.movingapp.dao.AuthorityRepo;
 import com.movingapp.dao.BookMovesDao;
 import com.movingapp.dao.ConfirmationTokenRepo;
@@ -15,6 +10,8 @@ import com.movingapp.entity.User;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
+import com.nulabinc.zxcvbn.Strength;
+import com.nulabinc.zxcvbn.Zxcvbn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,8 +20,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import com.nulabinc.zxcvbn.Strength;
-import com.nulabinc.zxcvbn.Zxcvbn;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Controller
 @Transactional

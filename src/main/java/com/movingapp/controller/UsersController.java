@@ -6,12 +6,8 @@ import com.movingapp.dao.LocationDao;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
-import com.movingapp.model.MoveEntity;
-import com.movingapp.model.NoteEntity;
 import com.movingapp.model.TableState;
 import com.movingapp.service.UserMapping;
-import com.movingapp.view.Move;
-import com.movingapp.view.Note;
 import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -21,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class UsersController {

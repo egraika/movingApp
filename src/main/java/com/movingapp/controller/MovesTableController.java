@@ -1,32 +1,26 @@
 package com.movingapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
+import com.google.gson.Gson;
+import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
-import com.movingapp.service.MoveMapping;
+import com.movingapp.model.MoveEntity;
+import com.movingapp.model.NoteEntity;
+import com.movingapp.model.TableState;
+import com.movingapp.view.Move;
+import com.movingapp.view.Note;
 import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.movingapp.entity.Location;
-import com.movingapp.model.MoveEntity;
-import com.movingapp.model.NoteEntity;
-import com.movingapp.model.TableState;
-import com.movingapp.view.Move;
-import com.movingapp.view.Note;
-import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class MovesTableController {
