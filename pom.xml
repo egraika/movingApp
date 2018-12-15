@@ -242,6 +242,11 @@
 			<artifactId>thymeleaf-spring5</artifactId>
 			<version>3.0.9.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>7.32.0</version>
+		</dependency>
 	</dependencies>
 
     <build>
