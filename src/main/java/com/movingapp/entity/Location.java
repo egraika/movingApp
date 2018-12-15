@@ -1,5 +1,7 @@
 package com.movingapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ public class Location {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
+	//json property name is for dualbox list display
+	@JsonProperty("name")
 	@Column(name = "location", nullable = false)
 	private String location;
 
@@ -32,5 +36,4 @@ public class Location {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
 }

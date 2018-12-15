@@ -9,7 +9,6 @@ import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -17,6 +16,9 @@ public class MoveMapping {
 
     @Autowired
     private com.movingapp.dao.UserRepo userRepo;
+
+    @Autowired
+    private UserMapping userMapping;
 
     public List<Move> MoveEntityToMoves(List<MoveEntity> moveEntityList) {
 
@@ -42,7 +44,7 @@ public class MoveMapping {
             move.setTitle(moveEntityList.get(i).getMoveTitle());
             move.setEndsAt(moveEntityList.get(i).getMoveEnd());
             move.setType(moveEntityList.get(i).getType());
-
+//            move.setAssignedUsers(userMapping.UsersToUserViews(moveEntityList.get(i).getAssignedUsers()));
             movesList.add(move);
         }
         return movesList;
@@ -108,6 +110,7 @@ public class MoveMapping {
         moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
         moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
         moveEntity.setType(move.getType());
+        moveEntity.setAssignedUsers(userMapping.UserViewsToUsers(move.getAssignedUsers()));
         Optional<User> foundUser = userRepo.findById(move.getUser().getId());
         User user = foundUser.get();
         moveEntity.setUser(user);
@@ -139,6 +142,7 @@ public class MoveMapping {
         move.setAntiques(moveEntity.getAntiques());
         move.setNumberOfBoxes(moveEntity.getNumberOfBoxes());
         move.setNumberOfLargeItems(moveEntity.getNumberOfLargeItems());
+        move.setAssignedUsers(userMapping.UsersToUserViews(moveEntity.getAssignedUsers()));
         move.setType(moveEntity.getType());
         UserView userView = new UserView();
         userView.setEmail(moveEntity.getUser().getEmail());

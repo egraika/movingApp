@@ -1,21 +1,17 @@
 package com.movingapp.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
-import javax.servlet.http.HttpServletRequest;
 import com.movingapp.dao.AuthorityRepo;
 import com.movingapp.dao.ConfirmationTokenRepo;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
+import com.movingapp.model.MoveEntity;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.MoveMapping;
 import com.movingapp.service.UserService;
-import com.movingapp.view.*;
+import com.movingapp.view.Move;
+import com.movingapp.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -26,14 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.movingapp.model.MoveEntity;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import com.movingapp.config.GMailAuthenticator;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @Controller
 public class BookMoveController {

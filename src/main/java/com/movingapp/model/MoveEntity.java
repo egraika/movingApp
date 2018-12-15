@@ -1,16 +1,17 @@
 package com.movingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.movingapp.entity.User;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.movingapp.entity.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "booked_moves")
@@ -100,6 +101,11 @@ public class MoveEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
+	@JoinTable(name = "assigned_users_to_moves", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "move_id"))
+	private List<User> assignedUsers;
 
 	public void setID(int id) {
 		this.id = id;
@@ -292,5 +298,13 @@ public class MoveEntity implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<User> getAssignedUsers() {
+		return assignedUsers;
+	}
+
+	public void setAssignedUsers(List<User> assignedUsers) {
+		this.assignedUsers = assignedUsers;
 	}
 }

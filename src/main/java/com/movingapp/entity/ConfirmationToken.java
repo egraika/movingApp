@@ -1,13 +1,11 @@
 package com.movingapp.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "confirmation_token")

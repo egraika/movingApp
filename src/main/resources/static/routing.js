@@ -1,7 +1,8 @@
 	// create the module and name it movingApp
-	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker']);
+	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker','dualmultiselect']);
 
-	movingApp.config(['$locationProvider','$httpProvider','$windowProvider','stConfig', function($locationProvider, $httpProvider,$windowProvider,stConfig) {
+	movingApp.config(['$locationProvider','$httpProvider','$windowProvider','stConfig','$compileProvider', function($locationProvider, $httpProvider,$windowProvider,stConfig, $compileProvider) {
+	     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
 		  $locationProvider.hashPrefix('');
 		  $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 		  stConfig.sort.delay = 100;
@@ -127,11 +128,25 @@
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
+            .when('/edit/user/:userId', {
+            	templateUrl : 'pages/user/editUser.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.admin]
+            	}
+            })
             .when('/profile', {
             	templateUrl : 'pages/user/profile.html',
             	access: {
             		loginRequired: true,
             		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
+            .when('/users', {
+            	templateUrl : 'pages/user/usersTable.html',
+            	access: {
+            		loginRequired: true,
+            		authorizedRoles: [USER_ROLES.admin]
             	}
             })
 			.otherwise({

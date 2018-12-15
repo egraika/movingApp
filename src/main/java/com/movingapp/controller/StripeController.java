@@ -14,7 +14,7 @@ import com.movingapp.view.ChargeView;
 import com.movingapp.view.StripeView;
 import com.movingapp.view.UserView;
 import com.stripe.Stripe;
-import com.stripe.exception.*;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Controller
@@ -50,7 +51,7 @@ public class StripeController {
 
     @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws StripeException {
+    public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws StripeException, UnsupportedEncodingException {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe.apiKey = MovingAppConstants.apiKey;

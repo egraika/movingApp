@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="movingApp" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" ng-app="movingApp" xmlns="http://www.w3.org/1999/xhtml"
+>
 
 
 <head>
@@ -42,6 +42,7 @@
     <link href="css/angular-bootstrap-calendar.min.css" rel="stylesheet">
     <link href="css/creative.css" rel="stylesheet">
     <link href="css/extra-bootstrap.css" rel="stylesheet">
+    <link href="css/dualmultiselect.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,12 +50,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!--<script src="js/jquery.js"></script>-->
-    <!--<script src="js/angular.min.js"></script>-->
-  	<!--<script src="js/angular-route.js"></script>-->
-    <!--<script src="routing.js"></script>-->
-    <!--<script src="js/dependencies/http-auth-interceptor.js"></script>-->
-    <script src="js/dependencies/angular-2.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.min.js"></script>
+  	<script src="js/angular-route.js"></script>
+    <script src="routing.js"></script>
+    <script src="js/dependencies/http-auth-interceptor.js"></script>
+    <!--<script src="js/dependencies/angular-2.min.js"></script>-->
     <script src="js/dependencies/bootstrap.min.js"></script>
     <script src="js/dependencies/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="js/dependencies/angular-animate.min.js"></script>
@@ -75,6 +76,7 @@
     <script src="js/dependencies/datetimepicker.js"></script>
     <script src="js/dependencies/jquery.easing.1.3.js"></script>
     <script src="js/dependencies/phone-input.js"></script>
+    <script src="js/dependencies/dualmultiselect.js"></script>
 </head>
 
 <body id="page-top" class="index">
@@ -120,13 +122,14 @@
                     <li class="page-scroll" ng-show="!currentPath && !authenticated">
                         <a href="#about">About Us</a>
                     </li>
-                    <li class="page-scroll">
+                    <li ng-hide="!isUser && authenticated" class="page-scroll">
                         <a href="#/bookmove">Book Online</a>
                     </li>
                     <li ng-show="authenticated">
                         <a href="#/myMoves">My Moves</a>
                     </li>
  				    <li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
+                    <li ng-show="authenticated"><a href="#/users">Employees</a></li>
                     <li ng-show="authenticated">
                         <a href="#/profile">Profile</a>
                     </li>
@@ -195,22 +198,24 @@
 
     <script src="js/dependencies/freelancer.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <!--<script src="js/services/AuthSharedService.js"></script>-->
-    <!--<script src="js/services/Session.js"></script>-->
-    <!--<script src="js/controllers/contactController.js"></script>-->
-    <!--<script src="js/controllers/registrationController.js"></script>-->
-    <!--<script src="js/controllers/confirmController.js"></script>-->
-    <!--<script src="js/controllers/confirmPasswordResetController.js"></script>-->
-    <!--<script src="js/controllers/passwordResetController.js"></script>-->
-    <!--<script src="js/controllers/myMovesController.js"></script>-->
-    <!--<script src="js/controllers/editMyMoveController.js"></script>-->
-    <!--<script src="js/controllers/editProfileController.js"></script>-->
-    <!--<script src="js/controllers/bookMoveController.js"></script>-->
-    <!--<script src="js/controllers/loginController.js"></script>-->
-    <!--<script src="js/controllers/bookedMoveController.js"></script>-->
-    <!--<script src="js/controllers/editMoveController.js"></script>-->
-    <!--<script src="js/controllers/homeController.js"></script>-->
-    <!--<script src="js/controllers/ErrorController.js"></script>-->
-    <!--<script src="js/controllers/LogoutController.js"></script>-->
+    <script src="js/services/AuthSharedService.js"></script>
+    <script src="js/services/Session.js"></script>
+    <script src="js/controllers/contactController.js"></script>
+    <script src="js/controllers/registrationController.js"></script>
+    <script src="js/controllers/confirmController.js"></script>
+    <script src="js/controllers/confirmPasswordResetController.js"></script>
+    <script src="js/controllers/passwordResetController.js"></script>
+    <script src="js/controllers/myMovesController.js"></script>
+    <script src="js/controllers/editMyMoveController.js"></script>
+    <script src="js/controllers/editProfileController.js"></script>
+    <script src="js/controllers/bookMoveController.js"></script>
+    <script src="js/controllers/loginController.js"></script>
+    <script src="js/controllers/bookedMoveController.js"></script>
+    <script src="js/controllers/editMoveController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/ErrorController.js"></script>
+    <script src="js/controllers/LogoutController.js"></script>
+    <script src="js/controllers/editUserController.js"></script>
+    <script src="js/controllers/userTableController.js"></script>
 </body>
 </html>

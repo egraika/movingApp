@@ -1,7 +1,6 @@
 package com.movingapp.controller;
 
 import com.google.gson.Gson;
-import com.movingapp.entity.Location;
 import com.movingapp.entity.User;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 public class MyMovesController {

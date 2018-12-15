@@ -21,6 +21,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
 			$scope.move = response.data;
+			getAllNotAssignedUsers();
 			$scope.charges = $scope.move.charges;
             if($scope.charges.length > 0) {
                 $scope.isCharges = true;
@@ -38,6 +39,29 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
             $scope.getMoveDataError = true;
         });
 	}
+
+
+     function getAllNotAssignedUsers() {
+		$http({
+			method: 'GET',
+			url: '/getAllNotAssignedToMove',
+			params: {'moveid' : $scope.move.id},
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            $scope.userOptions = {
+                title: 'Assigned Users',
+                filterPlaceHolder: 'Start typing to filter the locations below.',
+                labelAll: 'Other Users',
+                labelSelected: 'Selected Users',
+                /* angular will use this to filter your lists */
+                orderProperty: 'location',
+                /* this contains the initial list of all items (i.e. the left side) */
+                items: response.data,
+                selectedItems: $scope.move.assignedUsers
+            };
+        }, function(response) {
+        });
+     }
 
 	 $scope.addNote = function() {
 		 var name = Session.firstName + " " + Session.lastName;
@@ -64,7 +88,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 				data: $scope.move,
 				headers:{'Content-Type': 'application/json'}
 			}).then(function successCallBack(response) {
-				openAlert();
+				openAlert("Saved Successfully");
 			});
 	 }
 
@@ -107,9 +131,9 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	    $scope.currentChargeAmount = amount;
 	 }
 	 
-	 function openAlert(){
+	 function openAlert(textTitle){
 		 $scope.alertData.mode = "success";
-		 $scope.alertData.boldTextTitle = "Saved Successfully";
+		 $scope.alertData.boldTextTitle = textTitle;
 		 var modalInstance = $uibModal.open({
 		     templateUrl: 'saveAlert',
 		     backdrop: true,
@@ -145,5 +169,18 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
 	 Date.prototype.addHours= function(h){
          this.setHours(this.getHours()+h);
          return this;
+     }
+
+     $scope.textMoveInformation = function() {
+		$http({
+			method: 'POST',
+			url: '/textMoveInformation',
+			params: {'moveid' : moveID},
+            data: $scope.move.assignedUsers,
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            openAlert("Texts Sent");
+        }, function(response) {
+        });
      }
 }]);

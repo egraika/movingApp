@@ -32,7 +32,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-4">
 						<label for="firstName">First Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control" ng-disabled="true"></input>
@@ -42,7 +42,7 @@
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control" ng-disabled="true"></input>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-4">
 						<label for="email">Email</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control" ng-disabled="true"></input>
@@ -258,7 +258,7 @@
 						<label for="numberOfBoxes">Number of Boxes</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfBoxes" ng-model="move.numberOfBoxes" class="form-control"></input>
 					</div>
-				</div>
+				</div><q></q>
 				<div class="row">
 					<div class="form-group col-xs-12">
 						<label for="comment">Additional Comments:</label>
@@ -268,6 +268,17 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<div ng-include src="'pages/notes.html'"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<dualmultiselect options="userOptions" ng-model="move.assignedUsers"></dualmultiselect>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-9"></div>
+					<div class="col-xs-3">
+						<button class="btn btn-primary form-control pull-right" ng-click="textMoveInformation()">Text Move Information</button>
 					</div>
 				</div>
 				<hr>

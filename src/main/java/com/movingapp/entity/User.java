@@ -1,8 +1,5 @@
 package com.movingapp.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
@@ -10,13 +7,13 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "user")
@@ -79,6 +76,7 @@ public class User implements Serializable {
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "user_to_location", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "location_id"))
+	@OrderBy("location ASC")
 	private Set<Location> locations = new HashSet<Location>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -89,6 +87,21 @@ public class User implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, cascade ={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="user")
 	@Fetch(FetchMode.SELECT)
 	private List<ChargeEntity> charges;
+
+	@Column(name="created_on", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date createdOn;
+
+	@Column(name = "picture")
+	private byte[] picture;
+
+	@Column(name = "picture_type")
+	private String picture_type;
+
+	@PrePersist
+	protected void onCreate() {
+		createdOn = new Date();
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -224,5 +237,29 @@ public class User implements Serializable {
 
 	public void setCharges(List<ChargeEntity> charges) {
 		this.charges = charges;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getPicture_type() {
+		return picture_type;
+	}
+
+	public void setPicture_type(String picture_type) {
+		this.picture_type = picture_type;
 	}
 }
