@@ -112,7 +112,7 @@
 					</div>
 				</div>
 				<br><h4><b>From Address:</b></h4>
-				<section id="from" name="from">
+				<section id="from" name="from" style="padding: 0px 0px !important;">
 					<div class="row">
 						<div class="col-xs-6">
 							<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
@@ -215,7 +215,7 @@
 							<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
 						</div>
 						<div class="col-xs-6">
-							<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
+							<label class="control-label" for="toState">State<span class="required" style="color:red">*</span></label>
 							<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" autocomplete="to region" required>
 								<option value="IA">Iowa</option>
 								<option value="MN">Minnesota</option>
