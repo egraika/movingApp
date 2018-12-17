@@ -112,116 +112,120 @@
 					</div>
 				</div>
 				<br><h4><b>From Address:</b></h4>
-				<div class="row">
-					<div class="col-xs-6">
-						<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true" autocomplete="from street-address">
-						<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
+				<section id="from" name="from">
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="moveData.fromStreet" ng-required="true" autocomplete="from street-address">
+							<span style="color:red" ng-show="bookingForm.fromStreet.$touched && bookingForm.fromStreet.$invalid">Street address is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true" autocomplete="from locality">
+							<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
+						</div>
 					</div>
-					<div class="col-xs-6">
-						<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="moveData.fromCity" ng-required="true" autocomplete="from locality">
-						<span style="color:red" ng-show="bookingForm.fromCity.$touched && bookingForm.fromCity.$invalid">City is required</span>
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true" autocomplete="from postal-code">
+							<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
+							<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'" autocomplete="from region">
+								<!-- <option value="AK" ng-disabled="true">Alaska</option>
+								<option value="AL" ng-disabled="true">Alabama</option>
+								<option value="AR" ng-disabled="true">Arkansas</option>
+								<option value="AZ" ng-disabled="true">Arizona</option>
+								<option value="CA" ng-disabled="true">California</option>
+								<option value="CO" ng-disabled="true">Colorado</option>
+								<option value="CT" ng-disabled="true">Connecticut</option>
+								<option value="DC" ng-disabled="true">District of Columbia</option>
+								<option value="DE" ng-disabled="true">Delaware</option>
+								<option value="FL" ng-disabled="true">Florida</option>
+								<option value="GA" ng-disabled="true">Georgia</option>
+								<option value="HI" ng-disabled="true">Hawaii</option>
+								<option value="IA">Iowa</option>
+								<option value="ID" ng-disabled="true">Idaho</option>
+								<option value="IL" ng-disabled="true">Illinois</option>
+								<option value="IN" ng-disabled="true">Indiana</option>
+								<option value="KS" ng-disabled="true">Kansas</option>
+								<option value="KY" ng-disabled="true">Kentucky</option>
+								<option value="LA" ng-disabled="true">Louisiana</option>
+								<option value="MA" ng-disabled="true">Massachusetts</option>
+								<option value="MD" ng-disabled="true">Maryland</option>
+								<option value="ME" ng-disabled="true">Maine</option>
+								<option value="MI" ng-disabled="true">Michigan</option>
+								<option value="MN" selected>Minnesota</option>
+								<option value="MO" ng-disabled="true">Missouri</option>
+								<option value="MS" ng-disabled="true">Mississippi</option>
+								<option value="MT">Montana</option>
+								<option value="NC" ng-disabled="true">North Carolina</option>
+								<option value="ND" ng-disabled="true">North Dakota</option>
+								<option value="NE" ng-disabled="true">Nebraska</option>
+								<option value="NH" ng-disabled="true">New Hampshire</option>
+								<option value="NJ" ng-disabled="true">New Jersey</option>
+								<option value="NM" ng-disabled="true">New Mexico</option>
+								<option value="NV" ng-disabled="true">Nevada</option>
+								<option value="NY" ng-disabled="true">New York</option>
+								<option value="OH" ng-disabled="true">Ohio</option>
+								<option value="OK" ng-disabled="true">Oklahoma</option>
+								<option value="OR" ng-disabled="true">Oregon</option>
+								<option value="PA" ng-disabled="true">Pennsylvania</option>
+								<option value="RI" ng-disabled="true">Rhode Island</option>
+								<option value="SC" ng-disabled="true">South Carolina</option>
+								<option value="SD" ng-disabled="true">South Dakota</option>
+								<option value="TN" ng-disabled="true">Tennessee</option>
+								<option value="TX" ng-disabled="true">Texas</option>
+								<option value="UT" ng-disabled="true">Utah</option>
+								<option value="VA" ng-disabled="true">Virginia</option>
+								<option value="VT" ng-disabled="true">Vermont</option>
+								<option value="WA" ng-disabled="true">Washington</option>
+								<option value="WI">Wisconsin</option>
+								<option value="WV" ng-disabled="true">West Virginia</option>
+								<option value="WY" ng-disabled="true">Wyoming</option> -->
+								<option value="IA">Iowa</option>
+								<option value="MN">Minnesota</option>
+								<option value="MT">Montana</option>
+								<option value="WI">Wisconsin</option>
+							</select>
+							<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6">
-						<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="moveData.fromZip" numbers-only ng-required="true" autocomplete="from postal-code">
-						<span style="color:red" ng-show="bookingForm.fromZip.$touched && bookingForm.fromZip.$invalid">A valid Zip Code is required</span>
-					</div>
-					<div class="col-xs-6">
-						<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
-						<select class="form-control" id="fromState" name="fromState" ng-model="moveData.fromState" ng-required="true" required ng-init="moveData.fromState='MN'" autocomplete="from region">
-							<!-- <option value="AK" ng-disabled="true">Alaska</option>
-                            <option value="AL" ng-disabled="true">Alabama</option>
-                            <option value="AR" ng-disabled="true">Arkansas</option>
-                            <option value="AZ" ng-disabled="true">Arizona</option>
-                            <option value="CA" ng-disabled="true">California</option>
-                            <option value="CO" ng-disabled="true">Colorado</option>
-                            <option value="CT" ng-disabled="true">Connecticut</option>
-                            <option value="DC" ng-disabled="true">District of Columbia</option>
-                            <option value="DE" ng-disabled="true">Delaware</option>
-                            <option value="FL" ng-disabled="true">Florida</option>
-                            <option value="GA" ng-disabled="true">Georgia</option>
-                            <option value="HI" ng-disabled="true">Hawaii</option>
-                            <option value="IA">Iowa</option>
-                            <option value="ID" ng-disabled="true">Idaho</option>
-                            <option value="IL" ng-disabled="true">Illinois</option>
-                            <option value="IN" ng-disabled="true">Indiana</option>
-                            <option value="KS" ng-disabled="true">Kansas</option>
-                            <option value="KY" ng-disabled="true">Kentucky</option>
-                            <option value="LA" ng-disabled="true">Louisiana</option>
-                            <option value="MA" ng-disabled="true">Massachusetts</option>
-                            <option value="MD" ng-disabled="true">Maryland</option>
-                            <option value="ME" ng-disabled="true">Maine</option>
-                            <option value="MI" ng-disabled="true">Michigan</option>
-                            <option value="MN" selected>Minnesota</option>
-                            <option value="MO" ng-disabled="true">Missouri</option>
-                            <option value="MS" ng-disabled="true">Mississippi</option>
-                            <option value="MT">Montana</option>
-                            <option value="NC" ng-disabled="true">North Carolina</option>
-                            <option value="ND" ng-disabled="true">North Dakota</option>
-                            <option value="NE" ng-disabled="true">Nebraska</option>
-                            <option value="NH" ng-disabled="true">New Hampshire</option>
-                            <option value="NJ" ng-disabled="true">New Jersey</option>
-                            <option value="NM" ng-disabled="true">New Mexico</option>
-                            <option value="NV" ng-disabled="true">Nevada</option>
-                            <option value="NY" ng-disabled="true">New York</option>
-                            <option value="OH" ng-disabled="true">Ohio</option>
-                            <option value="OK" ng-disabled="true">Oklahoma</option>
-                            <option value="OR" ng-disabled="true">Oregon</option>
-                            <option value="PA" ng-disabled="true">Pennsylvania</option>
-                            <option value="RI" ng-disabled="true">Rhode Island</option>
-                            <option value="SC" ng-disabled="true">South Carolina</option>
-                            <option value="SD" ng-disabled="true">South Dakota</option>
-                            <option value="TN" ng-disabled="true">Tennessee</option>
-                            <option value="TX" ng-disabled="true">Texas</option>
-                            <option value="UT" ng-disabled="true">Utah</option>
-                            <option value="VA" ng-disabled="true">Virginia</option>
-                            <option value="VT" ng-disabled="true">Vermont</option>
-                            <option value="WA" ng-disabled="true">Washington</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WV" ng-disabled="true">West Virginia</option>
-                            <option value="WY" ng-disabled="true">Wyoming</option> -->
-							<option value="IA">Iowa</option>
-							<option value="MN">Minnesota</option>
-							<option value="MT">Montana</option>
-							<option value="WI">Wisconsin</option>
-						</select>
-						<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
-					</div>
-				</div>
+				</section>
 				<br><h4><b>To Address:</b></h4>
-				<div class="row">
-					<div class="col-xs-6">
-						<label class="control-label" for="toStreet">Street<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true" autocomplete="to street-address">
-						<span style="color:red" ng-show="bookingForm.toStreet.$touched && bookingForm.toStreet.$invalid">Street address is required</span>
+				<section id="to" name="to">
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="toStreet">Street<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="moveData.toStreet" ng-required="true" autocomplete="to street-address">
+							<span style="color:red" ng-show="bookingForm.toStreet.$touched && bookingForm.toStreet.$invalid">Street address is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true" autocomplete="to locality">
+							<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
+						</div>
 					</div>
-					<div class="col-xs-6">
-						<label class="control-label" for="toCity">City<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="moveData.toCity" ng-required="true" autocomplete="to locality">
-						<span style="color:red" ng-show="bookingForm.toCity.$touched && bookingForm.toCity.$invalid">City is required</span>
+					<div class="row">
+						<div class="col-xs-6">
+							<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
+							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true" autocomplete="to postal-code">
+							<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
+						</div>
+						<div class="col-xs-6">
+							<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
+							<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" autocomplete="to region" required>
+								<option value="IA">Iowa</option>
+								<option value="MN">Minnesota</option>
+								<option value="MT">Montana</option>
+								<option value="WI">Wisconsin</option>
+							</select>
+							<span style="color:red" ng-show="bookingForm.toState.$touched && bookingForm.toState.$error.required">Please select a state</span>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6">
-						<label class="control-label" for="toZip">Zip Code<span class="required" style="color:red">*</span></label>
-						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="moveData.toZip" numbers-only ng-required="true" autocomplete="to postal-code">
-						<span style="color:red" ng-show="bookingForm.toZip.$touched && bookingForm.toZip.$invalid">A valid Zip Code is required</span>
-					</div>
-					<div class="col-xs-6">
-						<label class="control-label" for="state">State<span class="required" style="color:red">*</span></label>
-						<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" autocomplete="to region" required>
-							<option value="IA">Iowa</option>
-							<option value="MN">Minnesota</option>
-							<option value="MT">Montana</option>
-							<option value="WI">Wisconsin</option>
-						</select>
-						<span style="color:red" ng-show="bookingForm.toState.$touched && bookingForm.toState.$error.required">Please select a state</span>
-					</div>
-				</div>
+				</section>
 				<div class="row">
 					<div class="col-xs-12">
 						<label class="control-label" for="comments">Additional Comments</label>
