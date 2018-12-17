@@ -270,12 +270,12 @@
 						<div ng-include src="'pages/notes.html'"></div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-12">
 						<dualmultiselect options="userOptions" ng-model="move.assignedUsers"></dualmultiselect>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" access="admin">
 					<div class="col-xs-9"></div>
 					<div class="col-xs-3">
 						<button class="btn btn-primary form-control pull-right" ng-click="textMoveInformation()">Text Move Information</button>
