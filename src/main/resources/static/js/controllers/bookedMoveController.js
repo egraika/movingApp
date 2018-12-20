@@ -91,9 +91,9 @@ movingApp
             });
 		});
 	}
-         element = $('select[name="assignedUsersSelectBox"]');
+        element = $('select[name="assignedUsersSelectBox"]');
          // Watch for any changes to the length of our select element
-         $scope.$watch(function () {
+        $scope.$watch(function () {
             return element[0].length;
          }, function () {
             element.multiselect('setOptions', {
