@@ -3,11 +3,13 @@ package com.movingapp.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
@@ -70,6 +72,7 @@ public class User implements Serializable {
 	@Column(name = "stripe_Customer_ID")
 	private String stripeCustomerID;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JsonManagedReference(value="move_user_id")
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
 	private Set<MoveEntity> moves;

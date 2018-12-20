@@ -1,11 +1,14 @@
 package com.movingapp.model;
 
+import java.util.List;
+
 public class PredicateObject {
 
 	private String globalSearch;
 	private String statusSearch;
 	private String locationSearch;
 	private String userTypeSearch;
+	private List<Long> userSearch;
 
 	public String getStatusSearch() {
 		return statusSearch;
@@ -37,5 +40,13 @@ public class PredicateObject {
 
 	public void setUserTypeSearch(String userTypeSearch) {
 		this.userTypeSearch = userTypeSearch;
+	}
+
+	public List<Long> getUserSearch() {
+		return userSearch;
+	}
+
+	public void setUserSearch(List<Long> userSearch) {
+		this.userSearch = userSearch;
 	}
 }

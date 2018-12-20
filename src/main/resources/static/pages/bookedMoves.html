@@ -1,4 +1,4 @@
-<div data-ng-controller="bookedMoveController as vm" ng-init="init()" bs-loading-overlay>
+<div data-ng-controller="bookedMoveController as vm" ng-init="init()" style="margin-bottom: 100px" bs-loading-overlay>
 	<div class="row" st-table="moves" st-pipe="callServer" ng-hide="isCalendar">
       	<div class="col-xs-12">
 			<h2>Booked Moves</h2>
@@ -25,6 +25,7 @@
 						<th st-sort="moveStart">Date Of Move</th>
 						<th>Status</th>
 						<th st-sort="dateOfBooking" st-sort-default="reverse">Date Booked</th>
+						<th>Assigned Movers</th>
 						<th>Actions</th>
 					</tr>
 					<tr>
@@ -40,15 +41,23 @@
 							</select>
 						</th>
 						<th></th>
+						<th>
+							<select name="assignedUsersSelectBox" class="form-control" multiple="multiple" id="multiselect" st-search="userSearch" st-delay=0 ng-model="userSearch" st-input-event="change">
+								<option ng-repeat="user in usersInAssignedLocations" value="{{ user.id }}">
+									{{ user.fullName }}
+								</option>
+							</select>
+						</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody ng-hide="isLoading">
-					<tr ng-repeat="move in moves">
+					<tr ng-repeat="move in tableMoves">
 						<td>{{move.title}}</td>
 						<td>{{move.startsAt | date:'MM/dd/yyyy'}}</td>
 						<td>{{move.status}}</td>
 						<td>{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
+						<td width="20%">{{move.assignedUsersString}}</td>
 						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
 					</tr>
 				</tbody>

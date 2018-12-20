@@ -35,7 +35,7 @@ public class UsersController {
 
 	@Autowired
 	private UserMapping userMapping;
-	
+
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<UserView> getmyAssignedMembers(@RequestParam("tableState") String state, @RequestParam("userid") Long userid) {
@@ -111,6 +111,16 @@ public class UsersController {
 		pages = new PageImpl<UserView>(userViews, pageable, users.getTotalElements());
 
 		return pages;
+	}
+
+	@RequestMapping(value = "/getUsersFromAssignedLocations",method = RequestMethod.GET)
+	@ResponseBody
+	public List<UserView> getAllNotAssignedUsersToMove(@RequestParam("userid") long userid) {
+		User user = UserRepo.findById(userid).get();
+		Set<Location> locationList = user.getLocations();
+		Authority authority = authorityRepo.findByName("user");
+		List<User> users = UserRepo.findAllWithLocationsAndNotUser(locationList, authority);
+		return userMapping.UsersToUserViews(users);
 	}
 }
 
