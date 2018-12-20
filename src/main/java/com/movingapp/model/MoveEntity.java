@@ -103,6 +103,7 @@ public class MoveEntity implements Serializable {
 	private User user;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "assigned_users_to_moves", joinColumns= @JoinColumn(name = "user_id"), inverseJoinColumns= @JoinColumn(name = "move_id"))
 	private List<User> assignedUsers;

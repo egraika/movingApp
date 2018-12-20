@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class MovesTableController {
@@ -38,12 +37,16 @@ public class MovesTableController {
 		TableState tableState = gson.fromJson(state, TableState.class);
 		String search = "";
 		String statusSearch = "";
+		List<Long> userSearch = new ArrayList<>();
 		if (tableState.getSearch().getPredicateObject() != null) {
 			if (tableState.getSearch().getPredicateObject().getGlobalSearch() != null)
 				search = tableState.getSearch().getPredicateObject().getGlobalSearch();
 			
 			if (tableState.getSearch().getPredicateObject().getStatusSearch() != null)
 				statusSearch = tableState.getSearch().getPredicateObject().getStatusSearch();
+
+			if (tableState.getSearch().getPredicateObject().getUserSearch() != null)
+				userSearch = tableState.getSearch().getPredicateObject().getUserSearch();
 		}
 
 		int itemsPerPage = tableState.getPagination().getNumber();
@@ -85,10 +88,18 @@ public class MovesTableController {
 		for (Location location : locations) {
 			locationsStrings.add(location.getLocation());
 		}
-		if (search == "" && statusSearch == "") {
+
+		List<User> filteredUsers = new ArrayList<>();
+		if(!userSearch.isEmpty()) {
+			filteredUsers = UserRepo.findAllById(userSearch);
+		}
+
+		if (search == "" && statusSearch == "" && filteredUsers.isEmpty()) {
 			moveEntities = BookMovesDao.findAll(pageable, locationsStrings.toArray());
-		} else {
+		} else if(filteredUsers.isEmpty()){
 			moveEntities = BookMovesDao.findAll(search, statusSearch, pageable, locationsStrings.toArray());
+		} else {
+			moveEntities = BookMovesDao.findAll(search, statusSearch, pageable, locationsStrings.toArray(), filteredUsers);
 		}
 		moves = mapToMove(moveEntities.getContent());
 
@@ -136,6 +147,7 @@ public class MovesTableController {
 			move.setStatus(moveEntityList.get(i).getStatus());
 			move.setEndsAt(moveEntityList.get(i).getMoveEnd());
 			move.setTitle(moveEntityList.get(i).getMoveTitle());
+			move.setAssignedUsersString(getAssignedUsersString(moveEntityList.get(i).getAssignedUsers()));
 			UserView userView = new UserView();
 			userView.setPhone(moveEntityList.get(i).getUser().getPhone());
 			userView.setLastName(moveEntityList.get(i).getUser().getLastName());
@@ -148,7 +160,18 @@ public class MovesTableController {
 		
 		return movesList;
 	}
-	
+
+	private String getAssignedUsersString(List<User> assignedUsers) {
+		String assignedUsersString = "";
+		for (User assignedUser: assignedUsers) {
+			assignedUsersString += assignedUser.getFirstName() + " " + assignedUser.getLastName() + ", ";
+		}
+		if(assignedUsers.size() > 0) {
+			assignedUsersString = assignedUsersString.substring(0, assignedUsersString.length()-2);
+		}
+		return assignedUsersString;
+	}
+
 	private List<Note> NoteEntityToNote(List<NoteEntity> notesEntityList) {
 		
 		List<Note> noteList = new ArrayList<Note>();

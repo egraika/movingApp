@@ -25,6 +25,7 @@ public class Move{
 	private List<ChargeView> charges;
 	private UserView user;
 	private List<UserView> assignedUsers;
+	private String assignedUsersString;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXX")
 	private OffsetDateTime startsAt;
@@ -271,5 +272,13 @@ public class Move{
 
 	public void setAssignedUsers(List<UserView> assignedUsers) {
 		this.assignedUsers = assignedUsers;
+	}
+
+	public String getAssignedUsersString() {
+		return assignedUsersString;
+	}
+
+	public void setAssignedUsersString(String assignedUsersString) {
+		this.assignedUsersString = assignedUsersString;
 	}
 }

@@ -31,9 +31,12 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query("Select distinct u from User u join u.locations t where t in (:locations) and (:userType) MEMBER OF u.authorities and (:location) MEMBER OF u.locations and (lower(u.firstName) LIKE lower(concat('%', :search,'%')) or lower(u.lastName) LIKE lower(concat('%', :search,'%')) or lower(u.email) LIKE lower(concat('%', :search,'%')))")
 	public Page<User> findByUserTypeAndLocationFilter(Pageable pageable, @Param("locations") Set<Location> objects, @Param("userType") Authority userType, @Param("location") Location location, @Param("search") String search);
 
-	@Query("Select u from User u join u.authorities a where a in (:authorities) and not(u IN :users) and :location MEMBER OF u.locations")
+	@Query("Select distinct u from User u join u.authorities a where a in (:authorities) and not(u IN :users) and :location MEMBER OF u.locations")
 	List<User> findAllNotAssignedToUser(@Param("users") List<User> objects, @Param("location") Location location, @Param("authorities") List<Authority> authorities);
 
-	@Query("Select u from User u join u.authorities a where a in (:authorities) and :location MEMBER OF u.locations")
+	@Query("Select distinct u from User u join u.authorities a where a in (:authorities) and :location MEMBER OF u.locations")
 	List<User> findAllWithLocation(@Param("location") Location location, @Param("authorities") List<Authority> authorities);
+
+	@Query("Select distinct u from User u join u.locations l where l in (:locations) and not(:userAuthority MEMBER OF u.authorities) order by u.firstName ASC")
+	List<User> findAllWithLocationsAndNotUser(@Param("locations") Set<Location> locations, @Param("userAuthority") Authority authority);
 }

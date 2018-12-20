@@ -18,11 +18,16 @@ public interface BookMovesDao extends JpaRepository<MoveEntity, Integer> {
 	
 	@Query("Select m from MoveEntity m where m.fromState IN :locations")
 	public Page<MoveEntity> findAll(Pageable pageable, @Param("locations") Object[] objects);
-	
+
 	@Query("Select m from MoveEntity m where m.fromState IN :locations"
 			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
 			+ " AND m.moveTitle LIKE %:search%")
 	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("locations")   Object[] objects);
+
+	@Query("Select distinct m from MoveEntity m join m.assignedUsers u where u in (:userSearch) and m.fromState IN :locations"
+			+ " AND (:statusSearch = '' OR m.status = :statusSearch)"
+			+ " AND m.moveTitle LIKE %:search%")
+	public Page<MoveEntity> findAll(@Param("search") String search,@Param("statusSearch") String statusSearch, Pageable pageable, @Param("locations") Object[] objects, @Param("userSearch") List<User> userSearch);
 
 	@Query("Select m from MoveEntity m where m.fromState IN :locations"
 			+ " AND year(m.moveStart) = :year")

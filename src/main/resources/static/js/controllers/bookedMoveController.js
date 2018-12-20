@@ -6,7 +6,8 @@ movingApp
 	$scope.isLoading = false;
 	$scope.isError = false;
 	$scope.noResultsFound = false;
-	
+	$scope.userSearch = [];
+
 	$scope.selectItem = function(value) {
 		$scope.itemsByPage = value;
 	}
@@ -14,13 +15,16 @@ movingApp
 	$scope.callServer = function getData(tableState, tableController) {
 		$scope.isLoading = true;
 		var userid = Session.id;
+		if(tableState.search.predicateObject != undefined) {
+		    tableState.search.predicateObject.userSearch = $scope.userSearch;
+		}
 		$http({
 			method: 'GET',
 			url: '/getBookedMoves',
 			params: {tableState : tableState, userid : userid},
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
-            $scope.moves = response.data.content;
+            $scope.tableMoves = response.data.content;
 			$scope.isLoading = false;
 			$scope.noResultsFound = false;
 			$scope.isError = false;
@@ -60,19 +64,44 @@ movingApp
         }, function(response) {
             bsLoadingOverlayService.stop();
         });
+        $scope.getUsers();
 	}
 	
 	$scope.getContacts = function() {
-
 		$http({
 			method: 'GET',
 			url: '/getContact',
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.contacts = response.data;
-			
 		});
 	}
+
+	$scope.getUsers = function() {
+		$http({
+			method: 'GET',
+			url: '/getUsersFromAssignedLocations',
+			params: {userid : Session.id},
+			headers:{'Content-Type': 'application/json'}
+		}).then(function successCallBack(response) {
+			$scope.usersInAssignedLocations = response.data;
+			$('#multiselect').multiselect({
+			   allSelectedText: 'All',
+               buttonWidth : '160px'
+            });
+		});
+	}
+        element = $('select[name="assignedUsersSelectBox"]');
+         // Watch for any changes to the length of our select element
+        $scope.$watch(function () {
+            return element[0].length;
+         }, function () {
+            element.multiselect('setOptions', {
+			   allSelectedText: 'All',
+               buttonWidth : '160px'
+            });
+            element.multiselect('rebuild');
+         });
 
 	$scope.isCalendar = true;
 	$scope.bookedMovesView = "Switch to Table";
