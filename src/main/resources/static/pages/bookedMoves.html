@@ -18,7 +18,7 @@
 		    		<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				</div>
 			</div>
-			<table class="table table-striped">
+			<table id="no-more-tables" class="table table-striped">
 				<thead>
 					<tr>
 						<th>Customer Name</th>
@@ -53,12 +53,12 @@
 				</thead>
 				<tbody ng-hide="isLoading">
 					<tr ng-repeat="move in tableMoves">
-						<td>{{move.title}}</td>
-						<td>{{move.startsAt | date:'MM/dd/yyyy'}}</td>
-						<td>{{move.status}}</td>
-						<td>{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
-						<td width="20%">{{move.assignedUsersString}}</td>
-						<td><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
+						<td data-title="Customer Name">{{move.title}}</td>
+						<td data-title="Date Of Move">{{move.startsAt | date:'MM/dd/yyyy'}}</td>
+						<td data-title="Status">{{move.status}}</td>
+						<td data-title="Date Of Booking">{{move.dateOfBooking | date:'MM/dd/yyyy'}}</td>
+						<td data-title="Assigned Movers" width="20%">{{move.assignedUsersString}}</td>
+						<td data-title="Edit Move"><a type="button" class="btn btn-primary" href="/#/editMove/{{move.id}}">Edit</a></td>
 					</tr>
 				</tbody>
 				<tbody ng-show="isLoading">
