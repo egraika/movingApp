@@ -5,7 +5,7 @@
 				<h2>Edit Move - {{move.id}}</h2>
 				<hr>
 				<div class="row">
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4">
 						<label for="startsAt">Date Of Move</label>
 						<p class="input-group">
 							<input  value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" ng-disabled="true" type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="startsAtPicker.date" is-open="startsAtPicker.open" />
@@ -14,7 +14,7 @@
 						  	</span>
 						</p>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4">
 						<label for="type">Type</label>
 						<select class="form-control" id="type" name="type" ng-model="move.type">
 							<option value="withTruck">Crew with truck</option>
@@ -22,7 +22,7 @@
 							<option value="packing">Packing and unpacking</option>
 						</select>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6 col-sm-4">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status" ng-model="move.status">
 							<option value="unconfirmed user">Unconfirmed User</option>
@@ -33,21 +33,21 @@
 					</div>
 				</div>
 				<div class="row" access="admin">
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<label for="firstName">First Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control" ng-disabled="true"></input>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<label for="lastName">Last Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control" ng-disabled="true"></input>
 					</div>
 				</div>
 				<div class="row" access="admin">
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<label for="email">Email</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control" ng-disabled="true"></input>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<label for="phone">Phone</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.user.phone"  numbers-only phone-input ng-required="true" ng-disabled="true">
 						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
@@ -63,17 +63,17 @@
 						<div class="panel-collapse collapse" id="fromaddress">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="fromStreet">Street Address</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="fromStreet" ng-model="move.fromStreet" class="form-control" ng-bind-html="trustAsHtml(move.fromStreet)"></input>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="fromCity">City</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="fromCity" ng-model="move.fromCity" class="form-control" ng-bind-html="trustAsHtml(move.fromCity)"></input>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="fromState">State</label>
 										<select class="form-control" id="fromState" name="fromState" ng-model="move.fromState">
 											<option value="AK">Alaska</option>
@@ -129,7 +129,7 @@
 											<option value="WY">Wyoming</option>
 										</select>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="fromZip">Zip</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="move.fromZip" numbers-only ng-required="true">
 									</div>			
@@ -148,17 +148,17 @@
 						<div class="panel-collapse collapse" id="toaddress">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="toStreet">Street Address</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="toStreet" ng-model="move.toStreet" class="form-control" ng-bind-html="trustAsHtml(move.toStreet)"></input>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="toCity">City</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="toCity" ng-model="move.toCity" class="form-control" ng-bind-html="trustAsHtml(move.toCity)"></input>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="toState">State</label>
 										<select class="form-control" id="toState" name="toState" ng-model="move.toState">
 											<option value="AK">Alaska</option>
@@ -214,7 +214,7 @@
 											<option value="WY">Wyoming</option>
 										</select>
 									</div>
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<label for="toZip">Zip</label>
 										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" maxlength="5" class="form-control" id="toZip" name="toZip" ng-model="move.toZip" numbers-only ng-required="true">
 									</div>			
@@ -250,15 +250,15 @@
 					</label>
 				</div>
 				<div class="row" style="margin-top:15px">
-					<div class="form-group col-xs-4">
-						<label for="numberOfLargeItems">Number of Large Items</label>
+					<div class="form-group col-xs-6 col-sm-4">
+						<label for="numberOfLargeItems"># of Large Items</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfLargeItems" ng-model="move.numberOfLargeItems" class="form-control"></input>
 					</div>
-					<div class="form-group col-xs-4">
-						<label for="numberOfBoxes">Number of Boxes</label>
+					<div class="form-group col-xs-6 col-sm-4">
+						<label for="numberOfBoxes"># of Boxes</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" id="numberOfBoxes" ng-model="move.numberOfBoxes" class="form-control"></input>
 					</div>
-				</div><q></q>
+				</div>
 				<div class="row">
 					<div class="form-group col-xs-12">
 						<label for="comment">Additional Comments:</label>
@@ -276,10 +276,7 @@
 					</div>
 				</div>
 				<div class="row" access="admin">
-					<div class="col-xs-9"></div>
-					<div class="col-xs-3">
-						<button class="btn btn-primary form-control pull-right" ng-click="textMoveInformation()">Text Move Information</button>
-					</div>
+					<button class="btn btn-primary pull-right" ng-click="textMoveInformation()" style="margin-right:15px;">Text Move Details</button>
 				</div>
 				<hr>
 				<div class="row" access="admin">
