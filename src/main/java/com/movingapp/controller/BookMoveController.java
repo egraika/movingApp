@@ -92,6 +92,7 @@ public class BookMoveController {
 			User user = createNewUser(move.getUser());
 			UserView userView = new UserView();
 			userView.setId(user.getId());
+			userView.setEmail(user.getEmail());
 			userView.setFirstName(user.getFirstName());
 			userView.setLastName(user.getLastName());
 			move.setUser(userView);

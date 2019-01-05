@@ -110,7 +110,9 @@ public class MoveMapping {
         moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
         moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
         moveEntity.setType(move.getType());
-        moveEntity.setAssignedUsers(userMapping.UserViewsToUsers(move.getAssignedUsers()));
+        if(move.getAssignedUsers() != null) {
+            moveEntity.setAssignedUsers(userMapping.UserViewsToUsers(move.getAssignedUsers()));
+        }
         Optional<User> foundUser = userRepo.findById(move.getUser().getId());
         User user = foundUser.get();
         moveEntity.setUser(user);
