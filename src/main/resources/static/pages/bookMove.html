@@ -101,7 +101,7 @@
 				<hr>
 				<div class="row" ng-controller="DatepickerPopupDemoCtrl">
 					<div class='col-sm-6'>
-						<label class="control-label" for="date">Date of Move<span class="required" style="color:red">*</span></label>
+						<label class="control-label" for="moveStart">Date of Move<span class="required" style="color:red">*</span></label>
 						<p class="input-group">
 							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" maxlength="10" ng-minlength="10" id="moveStart" name="moveStart" ng-model="moveData.moveStart" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats" ng-change="changeDate()" placeholder="mm/dd/yyyy" ng-disabled="isBooking"/>
 							<span class="input-group-btn">
@@ -185,10 +185,10 @@
 								<option value="WI">Wisconsin</option>
 								<option value="WV" ng-disabled="true">West Virginia</option>
 								<option value="WY" ng-disabled="true">Wyoming</option> -->
-								<option value="IA">Iowa</option>
+								<!--<option value="IA">Iowa</option>-->
 								<option value="MN">Minnesota</option>
-								<option value="MT">Montana</option>
-								<option value="WI">Wisconsin</option>
+								<!--<option value="MT">Montana</option>-->
+								<!--<option value="WI">Wisconsin</option>-->
 							</select>
 							<span style="color:red" ng-show="bookingForm.fromState.$touched && bookingForm.fromState.$error.required">Please select a state</span>
 						</div>
@@ -217,10 +217,10 @@
 						<div class="col-xs-6">
 							<label class="control-label" for="toState">State<span class="required" style="color:red">*</span></label>
 							<select class="form-control" id="toState" name="toState" name="toState" ng-model="moveData.toState" ng-required="true" ng-init="moveData.toState='MN'" autocomplete="section-to region" required>
-								<option value="IA">Iowa</option>
+								<!--<option value="IA">Iowa</option>-->
 								<option value="MN">Minnesota</option>
-								<option value="MT">Montana</option>
-								<option value="WI">Wisconsin</option>
+								<!--<option value="MT">Montana</option>-->
+								<!--<option value="WI">Wisconsin</option>-->
 							</select>
 							<span style="color:red" ng-show="bookingForm.toState.$touched && bookingForm.toState.$error.required">Please select a state</span>
 						</div>
@@ -228,7 +228,7 @@
 				</section>
 				<div class="row">
 					<div class="col-xs-12">
-						<label class="control-label" for="comments">Additional Comments</label>
+						<label class="control-label" for="comment">Additional Comments</label>
 						<textarea rows="4" class="form-control" id="comment" name="comment" ng-model="moveData.comment"><%= <b>Encode.forHtmlContent(UNTRUSTED)</b> %></textarea>
 					</div>
 				</div>
