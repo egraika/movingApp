@@ -217,7 +217,7 @@ public class EmailTemplateHelper {
                 "                  <td class=\"es-m-p0r es-m-p20b\" width=\"173\" align=\"center\" style=\"padding:0;Margin:0;\"> \n" +
                 "                   <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;\"> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
-                "                      <td class=\"es-m-txt-с es-m-txt-l\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> <p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#333333;\"><span style=\"font-size:20px;line-height:30px;\">8 (800) 12-34-56<br></span></p> </td> \n" +
+                "                      <td class=\"es-m-txt-с es-m-txt-l\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> <p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#333333;\"><span style=\"font-size:20px;line-height:30px;\">(952) - 843 - 8566<br></span></p> </td> \n" +
                 "                     </tr> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
                 "                      <td class=\"es-m-txt-с\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> \n" +
@@ -229,7 +229,7 @@ public class EmailTemplateHelper {
                 "                      <td align=\"left\" style=\"padding:0;Margin:0;\"> \n" +
                 "                       <table class=\"es-table-not-adapt es-social\" cellspacing=\"0\" cellpadding=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;\"> \n" +
                 "                         <tr style=\"border-collapse:collapse;\"> \n" +
-                "                          <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;\"> <img title=\"Facebook\" src=\"https://www.movemuscle.com/img/facebook-circle-colored.png\" alt=\"Fb\" width=\"24\" height=\"24\" style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;\"></td> \n" +
+                "                          <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;\"> <a target=\"_blank\" href=\"https://www.facebook.com/CollegeMovingLabor/\" style=\"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:14px;text-decoration:underline;color:#4A7EB0;\"><img title=\"Facebook\" src=\"https://www.movemuscle.com/img/facebook-circle-colored.png\" alt=\"Fb\" width=\"24\" height=\"24\" style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;\"></a></td> \n" +
                 "                         </tr> \n" +
                 "                       </table> </td> \n" +
                 "                     </tr> \n" +
@@ -459,7 +459,7 @@ public class EmailTemplateHelper {
                 "                  <td class=\"es-m-p0r es-m-p20b\" width=\"173\" align=\"center\" style=\"padding:0;Margin:0;\"> \n" +
                 "                   <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;\"> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
-                "                      <td class=\"es-m-txt-с es-m-txt-l\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> <p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#333333;\"><span style=\"font-size:20px;line-height:30px;\">8 (800) 12-34-56<br></span></p> </td> \n" +
+                "                      <td class=\"es-m-txt-с es-m-txt-l\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> <p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:14px;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;color:#333333;\"><span style=\"font-size:20px;line-height:30px;\">(952) - 843 - 8566<br></span></p> </td> \n" +
                 "                     </tr> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
                 "                      <td class=\"es-m-txt-с\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> \n" +
@@ -471,7 +471,7 @@ public class EmailTemplateHelper {
                 "                      <td align=\"left\" style=\"padding:0;Margin:0;\"> \n" +
                 "                       <table class=\"es-table-not-adapt es-social\" cellspacing=\"0\" cellpadding=\"0\" style=\"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;\"> \n" +
                 "                         <tr style=\"border-collapse:collapse;\"> \n" +
-                "                          <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;\"> <img title=\"Facebook\" src=\"https://www.movemuscle.com/img/facebook-circle-colored.png\" alt=\"Fb\" width=\"24\" height=\"24\" style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;\"></td> \n" +
+                "                          <td valign=\"top\" align=\"center\" style=\"padding:0;Margin:0;\"> <a target=\"_blank\" href=\"https://www.facebook.com/CollegeMovingLabor/\" style=\"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:14px;text-decoration:underline;color:#4A7EB0;\"><img title=\"Facebook\" src=\"https://www.movemuscle.com/img/facebook-circle-colored.png\" alt=\"Fb\" width=\"24\" height=\"24\" style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;\"></a></td> \n" +
                 "                         </tr> \n" +
                 "                       </table> </td> \n" +
                 "                     </tr> \n" +
