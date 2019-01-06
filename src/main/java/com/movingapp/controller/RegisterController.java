@@ -7,6 +7,7 @@ import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
+import com.movingapp.helper.EmailTemplateHelper;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.UserService;
@@ -50,6 +51,9 @@ public class RegisterController {
     @Autowired
     private BookMovesDao bookMovesDao;
 
+    @Autowired
+    private EmailTemplateHelper emailTemplateHelper;
+
     // Process form input data
     @RequestMapping(value = "/register",method = RequestMethod.POST ,consumes = "application/json")
     public @ResponseBody ResponseEntity processRegistrationForm(@RequestBody User user, HttpServletRequest request) {
@@ -81,14 +85,9 @@ public class RegisterController {
 
         String appUrl = request.getScheme() + "://" + request.getServerName();
 
-        SimpleMailMessage registrationEmail = new SimpleMailMessage();
-        registrationEmail.setTo(user.getEmail());
-        registrationEmail.setSubject("Registration Confirmation");
-        registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
-                + appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken());
-        registrationEmail.setFrom("noreply@domain.com");
+        String html = emailTemplateHelper.confirmationEmailTemplate(user.getFirstName() + " " + user.getLastName(),  appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken(), user.getEmail());
 
-        emailService.sendEmail(registrationEmail);
+        emailService.sendMail("noreply@domain.com", user.getEmail(), "Move Booked", html);
 
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -6,6 +6,7 @@ import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.Authority;
 import com.movingapp.entity.ConfirmationToken;
 import com.movingapp.entity.User;
+import com.movingapp.helper.EmailTemplateHelper;
 import com.movingapp.model.MoveEntity;
 import com.movingapp.service.EmailService;
 import com.movingapp.service.MoveMapping;
@@ -57,6 +58,9 @@ public class BookMoveController {
 	@Autowired
 	private ConfirmationTokenRepo confirmationTokenRepo;
 
+	@Autowired
+	private EmailTemplateHelper emailTemplateHelper;
+
 	@RequestMapping(value = "/bookMove",method = RequestMethod.POST ,consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<Move> submitMove(@RequestBody Move move, @Param("userId") String userId) {
@@ -76,14 +80,9 @@ public class BookMoveController {
 			move.setUser(userView);
 			move.setStatus("unconfirmed move");
 
-			SimpleMailMessage registrationEmail = new SimpleMailMessage();
-			registrationEmail.setTo(userExists.getEmail());
-			registrationEmail.setSubject("Move Booked!");
-			registrationEmail.setText("You have successfully booked your move! \n" +
-					"\nPlease log in and complete the additional information section to help us better accommodate your move.\n");
-			registrationEmail.setFrom("noreply@domain.com");
+			String html = emailTemplateHelper.bookingMoveConfirmationEmailTemplate(userView.getFirstName() + " " + userView.getLastName());
 
-			emailService.sendEmail(registrationEmail);
+			emailService.sendMail("noreply@domain.com", userView.getEmail(), "Move Booked", html);
 		} else {
 			userExists = userService.findByEmail(move.getUser().getEmail());
 			if(userExists != null) {
@@ -100,15 +99,9 @@ public class BookMoveController {
 
 			String appUrl = request.getScheme() + "://" + request.getServerName();
 
-			SimpleMailMessage registrationEmail = new SimpleMailMessage();
-			registrationEmail.setTo(user.getEmail());
-			registrationEmail.setSubject("Move Booked!");
-			registrationEmail.setText("You have successfully booked your move! Please confirm by clicking the link below and setting your password. Your username is: " + user.getEmail() +
-					"\n\nAfter logging in please complete the additional information section to help us better accommodate your move.\n\n"
-					+ appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken());
-			registrationEmail.setFrom("noreply@domain.com");
+			String html = emailTemplateHelper.confirmationEmailTemplate(user.getFirstName() + " " + user.getLastName(),  appUrl + "/#/confirm?token=" + user.getConfirmationToken().getToken(), user.getEmail());
 
-			emailService.sendEmail(registrationEmail);
+			emailService.sendMail("noreply@domain.com", user.getEmail(), "Move Booked", html);
 		}
 
 		MoveEntity moveEntity = moveMapping.moveToMoveEntity(move);
