@@ -222,7 +222,7 @@ public class EmailTemplateHelper {
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
                 "                      <td class=\"es-m-txt-с\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> \n" +
                 "                       <div style=\"color:#333333;\"> \n" +
-                "                        <span style=\"font-size:14px;\">info@smarthome.com</span> \n" +
+                "                        <span style=\"font-size:14px;\">contact@movemuscle.com</span> \n" +
                 "                       </div> </td> \n" +
                 "                     </tr> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
@@ -464,7 +464,7 @@ public class EmailTemplateHelper {
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
                 "                      <td class=\"es-m-txt-с\" esdev-links-color=\"#333333\" align=\"left\" style=\"padding:0;Margin:0;padding-bottom:10px;\"> \n" +
                 "                       <div style=\"color:#333333;\"> \n" +
-                "                        <span style=\"font-size:14px;\">info@smarthome.com</span> \n" +
+                "                        <span style=\"font-size:14px;\">contact@movemuscle.com</span> \n" +
                 "                       </div> </td> \n" +
                 "                     </tr> \n" +
                 "                     <tr style=\"border-collapse:collapse;\"> \n" +
