@@ -4,12 +4,10 @@ import com.movingapp.Constants.MovingAppConstants;
 import com.movingapp.dao.ChargesDao;
 import com.movingapp.dao.UserRepo;
 import com.movingapp.entity.User;
+import com.movingapp.helper.EmailTemplateHelper;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
-import com.movingapp.service.ChargeMapping;
-import com.movingapp.service.MoveMapping;
-import com.movingapp.service.UserMapping;
-import com.movingapp.service.UserService;
+import com.movingapp.service.*;
 import com.movingapp.view.ChargeView;
 import com.movingapp.view.StripeView;
 import com.movingapp.view.UserView;
@@ -48,6 +46,12 @@ public class StripeController {
 
     @Autowired
     private ChargesDao chargesDao;
+
+    @Autowired
+    EmailTemplateHelper emailTemplateHelper;
+
+    @Autowired
+    EmailService emailService;
 
     @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
@@ -134,6 +138,11 @@ public class StripeController {
         charge.setChargeid(chargeCustomer.getId());
 
         User userAfterSave = userRepo.save(user);
+
+        String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
+
+        emailService.sendMail("noreply@domain.com", user.getEmail(), "Move Booked", html);
+
         List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
         List<ChargeView> newChargeList = ChargeMapping.ChargeEntityToCharge(newChargeEntity);
