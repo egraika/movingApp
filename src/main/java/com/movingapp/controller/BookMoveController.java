@@ -82,7 +82,7 @@ public class BookMoveController {
 
 			String html = emailTemplateHelper.bookingMoveConfirmationEmailTemplate(userView.getFirstName() + " " + userView.getLastName());
 
-			emailService.sendMail("noreply@domain.com", userView.getEmail(), "Move Booked", html);
+			emailService.sendMail("noreply@domain.com", userExists.getEmail(), "Move Booked", html);
 		} else {
 			userExists = userService.findByEmail(move.getUser().getEmail());
 			if(userExists != null) {

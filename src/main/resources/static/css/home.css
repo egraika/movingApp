@@ -103,12 +103,37 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
         margin-top:50px;
         margin-bottom:45px
     }
+
 }
 
 @media (min-width: 461px) {
     .container-margins {
         margin-top:80px;
         margin-bottom:45px
+    }
+}
+
+.howitworks {
+    height: 330px;
+    width: 500px;
+}
+
+.howitworks-text {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-style: solid;
+    border-color: #2C3E50;
+}
+
+.howitworks-text-div {
+    display: table;
+    height: 313.33px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .howitworks {
+        display: none !important;
     }
 }
 
