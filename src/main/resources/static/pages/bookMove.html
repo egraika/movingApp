@@ -56,45 +56,47 @@
 			<div ng-show="step == 'personal'">
 				<h3>Fill out your contact information</h3>
 				<hr>
-				<div style="margin-bottom:150px;">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
-							<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
+				<section id="personal" name="personal" style="padding: 0px 0px !important;">
+					<div style="margin-bottom:150px;">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<label class="control-label" for="firstName" >First Name<span class="required" style="color:red">*</span></label>
+								<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="firstName" name="firstName" ng-model="moveData.user.firstName" ng-minlength="2" ng-required="true">
+								<span style="color:red" ng-show="bookingForm.firstName.$touched && bookingForm.firstName.$invalid">First name is required</span>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
+								<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
+								<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
+							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="lastName">Last Name<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="lastName" name="lastName" ng-model="moveData.user.lastName" ng-minlength="2" ng-required="true">
-							<span style="color:red" ng-show="bookingForm.lastName.$touched && bookingForm.lastName.$invalid">Last name is required</span>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
+								<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
+								<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<label class="control-label" for="cell">Phone Number<span class="required" style="color:red">*</span></label>
+								<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="cell" name="cell" ng-model="moveData.user.phone" autocomplete="none" phone-input ng-required="true">
+								<span style="color:red" ng-show="bookingForm.cell.$touched && bookingForm.cell.$invalid">A valid phone number is required</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-3 col-xs-5">
+								<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforePersonal();" style="margin-top: 15px">Back</button>
+							</div>
+							<div class="col-lg-3 col-xs-1"></div>
+							<div class="col-lg-3 col-xs-1"></div>
+							<div class="col-lg-3 col-xs-5">
+								<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterPersonal()" style="margin-top: 15px" ng-disabled="
+								bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
+								bookingForm.cell.$invalid">To Final Step</button>
+								<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
+							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="email">Email<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" class="form-control" id="email" name="email" ng-model="moveData.user.email" data-error="Invalid Email Address" ng-required="true">
-							<span style="color:red" ng-show="bookingForm.email.$touched && bookingForm.email.$invalid">A valid Email is required</span>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<label class="control-label" for="cell">Phone Number<span class="required" style="color:red">*</span></label>
-							<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" ng-minlength="14" id="cell" name="cell" ng-model="moveData.user.phone" autocomplete="none" phone-input ng-required="true">
-							<span style="color:red" ng-show="bookingForm.cell.$touched && bookingForm.cell.$invalid">A valid phone number is required</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-3 col-xs-5">
-							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="beforePersonal();" style="margin-top: 15px">Back</button>
-						</div>
-						<div class="col-lg-3 col-xs-1"></div>
-						<div class="col-lg-3 col-xs-1"></div>
-						<div class="col-lg-3 col-xs-5">
-							<button type="button" class="btn btn-primary btn-block pull-right" data-ng-click="afterPersonal()" style="margin-top: 15px" ng-disabled="
-                            bookingForm.firstName.$invalid || bookingForm.lastName.$invalid || bookingForm.email.$invalid ||
-                            bookingForm.cell.$invalid">To Final Step</button>
-							<p style="color: red;" ng-show="userExists">User already exists with that email. Please login to book a move</p>
-						</div>
-					</div>
-				</div>
+				</section>
 			</div>
 			<div ng-show="step == 'move'">
 				<h3>Fill out your move information</h3>
