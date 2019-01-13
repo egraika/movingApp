@@ -8,26 +8,30 @@
                     <center><h4>Contact Information</h4></center>
                 </div>
                 <div class="row form-group">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <label for="firstName">First Name</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="user.firstName" class="form-control"></input>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <label for="lastName">Last Name</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="user.lastName" class="form-control"></input>
                     </div>
                 </div>
                 <div class="row form-group">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <label for="email">Email</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="user.email" class="form-control" ng-disabled="true"></input>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <label for="phone">Phone</label>
                         <input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="user.phone" numbers-only phone-input>
                     </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4"></div>
                     <div class="col-xs-4">
-                        <button type="button" style="margin-top: 25px" class="btn btn-primary btn-block form-control" data-ng-click="save()">Save Personal Information</button>
+                        <button type="button" style="margin-top: 25px" class="btn-primary btn-block form-control" data-ng-click="save()">Save</button>
                     </div>
                 </div>
                 <hr style="height: 1px;">
@@ -35,7 +39,7 @@
                     <center><h4>Credit Card and Charge Information</h4></center>
                 </div>
                 <div class="row" ng-show="creditCardSet">
-                    <div class="col-xs-4 col-md-4">
+                    <div class="col-xs-8 col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <label>Current Credit Card</label>
@@ -46,7 +50,7 @@
                     </div>
                 </div>
                 <div class="row" ng-hide="creditCardSet">
-                    <div class="col-xs-4 col-md-4">
+                    <div class="col-xs-8 col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <label>Current Credit Card</label>

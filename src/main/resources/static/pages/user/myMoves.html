@@ -3,12 +3,12 @@
     <div class="alert alert-danger" role="alert" ng-hide="creditCardSet">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
-        <a href="#/profile" style="color: red;">Set your credit card information</a>
+        <a href="#/profile" style="color: red;">Click here to set your credit card information</a>
     </div>
     <div class="alert alert-danger" role="alert" ng-show="firstMoveNeedsInfo">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
-        <a href="#/editMyMove/{{moves[0].id}}/#additionalInfo" style="color: red;">To confirm your move please fill out the additional information section</a>
+        <a href="#/editMyMove/{{moves[0].id}}/#additionalInfo" style="color: red;">Click here to confirm your move please by filling out the additional information section</a>
     </div>
     <div class="row" st-table="myMoves" st-pipe="callServer">
         <div class="col-xs-12">
