@@ -21,7 +21,7 @@
 						<td>{{charge.date | date:'MM/dd/yyyy h:mm a'}}</td>
 						<td>{{charge.type}}</td>
 						<td>{{charge.amount}}</td>
-						<td><button class="btn btn-danger pull-right" ng-click="setChargeId(charge.id, charge.amount)" data-toggle="modal" data-target="#refund" ng-hide="isUser || charge.type == 'Refund' || isProfile">Refund</button></td>
+						<td><button class="btn-danger pull-right" ng-click="setChargeId(charge.id, charge.amount)" data-toggle="modal" data-target="#refund" ng-hide="isUser || charge.type == 'Refund' || isProfile">Refund</button></td>
 					</tr>
 				</tbody>
 			</table>
