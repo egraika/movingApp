@@ -10,7 +10,7 @@
 				<div>
 					<label class="labl">
 						<input type="radio" name="radioname" value="withTruck" ng-model="moveData.type"/>
-						<div class="row" ng-dblclick="afterType()">
+						<div class="row moveTypeLabel" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Moving (truck + crew) 2 hr min.</b></p>
 								<p style="font-weight: normal !important;">$119.00/hr</p>
@@ -21,7 +21,7 @@
 					<hr>
 					<label class="labl">
 						<input type="radio" name="radioname" value="onlyCrew" ng-model="moveData.type"/>
-						<div class="row" ng-dblclick="afterType()">
+						<div class="row moveTypeLabel" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Moving (crew only) 2 hr min.</b></p>
 								<p style="font-weight: normal !important;">$89.00/hr</p>
@@ -32,7 +32,7 @@
 					<hr>
 					<label class="labl">
 						<input type="radio" name="radioname" value="packing" ng-model="moveData.type"/>
-						<div class="row" ng-dblclick="afterType()">
+						<div class="row moveTypeLabel" ng-dblclick="afterType()">
 							<div class="col-xs-12">
 								<p><b>Packing and unpacking</b></p>
 								<p style="font-weight: normal !important;">$80.00/hr</p>

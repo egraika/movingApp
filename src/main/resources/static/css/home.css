@@ -135,6 +135,11 @@ html,body{ margin:0; padding:0; height:100%; width:100%; }
     .howitworks {
         display: none !important;
     }
+
+    .moveTypeLabel {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 }
 
 @media only screen and (max-width: 575px) {
