@@ -1,10 +1,47 @@
 movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$routeParams','$uibModal','$timeout','$sessionStorage','Session','bsLoadingOverlayService', function($scope,$rootScope, $http, $routeParams,$uibModal, $timeout,$sessionStorage, Session,bsLoadingOverlayService) {
 
 	$scope.alertData = {boldTextTitle: "", textAlert: "", mode: ''};
+	// Create a Stripe client
+    var stripe;
+    // Create an instance of Elements
+    var elements;
+	// Create an instance of the card Element
+	var card;
+
 	$scope.init = function() {
 	    $scope.isCharges = false;
 	    $scope.isProfile = true;
 		getUser();
+        getEnvironment();
+	}
+
+	function getEnvironment() {
+        $http({
+			method: 'GET',
+			url: '/getEnvironment',
+			headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            if(response.data.message == "prod") {
+                stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
+            } else {
+                stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
+            }
+
+            elements = stripe.elements();
+            card = elements.create('card', {style: style});
+            // Add an instance of the card Element into the `card-element` <div>
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+              var displayError = document.getElementById('card-errors');
+              if (event.error) {
+                displayError.textContent = event.error.message;
+              } else {
+                displayError.textContent = '';
+              }
+            });
+        });
 	}
 	
 	function getUser() {
@@ -42,8 +79,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 		 $http({
 				method: 'POST',
 				url: '/updateMyProfile',
-				data: $scope.user,
-				headers:{'Content-Type': 'application/json'}
+				data: $scope.user
 			}).then(function successCallBack(response) {
 				openAlert();
 			});
@@ -75,13 +111,6 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 		     }
 		 });
 	 }
-
-	// Create a Stripe client
-	//var stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
-    var stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
-
-	// Create an instance of Elements
-	var elements = stripe.elements();
 
 	// Custom styling can be passed to options when creating an Element.
 	// (Note that this demo uses a wider set of styles than the guide below.)
@@ -127,22 +156,6 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
         			});
 
 	}
-
-	// Create an instance of the card Element
-	var card = elements.create('card', {style: style});
-
-	// Add an instance of the card Element into the `card-element` <div>
-	card.mount('#card-element');
-
-	// Handle real-time validation errors from the card Element.
-	card.addEventListener('change', function(event) {
-	  var displayError = document.getElementById('card-errors');
-	  if (event.error) {
-	    displayError.textContent = event.error.message;
-	  } else {
-	    displayError.textContent = '';
-	  }
-	});
 
 	function stripeTokenHandler(token) {
 		  // Insert the token ID into the form so it gets submitted to the server
