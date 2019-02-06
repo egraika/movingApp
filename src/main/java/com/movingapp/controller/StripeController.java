@@ -7,6 +7,7 @@ import com.movingapp.entity.User;
 import com.movingapp.helper.EmailTemplateHelper;
 import com.movingapp.model.ChargeEntity;
 import com.movingapp.model.MoveEntity;
+import com.movingapp.model.Response;
 import com.movingapp.service.*;
 import com.movingapp.view.ChargeView;
 import com.movingapp.view.StripeView;
@@ -18,6 +19,7 @@ import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.model.Refund;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -53,12 +55,16 @@ public class StripeController {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    Environment environment;
+
     @RequestMapping(value = "/setCreditCard",method = RequestMethod.POST ,consumes = "application/json")
     @ResponseBody
     public ResponseEntity<UserView> setCreditCard(@RequestBody StripeView stripe, @RequestParam("userid") long userid) throws StripeException, UnsupportedEncodingException {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-        Stripe.apiKey = MovingAppConstants.apiKey;
+        //Stripe.apiKey = MovingAppConstants.apiKey;
+        Stripe.apiKey = environment.getProperty(MovingAppConstants.apiKey);
 
         User user = userService.findById(userid);
 
@@ -110,7 +116,7 @@ public class StripeController {
     @ResponseBody
     public ResponseEntity<ChargeView> addCharge(@RequestParam("amount") double amount, @RequestParam("id") int moveID) throws StripeException {
 
-        Stripe.apiKey = MovingAppConstants.apiKey;
+        Stripe.apiKey = environment.getProperty(MovingAppConstants.apiKey);
         MoveEntity moveEntity = BookMovesDao.findById(moveID);
         User user = userService.findById(moveEntity.getUser().getId());
         List<ChargeEntity> chargeEntityList = user.getCharges();
@@ -153,7 +159,7 @@ public class StripeController {
     @ResponseBody
     public ResponseEntity<ChargeView> refundCharge(@RequestParam("amount") int amount, @RequestParam("id") int chargeId) throws StripeException {
 
-        Stripe.apiKey = MovingAppConstants.apiKey;
+        Stripe.apiKey = environment.getProperty(MovingAppConstants.apiKey);
         ChargeEntity chargeEntity;
         Optional<ChargeEntity> optionalChargeEntity = chargesDao.findById(chargeId);
         if(optionalChargeEntity.isPresent()) {
@@ -190,5 +196,17 @@ public class StripeController {
 
         List<ChargeView> newChargeList = ChargeMapping.ChargeEntityToCharge(newChargeEntities);
         return new ResponseEntity(newChargeList.get(newChargeList.size()-1), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getEnvironment", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Response> getEnvironment() {
+        if(environment.getProperty(MovingAppConstants.environment).equals("prod")) {
+            Response response = new Response(200, "prod", null);
+            return new ResponseEntity( response,HttpStatus.OK);
+        } else {
+            Response response = new Response(200, "dev", null);
+            return new ResponseEntity( response,HttpStatus.OK);
+        }
     }
 }
