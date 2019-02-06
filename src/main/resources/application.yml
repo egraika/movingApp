@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: ${environment}
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://ec2-54-235-94-36.compute-1.amazonaws.com:5432/dbr965nocti8ei
+    username: ioldyoqppzwqqw
+    password: 8654f1f45fb3698366fa3e3533b4d45133f943959b4b9ee0fcaa018f2a9065dc
+    driver-class-name: org.postgresql.Driver
+
+---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://ec2-54-235-94-36.compute-1.amazonaws.com:5432/dbr965nocti8ei
+    username: ioldyoqppzwqqw
+    password: 8654f1f45fb3698366fa3e3533b4d45133f943959b4b9ee0fcaa018f2a9065dc
+    driver-class-name: org.postgresql.Driver
+
+---
