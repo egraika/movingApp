@@ -100,6 +100,13 @@
             		authorizedRoles: [USER_ROLES.all]
             	}
             })
+            .when('/privacy', {
+            	templateUrl : 'pages/templates/PrivacyPolicy.html',
+            	access: {
+            		loginRequired: false,
+            		authorizedRoles: [USER_ROLES.all]
+            	}
+            })
             .when('/reset/password', {
             	templateUrl : 'pages/templates/passwordReset.html',
             	access: {
