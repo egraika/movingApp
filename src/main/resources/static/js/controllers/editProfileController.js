@@ -22,7 +22,7 @@ movingApp.controller("editProfileController", ['$scope','$rootScope', '$http','$
 			headers:{'Content-Type': 'application/json'}
         }).then(function(response) {
             if(response.data.message == "prod") {
-                stripe = Stripe('pk_live_MsyHxW1twGr0h9nPLzgZWQKP');
+                stripe = Stripe('pk_live_1XM8iZussmGtWgHufN73Dlqz');
             } else {
                 stripe = Stripe('pk_test_QWfSfH0Sy1bTZvaVHiih9PrQ');
             }
