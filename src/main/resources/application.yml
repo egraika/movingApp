@@ -1,7 +1,26 @@
 spring:
   profiles:
-    active: ${environment}
+    active:  ${environment}
 
+---
+
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:postgresql://ec2-54-243-228-140.compute-1.amazonaws.com:5432/d22bbvm7tp5lvq
+    username: iesnqowkznvcgv
+    password: 4f7c9bc40ba76663689ce883967e43b786f2e4d0680a4918caa6f61568cc3efe
+    driver-class-name: org.postgresql.Driver
+
+stripe_api_key: sk_test_356VkXvxAv3KPrTnpY6iJkTb
+
+server:
+  port: 8443
+  ssl:
+    key-store: keystore.p12
+    key-store-password: john1956
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 ---
 spring:
   profiles: dev
