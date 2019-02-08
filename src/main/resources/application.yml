@@ -41,5 +41,5 @@ spring:
     password: 8654f1f45fb3698366fa3e3533b4d45133f943959b4b9ee0fcaa018f2a9065dc
     driver-class-name: org.postgresql.Driver
 
-stripe_api_key: sk_live_xi03Kbf02Hqd57v7Zc6lFyge
+stripe_api_key: sk_live_XqmIbgbgzV3dmbkd0cH8jNMa
 ---
