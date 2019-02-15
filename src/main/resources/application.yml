@@ -18,7 +18,7 @@ server:
   port: 8443
   ssl:
     key-store: keystore.p12
-    key-store-password: john1956
+    key-store-password: johne956
     keyStoreType: PKCS12
     keyAlias: tomcat
 ---

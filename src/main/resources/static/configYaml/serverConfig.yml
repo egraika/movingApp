@@ -1,0 +1,25 @@
+domain: 'http://localhost:8443'
+timeout: 10
+preboot: false
+logBasePath: '/logs'
+gelf:
+  enabled: true
+  host: '127.0.0.1'
+  port: 12203
+socketServers:
+  bridge_external:
+    protocol: 'http://'
+    host: '127.0.0.1'
+    port: 8881
+  bridge_internal:
+    protocol: 'http://'
+    host: '127.0.0.1'
+    port: 8882
+  proxy:
+    protocol: 'http://'
+    host: '127.0.0.1'
+    port: 8883
+redisConfig:
+  host: '127.0.0.1'
+  port: 6379
+  socket_keepalive: true

@@ -1,0 +1,17 @@
+default: 'never'
+maxAge:
+-
+  domain: /(localhost|127.0.0.1):(8080|300|888|8443)/
+  rules:
+  -
+    regex: /.*/
+    maxAge: 30
+    ignoreQuery: true
+never:
+-
+  domain: /localhost:3030/
+  rules:
+  -
+    regex: /.*/
+    ignoreQuery: true
+always: []
