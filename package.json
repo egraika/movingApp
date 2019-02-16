@@ -1,0 +1,34 @@
+{
+  "name": "movingapp",
+  "version": "1.0.0",
+  "description": "moving app",
+  "main": "index.js",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.11",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-ng-annotate": "^3.0.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-uglify-es": "git://github.com/gruntjs/grunt-contrib-uglify.git#harmony",
+    "grunt-ng-annotate": "^3.0.0",
+    "express": "latest",
+    "prerender-node": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egraika/movingApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egraika/movingApp/issues"
+  },
+  "homepage": "https://github.com/egraika/movingApp#readme"
+}
