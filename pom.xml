@@ -15,8 +15,6 @@
         <jackson.version>1.9.13</jackson.version>
         <hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
         <springfox-version>2.9.2</springfox-version>
-		<nodeVersion>v8.9.0</nodeVersion>
-		<npmVersion>5.5.1</npmVersion>
     </properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
@@ -267,34 +265,6 @@
 			  </archive>
 			</configuration>
 			  </plugin>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v8.9.0</nodeVersion>
-							<npmVersion>5.5.1</npmVersion>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>npm run build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
-					</execution>
-
-				</executions>
-			</plugin>
 			  <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-dependency-plugin</artifactId>
