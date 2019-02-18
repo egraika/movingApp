@@ -2,6 +2,8 @@ spring:
   profiles:
     active:  ${environment}
 
+server:
+  port: 8443
 ---
 
 spring:
@@ -15,7 +17,6 @@ spring:
 stripe_api_key: sk_test_356VkXvxAv3KPrTnpY6iJkTb
 
 server:
-  port: 8443
   ssl:
     key-store: keystore.p12
     key-store-password: john1956
