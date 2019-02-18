@@ -1,5 +1,5 @@
 	// create the module and name it movingApp
-	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker','dualmultiselect']);
+	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker','dualmultiselect', 'server']);
 
 	movingApp.config(['$locationProvider','$httpProvider','$windowProvider','stConfig','$compileProvider', function($locationProvider, $httpProvider,$windowProvider,stConfig, $compileProvider) {
 	     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
@@ -15,20 +15,28 @@
 	    user: 'user',
 	    mover: 'mover'
 	});
+
+	var serverConfig = {
+        clientTimeoutValue: number,
+        debug: boolean,
+        httpCache: boolean,
+        restCache: boolean,
+        restServerURL: string
+    }
 	
 	// configure our routes
 	movingApp.config(['$routeProvider', '$httpProvider', 'USER_ROLES', function($routeProvider, $httpProvider, USER_ROLES) {
 
 			// route for the home page
 			$routeProvider.when('/', {
-				templateUrl : 'pages/home.html',
+				templateUrl : 'pages/pre-render/home.html',
 				access: {
 					loginRequired: false,
 			        authorizedRoles: [USER_ROLES.all]
 			    }
 			})
 			.when('/bookmove', {
-				templateUrl : 'pages/bookMove.html',
+				templateUrl : 'pages/pre-render/bookMove.html',
 				access: {
 					loginRequired: false,
 					authorizedRoles: [USER_ROLES.all]
@@ -66,7 +74,7 @@
 				}
 			})
 			.when('/contact', {
-				templateUrl : 'pages/contact.html',
+				templateUrl : 'pages/pre-render/contact.html',
 				access: {
 					loginRequired: false,
 					authorizedRoles: [USER_ROLES.all]
