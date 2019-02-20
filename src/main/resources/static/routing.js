@@ -108,7 +108,7 @@
             	}
             })
             .when('/reset/password', {
-            	templateUrl : 'pages/templates/passwordReset.html',
+            	templateUrl : 'pages/templates/PasswordReset.html',
             	access: {
             		loginRequired: false,
             		authorizedRoles: [USER_ROLES.all]
