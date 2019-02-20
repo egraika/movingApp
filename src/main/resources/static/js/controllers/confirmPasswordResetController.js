@@ -10,7 +10,7 @@ movingApp.controller("confirmPasswordReset", ['$scope', '$http','$window','$sess
             confirmationToken : ""
         };
 
-    $scope.confirm = function() {
+    $scope.confirmPasswordToken = function() {
         bsLoadingOverlayService.start();
 		$http({
           	method: 'GET',

@@ -44,9 +44,13 @@ public class editUserController {
 
 		User foundUser = userRepo.findById(user.getId()).get();
 
+		Authority authority = authorityRepo.findByName(user.getAuthorities().iterator().next().getName());
+		Set<Authority> authoritySet = new HashSet<Authority>();
+		authoritySet.add(authority);
+
 		foundUser.setPhone(user.getPhone());
 		foundUser.setEmail(user.getEmail());
-		foundUser.setAuthorities(user.getAuthorities());
+		foundUser.setAuthorities(authoritySet);
 		foundUser.setLastName(user.getLastName());
 		foundUser.setFirstName(user.getFirstName());
 		foundUser.setEnabled(user.getEnabled());
@@ -121,7 +125,6 @@ public class editUserController {
 	public ResponseEntity<UserView> addEmployee(@RequestBody UserView userView) {
 
 		User user = newUserFromUserView(userView);
-
 
 		Authority authority = authorityRepo.findByName(user.getAuthorities().iterator().next().getName());
 		Set<Authority> authoritySet = new HashSet<Authority>();
