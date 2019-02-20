@@ -142,7 +142,7 @@
                         <a href="#/myMoves">My Moves</a>
                     </li>
  				    <li ng-show="!isUser && authenticated"><a href="#/tables">Booked Moves</a></li>
-                    <li ng-show="authenticated && !isUser"><a href="#/users">Employees</a></li>
+                    <li ng-show="authenticated && !isUser" access="admin"><a href="#/users">Employees</a></li>
                     <li ng-show="authenticated">
                         <a href="#/profile">Profile</a>
                     </li>

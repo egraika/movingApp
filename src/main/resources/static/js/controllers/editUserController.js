@@ -32,6 +32,7 @@ movingApp.controller("editUserController", ['$scope','$rootScope', '$http','$rou
 	}
 
 	 $scope.save = function() {
+	     $scope.user.authorities = [{"name":$scope.user.authority, "id":0}];
 		 $http({
 				method: 'POST',
 				url: '/updateUser',

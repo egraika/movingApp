@@ -45,9 +45,6 @@ public class PasswordResetController {
 
         // Lookup user in database by e-mail
         User user = userService.findByEmail(email);
-        PasswordResetToken passwordResetToken = user.getPasswordResetToken();
-
-        System.out.println(user);
 
         if (user == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -58,6 +55,7 @@ public class PasswordResetController {
 
         // Generate random 36-character string token for confirmation link
         PasswordResetToken token = new PasswordResetToken(UUID.randomUUID().toString());
+        token.setUser(user);
 
         PasswordResetTokenRepo.save(token);
         user.setPasswordResetToken(token);
@@ -83,7 +81,7 @@ public class PasswordResetController {
 
         PasswordResetToken passwordResetToken = PasswordResetTokenRepo.findByToken(token);
 
-        if(passwordResetToken == null || passwordResetToken.getExpiryDate().after(new Date())) {
+        if(passwordResetToken == null || passwordResetToken.getExpiryDate().before(new Date())) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
