@@ -38,6 +38,21 @@ public class UserMapping {
             userView.setPicture(base64Encoded);
         }
 
+        String locationsArray = "";
+        int i = 0;
+        for(Location location : user.getLocations()) {
+            if(i == 5) {
+                locationsArray = locationsArray.substring(0,locationsArray.length()-1);
+                locationsArray += "....";
+                break;
+            }
+            locationsArray += location.getLocation() + ",";
+            i++;
+        }
+        if(locationsArray.length() > 0) {
+            locationsArray = locationsArray.substring(0,locationsArray.length()-1);
+        }
+        userView.setLocationsArray(locationsArray);
 
         return userView;
     }

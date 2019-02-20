@@ -5,6 +5,7 @@ movingApp
 	$scope.isLoading = false;
 	$scope.isError = false;
 	$scope.noResultsFound = false;
+    $scope.newuser = {"locations":[]};
 
     $scope.init = function() {
         getLocations();
@@ -58,9 +59,26 @@ movingApp
                 orderProperty: 'location',
                 /* this contains the initial list of all items (i.e. the left side) */
                 items: response.data,
-                selectedItems: []
+                selectedItems:  $scope.newuser.locations
             };
         }, function(response) {
         });
      }
+
+    $scope.addEmployee = function() {
+        bsLoadingOverlayService.start();
+        $scope.newuser.authorities = [{"name":$scope.newuser.authority, "id":0}];
+        $http({
+     		method: 'POST',
+     		url: '/addEmployee',
+     		data: $scope.newuser,
+     		headers:{'Content-Type': 'application/json'}
+        }).then(function(response) {
+            $scope.users.push(response.data);
+            bsLoadingOverlayService.stop();
+        }, function(response) {
+            $scope.error = true;
+            bsLoadingOverlayService.stop();
+        });
+    }
 }]);
