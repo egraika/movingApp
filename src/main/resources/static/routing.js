@@ -186,6 +186,7 @@
 	movingApp.run(['$rootScope', 'AuthSharedService', 'USER_ROLES', '$location', '$http', 'Session', '$q', '$timeout','bsLoadingOverlayService', function( $rootScope, AuthSharedService, USER_ROLES, $location, $http, Session, $q, $timeout,bsLoadingOverlayService) {
 
 		$rootScope.isUser = false;
+		$rootScope.isAdmin = false;
 		$rootScope.authenticated = false;
 		bsLoadingOverlayService.setGlobalConfig({
 			templateUrl: 'pages/loading-overlay-template.html'
@@ -218,9 +219,14 @@
 		  $rootScope.loadingAccount = false;
 		  if(data != "" && data.authorities != undefined && data.authorities[0].name == "user") {
             $rootScope.isUser = true;
+            $rootScope.isAdmin = false;
+            $rootScope.authenticated = true;
+          } else if(data != "" && data.authorities != undefined && data.authorities[0].name == "admin") {
+            $rootScope.isAdmin = true;
             $rootScope.authenticated = true;
           } else if(data != "") {
             $rootScope.isUser = false;
+            $rootScope.isAdmin = false;
             $rootScope.loadingAccount = true;
           } else {
             return;
