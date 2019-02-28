@@ -36,7 +36,7 @@ public class editMyMoveController {
 		}
 		moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
 
-		if(moveEntity.getStatus() == "unconfirmed move") {
+		if(moveEntity.getStatus().equals("unconfirmed move") && (moveEntity.getNumberOfBoxes() != 0 || moveEntity.getNumberOfLargeItems() != 0)) {
 			moveEntity.setStatus("confirmed move");
 		}
 		BookMovesDao.save(moveEntity);
