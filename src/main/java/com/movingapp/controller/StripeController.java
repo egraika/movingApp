@@ -147,7 +147,7 @@ public class StripeController {
 
         String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
 
-        emailService.sendMail("noreply@domain.com", user.getEmail(), "Move Booked", html);
+        emailService.sendMail("noreply@domain.com", user.getEmail(), "Payment Confirmation", html);
 
         List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
