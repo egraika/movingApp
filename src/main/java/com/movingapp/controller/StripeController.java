@@ -145,9 +145,8 @@ public class StripeController {
 
         User userAfterSave = userRepo.save(user);
 
-        String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
-
-        emailService.sendMail("noreply@domain.com", user.getEmail(), "Payment Confirmation", html);
+//        String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
+//        emailService.sendMail("noreply@domain.com", user.getEmail(), "Payment Confirmation", html);
 
         List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
