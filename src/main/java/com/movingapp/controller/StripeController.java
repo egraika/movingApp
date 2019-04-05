@@ -76,7 +76,7 @@ public class StripeController {
         if(user.getStripeCustomerID() == null) {
             // Create a Customer:
             Map<String, Object> customerParams = new HashMap<String, Object>();
-            customerParams.put("email", "ericgraika@gmail.com");
+            customerParams.put("email", user.getEmail());
             customerParams.put("source", token);
             customer = Customer.create(customerParams);
             card = (Card) customer.getSources().retrieve(customer.getDefaultSource());
@@ -136,7 +136,7 @@ public class StripeController {
         chargeParams.put("amount", (int) amount*100); // $15.00 this time
         chargeParams.put("currency", "usd");
         chargeParams.put("customer", user.getStripeCustomerID());
-        chargeParams.put("receipt_email", user.getEmail());
+        chargeParams.put("receipt_email", "contact@movemuscle.com");
         Charge chargeCustomer = Charge.create(chargeParams);
         if(!chargeCustomer.getStatus().equals("succeeded")) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -145,9 +145,8 @@ public class StripeController {
 
         User userAfterSave = userRepo.save(user);
 
-        String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
-
-        emailService.sendMail("noreply@domain.com", user.getEmail(), "Payment Confirmation", html);
+//        String html = emailTemplateHelper.chargeEmailTemplate(amount, user.getCcLastFour());
+//        emailService.sendMail("noreply@domain.com", user.getEmail(), "Payment Confirmation", html);
 
         List<ChargeEntity> newChargeEntity = userAfterSave.getCharges();
 
