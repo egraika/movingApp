@@ -157,5 +157,31 @@ public class BookMoveController {
 
 		return userRepo.save(saveUser);
 	}
+
+	@RequestMapping(value = "/adminAddMove",method = RequestMethod.POST ,consumes = "application/json")
+	@ResponseBody
+	public ResponseEntity<Move> adminAddMove(@RequestBody Move move) {
+		//Gson gson = new Gson();
+		//Move insertMove = gson.fromJson(move, Move.class);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date input = new Date();
+		LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		move.setDateOfBooking(date);
+		User userExists;
+
+		MoveEntity moveEntity = moveMapping.moveToMoveEntity(move);
+
+		moveEntity.setMoveTitle(move.getFirstName() + " " + move.getLastName());
+		moveEntity.setAdminCreatedUser(move.getFirstName() + "," + move.getLastName() + "," + move.getEmail() + "," + move.getPhone());
+		moveEntity.setDateOfBooking(LocalDate.now());
+		moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
+		moveEntity.setElevator(false);
+		moveEntity.setArtwork(false);
+		moveEntity.setGroundFloor(false);
+		moveEntity.setAntiques(false);
+		moveEntity = BookMovesDao.save(moveEntity);
+
+		return new ResponseEntity(moveMapping.MoveEntityToMove(moveEntity),HttpStatus.OK);
+	}
 }
 

@@ -110,12 +110,15 @@ public class MoveMapping {
         moveEntity.setNumberOfBoxes(move.getNumberOfBoxes());
         moveEntity.setNumberOfLargeItems(move.getNumberOfLargeItems());
         moveEntity.setType(move.getType());
+        moveEntity.setAdminCreatedUser(move.getAdminCreatedUser());
         if(move.getAssignedUsers() != null) {
             moveEntity.setAssignedUsers(userMapping.UserViewsToUsers(move.getAssignedUsers()));
         }
-        Optional<User> foundUser = userRepo.findById(move.getUser().getId());
-        User user = foundUser.get();
-        moveEntity.setUser(user);
+        if(move.getUser() != null) {
+            Optional<User> foundUser = userRepo.findById(move.getUser().getId());
+            User user = foundUser.get();
+            moveEntity.setUser(user);
+        }
         return moveEntity;
     }
 
@@ -144,30 +147,43 @@ public class MoveMapping {
         move.setAntiques(moveEntity.getAntiques());
         move.setNumberOfBoxes(moveEntity.getNumberOfBoxes());
         move.setNumberOfLargeItems(moveEntity.getNumberOfLargeItems());
-        move.setAssignedUsers(userMapping.UsersToUserViews(moveEntity.getAssignedUsers()));
+        move.setAdminCreatedUser(moveEntity.getAdminCreatedUser());
+        if(moveEntity.getAssignedUsers() != null) {
+            move.setAssignedUsers(userMapping.UsersToUserViews(moveEntity.getAssignedUsers()));
+        }
         move.setType(moveEntity.getType());
         UserView userView = new UserView();
-        userView.setEmail(moveEntity.getUser().getEmail());
-        userView.setFirstName(moveEntity.getUser().getFirstName());
-        userView.setId(moveEntity.getUser().getId());
-        userView.setLastName(moveEntity.getUser().getLastName());
-        userView.setPhone(moveEntity.getUser().getPhone());
-        userView.setCardType(moveEntity.getUser().getCcCardType());
-        userView.setCcLastFour(moveEntity.getUser().getCcLastFour());
-        userView.setCcExpirationDate(moveEntity.getUser().getCcExpirationDate());
-        userView.setCharges(ChargeMapping.ChargeEntityToCharge(moveEntity.getUser().getCharges()));
+        if (moveEntity.getUser() != null) {
+            userView.setEmail(moveEntity.getUser().getEmail());
+            userView.setFirstName(moveEntity.getUser().getFirstName());
+            userView.setId(moveEntity.getUser().getId());
+            userView.setLastName(moveEntity.getUser().getLastName());
+            userView.setPhone(moveEntity.getUser().getPhone());
+            userView.setCardType(moveEntity.getUser().getCcCardType());
+            userView.setCcLastFour(moveEntity.getUser().getCcLastFour());
+            userView.setCcExpirationDate(moveEntity.getUser().getCcExpirationDate());
+            userView.setCharges(ChargeMapping.ChargeEntityToCharge(moveEntity.getUser().getCharges()));
 
-        if(moveEntity.getUser().getCcExpirationDate() != null) {
-            String dateString = moveEntity.getUser().getCcExpirationDate();
-            Calendar calendar = Calendar.getInstance();
-            calendar.clear();
-            calendar.set(Calendar.MONTH, Integer.parseInt(dateString.split("/")[0]));
-            calendar.set(Calendar.YEAR, Integer.parseInt(dateString.split("/")[1]));
-            Date date = calendar.getTime();
+            if(moveEntity.getUser().getCcExpirationDate() != null) {
+                String dateString = moveEntity.getUser().getCcExpirationDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.clear();
+                calendar.set(Calendar.MONTH, Integer.parseInt(dateString.split("/")[0]));
+                calendar.set(Calendar.YEAR, Integer.parseInt(dateString.split("/")[1]));
+                Date date = calendar.getTime();
 
-            userView.setExpirationDate(date);
+                userView.setExpirationDate(date);
+            }
+            move.setUser(userView);
         }
-        move.setUser(userView);
+
+        if(moveEntity.getUser() == null) {
+            String [] arrOfStr = moveEntity.getAdminCreatedUser().split(",");
+            move.setFirstName(arrOfStr[0]);
+            move.setLastName(arrOfStr[1]);
+            move.setEmail(arrOfStr[2]);
+            move.setPhone(arrOfStr[3]);
+        }
 
         return move;
     }

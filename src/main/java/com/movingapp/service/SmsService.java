@@ -22,8 +22,15 @@ public class SmsService {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
         String formatDateTime = move.getMoveStart().format(formatter);
-
-        String textMessage = "You have been assigned to a move on " + formatDateTime + ". Customer Name: " + move.getUser().getFirstName() + " Phone: " + move.getUser().getPhone() + ". Please Look up other move details online.";
+        String textMessage;
+        if(move.getUser() != null) {
+            textMessage = "You have been assigned to a move on " + formatDateTime + ". Customer Name: " + move.getUser().getFirstName() + " Phone: " + move.getUser().getPhone() + ". Please Look up other move details online.";
+        } else {
+            String [] arrOfStr = move.getAdminCreatedUser().split(",");
+            String firstName = arrOfStr[0];
+            String phone = arrOfStr[3];
+            textMessage = "You have been assigned to a move on " + formatDateTime + ". Customer Name: " + firstName + " Phone: " + phone + ". Please Look up other move details online.";
+        }
         for(UserView user : userViews) {
             try {
                 Message message = Message.creator(new PhoneNumber("+1" + user.getPhone()),

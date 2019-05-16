@@ -97,9 +97,12 @@ public class MoveEntity implements Serializable {
 	@Column(name = "type")
 	private String type;
 
+	@Column(name = "adminCreatedUser")
+	private String adminCreatedUser;
+
 	@JsonBackReference(value="move_user_id")
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name="user_id")
 	private User user;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -307,5 +310,13 @@ public class MoveEntity implements Serializable {
 
 	public void setAssignedUsers(List<User> assignedUsers) {
 		this.assignedUsers = assignedUsers;
+	}
+
+	public String getAdminCreatedUser() {
+		return adminCreatedUser;
+	}
+
+	public void setAdminCreatedUser(String adminCreatedUser) {
+		this.adminCreatedUser = adminCreatedUser;
 	}
 }

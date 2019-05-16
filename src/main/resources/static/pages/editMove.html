@@ -25,14 +25,16 @@
 					<div class="col-xs-6 col-sm-4">
 						<label for="status">Status</label>
 						<select class="form-control" id="status" name="status" ng-model="move.status">
-							<option value="unconfirmed user">Unconfirmed User</option>
-							<option value="unconfirmed move">Unconfirmed Move</option>
-							<option value="confirmed move">Confirmed Move</option>
-							<option value="closed">Closed</option>
+							<option value="unconfirmed user" ng-disabled="isEmptyObject(move.user)||move.status=='move completed'||move.status=='cancelled'">Unconfirmed User</option>
+							<option value="unconfirmed move" ng-disabled="isEmptyObject(move.user)||move.status=='move completed'||move.status=='cancelled'">Unconfirmed Move</option>
+							<option value="confirmed move"   ng-disabled="isEmptyObject(move.user)">Confirmed Move</option>
+							<option value="admin created" ng-disabled="isEmptyObject(move.user)">Admin Created</option>
+							<option value="move completed">Move Completed</option>
+							<option value="cancelled">Cancelled</option>
 						</select>
 					</div>
 				</div>
-				<div class="row" access="admin">
+				<div class="row" access="admin" ng-show="!isEmptyObject(move.user)">
 					<div class="col-xs-6">
 						<label for="firstName">First Name</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="move.user.firstName" class="form-control" ng-disabled="true"></input>
@@ -42,7 +44,17 @@
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="move.user.lastName" class="form-control" ng-disabled="true"></input>
 					</div>
 				</div>
-				<div class="row" access="admin">
+				<div class="row" access="admin" ng-show="isEmptyObject(move.user)">
+					<div class="col-xs-6">
+						<label for="firstName">First Name</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" ng-model="move.firstName" class="form-control" ng-disabled="true"></input>
+					</div>
+					<div class="col-xs-6">
+						<label for="lastName">Last Name</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" ng-model="move.lastName" class="form-control" ng-disabled="true"></input>
+					</div>
+				</div>
+				<div class="row" access="admin" ng-show="!isEmptyObject(move.user)">
 					<div class="col-xs-6">
 						<label for="email">Email</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="email" ng-model="move.user.email" class="form-control" ng-disabled="true"></input>
@@ -51,6 +63,16 @@
 						<label for="phone">Phone</label>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="move.user.phone"  numbers-only phone-input ng-required="true" ng-disabled="true">
 						<span style="color:red" ng-show="editMoveForm.phone.$touched && editMoveForm.phone.$invalid">A valid phone number is required</span>
+					</div>
+				</div>
+				<div class="row" access="admin" ng-show="isEmptyObject(move.user)">
+					<div class="col-xs-6">
+						<label for="email">Email</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" ng-model="move.email" class="form-control" ng-disabled="true"></input>
+					</div>
+					<div class="col-xs-6">
+						<label for="phone">Phone</label>
+						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" name="phone" ng-model="move.phone"  numbers-only phone-input ng-required="true" ng-disabled="true">
 					</div>
 				</div>
 				<div class="panel-group form-group" id="accordion" style="margin-top: 20px">
@@ -279,7 +301,7 @@
 					<button class="btn btn-primary pull-right" ng-click="textMoveInformation()" style="margin-right:15px;">Text Move Details</button>
 				</div>
 				<hr>
-				<div class="row" access="admin">
+				<div class="row" access="admin" ng-show="!isEmptyObject(move.user)">
 					<div class="col-xs-4" ng-show="creditCardSet && !cardExpired">
 						<h4 style="text-center">Add Charge</h4>
 						<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="number" min="1" id="amount" ng-model="amount" class="form-control" placeholder="0"></input>
