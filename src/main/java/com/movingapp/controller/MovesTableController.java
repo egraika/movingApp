@@ -149,11 +149,13 @@ public class MovesTableController {
 			move.setTitle(moveEntityList.get(i).getMoveTitle());
 			move.setAssignedUsersString(getAssignedUsersString(moveEntityList.get(i).getAssignedUsers()));
 			UserView userView = new UserView();
-			userView.setPhone(moveEntityList.get(i).getUser().getPhone());
-			userView.setLastName(moveEntityList.get(i).getUser().getLastName());
-			userView.setId(moveEntityList.get(i).getUser().getId());
-			userView.setFirstName(moveEntityList.get(i).getUser().getFirstName());
-			userView.setEmail(moveEntityList.get(i).getUser().getEmail());
+			if(moveEntityList.get(i).getUser() != null) {
+				userView.setPhone(moveEntityList.get(i).getUser().getPhone());
+				userView.setLastName(moveEntityList.get(i).getUser().getLastName());
+				userView.setId(moveEntityList.get(i).getUser().getId());
+				userView.setFirstName(moveEntityList.get(i).getUser().getFirstName());
+				userView.setEmail(moveEntityList.get(i).getUser().getEmail());
+			}
 			move.setUser(userView);
 			movesList.add(move);
 		}

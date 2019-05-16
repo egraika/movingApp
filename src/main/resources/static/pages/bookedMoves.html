@@ -100,8 +100,14 @@
 	</div>
 	<div ng-show="isCalendar">
 		<h2>Booked Moves</h2>
-		<a ng-click="changeView()">{{bookedMovesView}}</a>
-
+		<div class="row">
+			<div class="col-xs-8">
+				<a ng-click="changeView()">{{bookedMovesView}}</a>
+			</div>
+			<div class="col-xs-4">
+				<button type="button" class="btn btn-primary pull-right" style="margin-right:15px;" data-toggle="modal" data-target="#addMove" access="admin">Add Move</button>
+			</div>
+		</div>
 		<h2 class="text-center">{{ vm.calendarTitle }}</h2>
 
 		<div class="row">
@@ -167,5 +173,145 @@
 				on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)">
 		</mwl-calendar>
 		<br><br><br>
+		<div class="modal fade" id="addMove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="vertical-alignment-helper">
+				<div class="modal-dialog vertical-align-center">
+					<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">Close</span>
+							</button>
+							<h3 class="modal-title" id="myModalLabel">
+								Add Move
+							</h3>
+						</div>
+						<form id="newMoveForm" name="newMoveForm">
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-xs-6">
+										<label for="firstName">First Name</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="firstName" ng-model="newMove.firstName" class="form-control" ng-bind-html="trustAsHtml(newMove.firstName)" required></input>
+										<span style="color:red" ng-show="newMoveForm.firstName.$dirty && newMoveForm.firstName.$invalid">First Name Required</span>
+									</div>
+									<div class="col-xs-6">
+										<label for="lastName">Last Name</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" id="lastName" ng-model="newMove.lastName" class="form-control" ng-bind-html="trustAsHtml(newMove.lastName)" required></input>
+										<span style="color:red" ng-show="newMoveForm.lastName.$dirty && newMoveForm.lastName.$invalid">Last Name Required</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<label for="email">Email</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="email" id="email" ng-model="newMove.email" class="form-control" ng-bind-html="trustAsHtml(newMove.email)" required></input>
+										<span style="color:red" ng-show="newMoveForm.email.$dirty && newMoveForm.email.$invalid">A valid email required</span>
+									</div>
+									<div class="col-xs-6">
+										<label for="phone">Phone</label>
+										<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="tel" class="form-control" maxlength="14" ng-minlength="14" id="phone" name="phone" ng-model="newMove.phone" numbers-only phone-input>
+										<span style="color:red" ng-show="newMoveForm.phone.$dirty && newMoveForm.phone.$invalid">A valid phone number is required</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6 col-sm-6">
+										<label>Date Of Move</label>
+										<p class="input-group">
+											<input  value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="startsAtPicker.date" is-open="startsAtPicker.open"  min-date="minDate" />
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" ng-click="openCalendar($event, 'startsAtPicker')"><i class="fa fa-calendar"></i></button>
+						  					</span>
+										</p>
+									</div>
+									<div class="col-xs-6 col-sm-6">
+										<label for="type">Type</label>
+										<select class="form-control" id="type" name="type" ng-model="newMove.type"  ng-init="newMove.type='withTruck'">
+											<option value="withTruck">Crew with truck</option>
+											<option value="onlyCrew">Crew only</option>
+											<option value="packing">Packing and unpacking</option>
+										</select>
+									</div>
+								</div>
+								<br><h4><b>From Address:</b></h4>
+								<section id="from" name="from" style="padding: 0px 0px !important;">
+									<div class="row">
+										<div class="col-xs-6">
+											<label class="control-label" for="fromStreet">Street<span class="required" style="color:red">*</span></label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromStreet" name="fromStreet" ng-model="newMove.fromStreet" ng-required="true" autocomplete="section-from street-address">
+											<span style="color:red" ng-show="newMoveForm.fromStreet.$touched && newMoveForm.fromStreet.$invalid">Street address is required</span>
+										</div>
+										<div class="col-xs-6">
+											<label class="control-label" for="fromCity">City<span class="required" style="color:red">*</span></label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="fromCity" name="fromCity" ng-model="newMove.fromCity" ng-required="true" autocomplete="section-from locality">
+											<span style="color:red" ng-show="newMoveForm.fromCity.$touched && newMoveForm.fromCity.$invalid">City is required</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-6">
+											<label class="control-label" for="fromZip">Zip Code<span class="required" style="color:red">*</span></label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" name="fromZip" id="fromZip" ng-model="newMove.fromZip" numbers-only ng-required="true" autocomplete="section-from postal-code">
+											<span style="color:red" ng-show="newMoveForm.fromZip.$touched && newMoveForm.fromZip.$invalid">A valid Zip Code is required</span>
+										</div>
+										<div class="col-xs-6">
+											<label class="control-label" for="fromState">State<span class="required" style="color:red">*</span></label>
+											<select class="form-control" id="fromState" name="fromState" ng-model="newMove.fromState" ng-required="true" required ng-init="newMove.fromState='MN'" autocomplete="section-from region">
+												<!--<option value="IA">Iowa</option>-->
+												<option value="MN">Minnesota</option>
+												<!--<option value="MT">Montana</option>-->
+												<!--<option value="WI">Wisconsin</option>-->
+											</select>
+											<span style="color:red" ng-show="newMoveForm.fromState.$touched && newMoveForm.fromState.$error.required">Please select a state</span>
+										</div>
+									</div>
+								</section>
+								<br><h4><b>To Address:</b></h4>
+								<section id="to" name="to" style="padding: 0px 0px !important;">
+									<div class="row">
+										<div class="col-xs-6">
+											<label class="control-label" for="toStreet">Street</label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toStreet" name="toStreet" ng-model="newMove.toStreet" autocomplete="section-to street-address">
+										</div>
+										<div class="col-xs-6">
+											<label class="control-label" for="toCity">City</label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>" type="text" class="form-control" id="toCity" name="toCity" ng-model="newMove.toCity" autocomplete="section-to locality">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-6">
+											<label class="control-label" for="toZip">Zip Code</label>
+											<input value="<%= <b>Encode.forHtmlAttribute(UNTRUSTED)</b> %>"type="number" maxlength="5" ng-minlength="5" class="form-control" id="toZip" name="toZip" ng-model="newMove.toZip" numbers-only autocomplete="section-to postal-code">
+										</div>
+										<div class="col-xs-6">
+											<label class="control-label" for="toState">State</label>
+											<select class="form-control" id="toState" name="toState" name="toState" ng-model="newMove.toState" ng-init="newMove.toState='MN'" autocomplete="section-to region" >
+												<!--<option value="IA">Iowa</option>-->
+												<option value="MN">Minnesota</option>
+												<!--<option value="MT">Montana</option>-->
+												<!--<option value="WI">Wisconsin</option>-->
+											</select>
+										</div>
+									</div>
+								</section>
+								<div class="row">
+									<div class="col-xs-12">
+										<label class="control-label" for="comment">Additional Comments</label>
+										<textarea rows="4" class="form-control" id="comment" name="comment" ng-model="newMove.comment"><%= <b>Encode.forHtmlContent(UNTRUSTED)</b> %></textarea>
+									</div>
+								</div>
+							</div>
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<div class="row">
+									<div class="col-xs-12">
+										<button class="btn btn-lg btn-primary pull-right" style="margin-right: 15px" ng-click="addMove()" data-dismiss="modal" ng-disabled="newMoveForm.$invalid">Add Move</button>
+										<button class="btn btn-lg btn-danger pull-left" style="margin-left: 15px" data-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

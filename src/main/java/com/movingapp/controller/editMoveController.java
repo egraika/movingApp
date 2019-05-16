@@ -65,7 +65,10 @@ public class editMoveController {
 		if(moveEntity.getMoveStart().isAfter(moveEntity.getMoveEnd())) {
 			moveEntity.setMoveEnd(moveEntity.getMoveStart().plusHours(1));
 		}
-		moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
+
+		if(move.getUser() != null) {
+			moveEntity.setMoveTitle(move.getUser().getFirstName() + " " + move.getUser().getLastName());
+		}
 		BookMovesDao.save(moveEntity);
 
 		return moveMapping.MoveEntityToMove(moveEntity);

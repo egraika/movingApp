@@ -27,7 +27,7 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
                 $scope.isCharges = true;
             }
 			$scope.startsAtPicker.date = $scope.move.startsAt;
-			if($scope.move.user.expirationDate == null) {
+			if($scope.move.user != null && $scope.move.user.expirationDate == null) {
 			    $scope.creditCardSet = false;
 			} else {
 			    $scope.creditCardSet = true;
@@ -40,6 +40,9 @@ movingApp.controller("editMoveController", ['$scope','$rootScope', '$http','$rou
         });
 	}
 
+    $scope.isEmptyObject = function(obj) {
+        return obj == null;
+    };
 
      function getAllNotAssignedUsers() {
 		$http({

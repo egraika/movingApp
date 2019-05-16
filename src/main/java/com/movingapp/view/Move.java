@@ -12,6 +12,14 @@ public class Move{
 	
 
 	private int id;
+
+	//these four are only used for admin created moves
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String phone;
+	private String adminCreatedUser;
+
 	private String fromStreet;
 	private String fromCity;
 	private int fromZip;
@@ -280,5 +288,45 @@ public class Move{
 
 	public void setAssignedUsersString(String assignedUsersString) {
 		this.assignedUsersString = assignedUsersString;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAdminCreatedUser() {
+		return adminCreatedUser;
+	}
+
+	public void setAdminCreatedUser(String adminCreatedUser) {
+		this.adminCreatedUser = adminCreatedUser;
 	}
 }
