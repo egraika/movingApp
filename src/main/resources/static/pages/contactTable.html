@@ -17,7 +17,7 @@
 		    		<span class="glyphicon glyphicon-search form-control-feedback"></span>
 				</div>
 			</div>
-			<table class="table table-striped">
+			<table id="no-more-tables" class="table table-striped">
 				<thead>
 					<tr>
 						<th>Customer Name</th>
@@ -30,12 +30,12 @@
 				</thead>
 				<tbody ng-hide="isLoading">
 					<tr ng-repeat="contact in contacts">
-						<td width="20%">{{contact.fullName}}</td>
-						<td width="20%">{{contact.email}}</td>
-						<td width="40%">{{contact.message}}</td>
-						<td width="10%">{{contact.date | date:'MM/dd/yyyy'}}</td>
-						<td width="5%">{{contact.status}}</td>
-						<td><a type="button" class="btn btn-primary" href="" width="5%" ng-disabled="true">Action?</a></td>
+						<td data-title="Customer Name" width="20%">{{contact.fullName}}</td>
+						<td data-title="Email" width="20%">{{contact.email}}</td>
+						<td data-title="Message" width="40%">{{contact.message}}</td>
+						<td data-title="Date" width="10%">{{contact.date | date:'MM/dd/yyyy'}}</td>
+						<td data-title="Status" width="5%">{{contact.status}}</td>
+						<td data-title="Action"><a type="button" class="btn btn-primary" href="" width="5%" ng-disabled="true">Action?</a></td>
 					</tr>
 				</tbody>
 				<tbody ng-show="isLoading">
