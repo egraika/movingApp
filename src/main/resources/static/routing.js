@@ -2,7 +2,7 @@
 	var movingApp = angular.module('movingApp', ['ngRoute', "ui.bootstrap",'ngStorage', 'angularPayments', 'mm.foundation', 'angularSpinner', 'ngAnimate', 'angular-stripe', 'http-auth-interceptor','smart-table','bsLoadingOverlay','mwl.calendar','ui.bootstrap.datetimepicker','dualmultiselect']);
 
 	movingApp.config(['$locationProvider','$httpProvider','$windowProvider','stConfig','$compileProvider', function($locationProvider, $httpProvider,$windowProvider,stConfig, $compileProvider) {
-	     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
+	     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob|tel):|data:image\//);
 		  $locationProvider.hashPrefix('');
 		  $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 		  stConfig.sort.delay = 100;
