@@ -22,7 +22,11 @@ movingApp.controller("contactController", ['$scope', '$http','$window','$session
 			headers:{'Content-Type': 'application/json'}
 		}).then(function successCallBack(response) {
 			$scope.contacts = response.data;
-			
+			$scope.isLoading = false;
+			$scope.isError = false;
+			if($scope.contacts.length == 0) {
+			    $scope.noResultsFound = true;
+			}
 		});
 	}
 	
